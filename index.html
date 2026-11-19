@@ -8,7 +8,7 @@
 <title>LifeOS 2026-2027 移动与桌面全能规划助手</title>
 <style>
   /* =========================================================
-     1. CSS VARIABLES & DUAL-THEME SYSTEM
+1. CSS VARIABLES & DUAL-THEME SYSTEM
      ========================================================= */
   :root, [data-theme="minimal"] {
     /* Minimal & Clean (Notion / TickTick Style) */
@@ -102,7 +102,7 @@
   }
 
   /* =========================================================
-     2. GLOBAL RESET & TOUCH OPTIMIZATION
+2. GLOBAL RESET & TOUCH OPTIMIZATION
      ========================================================= */
   * {
     box-sizing: border-box;
@@ -155,7 +155,7 @@
   ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 99px; }
 
   /* =========================================================
-     3. TOP NAVIGATION BAR (COMPACT MOBILE + DESKTOP)
+3. TOP NAVIGATION BAR (COMPACT MOBILE + DESKTOP)
      ========================================================= */
   .topbar {
     background: var(--bg-panel);
@@ -288,7 +288,7 @@
   }
 
   /* =========================================================
-     4. WORKSPACE LAYOUT (DESKTOP 3-COL / MOBILE TABBED)
+4. WORKSPACE LAYOUT (DESKTOP 3-COL / MOBILE TABBED)
      ========================================================= */
   .workspace {
     flex: 1;
@@ -352,7 +352,7 @@
   .icon-btn:hover { background: var(--accent-primary-soft); color: var(--accent-primary); }
 
   /* =========================================================
-     5. LEFT COLUMN: OKRs, CATEGORIES & TODO INBOX
+5. LEFT COLUMN: OKRs, CATEGORIES & TODO INBOX
      ========================================================= */
   .okr-card {
     background: var(--bg-subtle);
@@ -469,7 +469,7 @@
   .todo-actions { display: flex; align-items: center; gap: 6px; }
 
   /* =========================================================
-     6. CENTER COLUMN: MILESTONES, CALENDAR & CHARTS
+6. CENTER COLUMN: MILESTONES, CALENDAR & CHARTS
      ========================================================= */
   .center-header {
     padding: 10px 14px;
@@ -701,7 +701,7 @@
   canvas { width: 100%; height: 170px; display: block; }
 
   /* =========================================================
-     7. RIGHT COLUMN: DAY WORKSPACE & HEALTH TRACKER
+7. RIGHT COLUMN: DAY WORKSPACE & HEALTH TRACKER
      ========================================================= */
   .day-header {
     padding: 11px 14px;
@@ -759,7 +759,7 @@
 
   .metrics-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 8px;
     margin-bottom: 10px;
   }
@@ -769,6 +769,7 @@
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
     padding: 7px 8px;
+    min-width: 0;
   }
   .metric-box label { display: block; font-size: 11px; color: var(--text-secondary); margin-bottom: 3px; }
   .metric-box input { width: 100%; border: none; background: transparent; font-weight: 700; font-size: 15px; outline: none; }
@@ -797,7 +798,7 @@
 
   .meal-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
     margin-top: 8px;
   }
@@ -807,14 +808,27 @@
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
     padding: 8px;
+    min-width: 0;
   }
   .meal-head { font-size: 12px; font-weight: 700; margin-bottom: 5px; }
-  .meal-inputs { display: flex; gap: 5px; }
+  .meal-inputs { display: flex; gap: 5px; width: 100%; }
   .meal-inputs input[type="text"] {
-    flex: 1; min-width: 0; border: 1px solid var(--border-color); border-radius: 5px; padding: 5px 6px; font-size: 12.5px;
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 5px 6px;
+    font-size: 12.5px;
   }
   .meal-inputs input[type="number"] {
-    width: 60px; border: 1px solid var(--border-color); border-radius: 5px; padding: 5px 5px; font-size: 12.5px; text-align: right;
+    width: 54px;
+    flex-shrink: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 5px 4px;
+    font-size: 12.5px;
+    text-align: right;
   }
 
   .kcal-summary {
@@ -855,7 +869,7 @@
   }
 
   /* =========================================================
-     8. MOBILE BOTTOM TAB BAR & ACTION SHEET MODAL
+8. MOBILE BOTTOM TAB BAR & ACTION SHEET MODAL
      ========================================================= */
   .mobile-bottom-bar {
     display: none;
@@ -945,7 +959,7 @@
   }
 
   /* =========================================================
-     9. MOBILE RESPONSIVE BREAKPOINTS (<= 900px)
+9. MOBILE RESPONSIVE BREAKPOINTS (<= 900px)
      ========================================================= */
   .desktop-only { display: inline-flex; }
   .mobile-only { display: none; }
