@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<title>LifeOS 2026-2027 移动与桌面全能规划助手</title>
+<title>LifeOS 2026-2027 理想三栏执行工作台</title>
 <style>
   /* =========================================================
-1. CSS VARIABLES & DUAL-THEME SYSTEM
+     1. CSS VARIABLES & TRI-THEME SYSTEM (简洁风 / 温馨风 / 清新风)
      ========================================================= */
   :root, [data-theme="minimal"] {
-    /* Minimal & Clean (Notion / TickTick Style) */
+    /* 1. 简洁风 (Minimal & Clean) */
     --bg-app: #F8FAFC;
     --bg-panel: #FFFFFF;
     --bg-subtle: #F1F5F9;
@@ -46,7 +46,6 @@
 
     --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
 
-    /* Category Colors - Minimal */
     --cat-work-bg: #EFF6FF; --cat-work-fg: #1D4ED8; --cat-work-dot: #3B82F6;
     --cat-finance-bg: #FEF3C7; --cat-finance-fg: #B45309; --cat-finance-dot: #F59E0B;
     --cat-health-bg: #ECFDF5; --cat-health-fg: #047857; --cat-health-dot: #10B981;
@@ -58,7 +57,7 @@
   }
 
   [data-theme="cozy"] {
-    /* Cozy & Cute (Japanese Techo / Cream Style) */
+    /* 2. 温馨风 (Cozy Cream & Peach) */
     --bg-app: #FDF6EC;
     --bg-panel: #FFFDF9;
     --bg-subtle: #FAF0E4;
@@ -93,7 +92,6 @@
 
     --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Rounded Mplus 1c", sans-serif;
 
-    /* Category Colors - Cozy Macaron */
     --cat-work-bg: #E0F2FE; --cat-work-fg: #0369A1; --cat-work-dot: #38BDF8;
     --cat-finance-bg: #FEF08A; --cat-finance-fg: #854D0E; --cat-finance-dot: #EAB308;
     --cat-health-bg: #DCFCE7; --cat-health-fg: #15803D; --cat-health-dot: #4ADE80;
@@ -101,22 +99,65 @@
     --cat-growth-bg: #F3E8FF; --cat-growth-fg: #7E22CE; --cat-growth-dot: #C084FC;
   }
 
+  [data-theme="fresh"] {
+    /* 3. 清新风 · 蓝绿色系 (Fresh Aqua & Mint Teal) */
+    --bg-app: #F0F9F8;
+    --bg-panel: #FFFFFF;
+    --bg-subtle: #E6F4F1;
+    --bg-hover: #D1ECE6;
+    --bg-today: #E0F2FE;
+    --bg-selected: #CCFBF1;
+
+    --text-primary: #134E4A;
+    --text-secondary: #3B736E;
+    --text-muted: #7DA8A3;
+    --text-inverse: #FFFFFF;
+
+    --border-color: #CBE7E2;
+    --border-strong: #99D5C9;
+    --border-style: solid;
+
+    --accent-primary: #0D9488;
+    --accent-primary-soft: #CCFBF1;
+    --accent-secondary: #0284C7;
+    --accent-secondary-soft: #E0F2FE;
+    --accent-warn: #F59E0B;
+    --accent-danger: #F43F5E;
+
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 999px;
+
+    --shadow-sm: 0 2px 8px rgba(13, 148, 136, 0.06);
+    --shadow-md: 0 6px 16px rgba(13, 148, 136, 0.10);
+    --shadow-lg: 0 12px 28px rgba(15, 118, 110, 0.16);
+
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+
+    --cat-work-bg: #E0F2FE; --cat-work-fg: #0369A1; --cat-work-dot: #0284C7;
+    --cat-finance-bg: #FEF3C7; --cat-finance-fg: #B45309; --cat-finance-dot: #F59E0B;
+    --cat-health-bg: #CCFBF1; --cat-health-fg: #0F766E; --cat-health-dot: #14B8A6;
+    --cat-family-bg: #E0E7FF; --cat-family-fg: #4338CA; --cat-family-dot: #6366F1;
+    --cat-growth-bg: #D1FAE5; --cat-growth-fg: #047857; --cat-growth-dot: #10B981;
+  }
+
   /* =========================================================
-2. GLOBAL RESET & TOUCH OPTIMIZATION
+     2. GLOBAL RESET & BASE
      ========================================================= */
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     -webkit-tap-highlight-color: transparent;
-    transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease, border-radius 0.22s ease, box-shadow 0.22s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
 
   body {
     font-family: var(--font-sans);
     background-color: var(--bg-app);
     color: var(--text-primary);
-    font-size: 14px;
+    font-size: 13.5px;
     line-height: 1.5;
     height: 100dvh;
     overflow: hidden;
@@ -129,33 +170,20 @@
     background-size: 20px 20px;
   }
 
-  button, input, select, textarea {
-    font-family: inherit;
-    font-size: inherit;
-    color: inherit;
+  [data-theme="fresh"] body {
+    background-image: linear-gradient(135deg, #F0F9F8 0%, #EBF7FA 100%);
   }
 
-  button {
-    cursor: pointer;
-    border: none;
-    background: none;
-    touch-action: manipulation;
-  }
-
-  input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: var(--accent-primary);
-    cursor: pointer;
-    flex-shrink: 0;
-  }
+  button, input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
+  button { cursor: pointer; border: none; background: none; touch-action: manipulation; }
+  input[type="checkbox"] { width: 17px; height: 17px; accent-color: var(--accent-primary); cursor: pointer; flex-shrink: 0; }
 
   ::-webkit-scrollbar { width: 4px; height: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 99px; }
 
   /* =========================================================
-3. TOP NAVIGATION BAR (COMPACT MOBILE + DESKTOP)
+     3. TOP STATUS BAR (TOP 1 PRIORITY + DATE/COUNTDOWN/MOOD)
      ========================================================= */
   .topbar {
     background: var(--bg-panel);
@@ -175,84 +203,124 @@
     align-items: center;
     gap: 6px;
     font-weight: 800;
-    font-size: 16px;
+    font-size: 15px;
     white-space: nowrap;
   }
 
-  .brand-badge {
+  /* Top 1 Priority Box */
+  .top-focus-box {
+    flex: 1;
+    max-width: 440px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-today);
+    border: 1px solid var(--accent-primary-soft);
+    border-radius: var(--radius-pill);
+    padding: 4px 12px;
+  }
+
+  .focus-tag {
     background: var(--accent-primary);
     color: var(--text-inverse);
-    padding: 2px 7px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
     border-radius: var(--radius-pill);
-    font-size: 10.5px;
-    font-weight: 600;
-  }
-
-  /* Phase Switcher */
-  .phase-switcher {
-    display: flex;
-    background: var(--bg-subtle);
-    padding: 3px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--border-color);
-  }
-
-  .phase-btn {
-    padding: 5px 10px;
-    border-radius: var(--radius-pill);
-    font-weight: 600;
-    font-size: 12px;
-    color: var(--text-secondary);
     white-space: nowrap;
   }
 
-  .phase-btn.active {
+  .focus-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-primary);
+    outline: none;
+    min-width: 0;
+  }
+  .focus-input::placeholder { color: var(--text-muted); font-weight: 400; }
+
+  /* Right Status Group: Date / Countdown / Mood / Theme */
+  .top-status-group {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .status-pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .phase-mini-btn {
+    padding: 2px 7px;
+    border-radius: var(--radius-pill);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-secondary);
+  }
+  .phase-mini-btn.active {
     background: var(--bg-panel);
     color: var(--accent-primary);
     box-shadow: var(--shadow-sm);
   }
 
-  /* Global Progress Bar */
-  .global-progress {
-    flex: 1;
-    max-width: 360px;
-    background: var(--bg-subtle);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 5px 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
-
-  .progress-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-secondary);
-  }
-
-  .progress-meta strong { color: var(--accent-primary); }
-
-  .progress-track {
-    height: 6px;
-    background: var(--border-color);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-    border-radius: 99px;
-    transition: width 0.4s ease;
-  }
-
-  .top-actions {
+  /* 3-Theme Switcher */
+  .theme-switcher {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 2px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    padding: 3px;
+    border-radius: var(--radius-pill);
+  }
+
+  .theme-pill-btn {
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+  .theme-pill-btn.active {
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .top-mood-picker {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    padding: 2px 5px;
+    border-radius: var(--radius-pill);
+  }
+
+  .top-mood-btn {
+    font-size: 14px;
+    padding: 2px 3px;
+    border-radius: 50%;
+    opacity: 0.55;
+  }
+  .top-mood-btn.active {
+    opacity: 1;
+    background: var(--bg-panel);
+    transform: scale(1.12);
+    box-shadow: var(--shadow-sm);
   }
 
   .btn {
@@ -260,42 +328,28 @@
     align-items: center;
     justify-content: center;
     gap: 4px;
-    padding: 7px 11px;
+    padding: 6px 10px;
     border-radius: var(--radius-md);
     font-weight: 600;
-    font-size: 12.5px;
+    font-size: 12px;
     border: 1px solid var(--border-color);
     background: var(--bg-panel);
     color: var(--text-primary);
     white-space: nowrap;
-    min-height: 34px;
   }
-
-  .btn:active { transform: scale(0.97); }
   .btn:hover { background: var(--bg-subtle); border-color: var(--border-strong); }
-
-  .btn-primary {
-    background: var(--accent-primary);
-    color: var(--text-inverse);
-    border-color: var(--accent-primary);
-  }
+  .btn-primary { background: var(--accent-primary); color: var(--text-inverse); border-color: var(--accent-primary); }
   .btn-primary:hover { opacity: 0.92; background: var(--accent-primary); }
 
-  .theme-toggle {
-    background: var(--accent-primary-soft);
-    color: var(--accent-primary);
-    border-color: transparent;
-  }
-
   /* =========================================================
-4. WORKSPACE LAYOUT (DESKTOP 3-COL / MOBILE TABBED)
+     4. IDEAL 3-COLUMN WORKSPACE
      ========================================================= */
   .workspace {
     flex: 1;
     display: grid;
-    grid-template-columns: 300px 1fr 380px;
-    gap: 14px;
-    padding: 14px;
+    grid-template-columns: 280px 1fr 370px;
+    gap: 12px;
+    padding: 12px;
     overflow: hidden;
   }
 
@@ -308,14 +362,25 @@
     flex-direction: column;
     overflow: hidden;
   }
-
   [data-theme="cozy"] .column { border-width: 1.5px; }
+
+  .col-header {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 800;
+    font-size: 13.5px;
+    flex-shrink: 0;
+  }
 
   .col-scroll {
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 14px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -329,7 +394,7 @@
   }
 
   .section-title {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -338,27 +403,57 @@
   }
 
   .icon-btn {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     border-radius: var(--radius-sm);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     color: var(--text-secondary);
     background: var(--bg-subtle);
-    font-size: 14px;
+    font-size: 13px;
   }
-  .icon-btn:active { transform: scale(0.94); }
   .icon-btn:hover { background: var(--accent-primary-soft); color: var(--accent-primary); }
 
+  .input-ctrl {
+    width: 100%;
+    padding: 7px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: var(--bg-panel);
+    font-size: 13px;
+    outline: none;
+  }
+  .input-ctrl:focus { border-color: var(--accent-primary); }
+
   /* =========================================================
-5. LEFT COLUMN: OKRs, CATEGORIES & TODO INBOX
+     5. LEFT COLUMN: NAVIGATION, GOALS & HABIT CHECK-IN
      ========================================================= */
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-align: left;
+  }
+  .nav-item:hover { background: var(--bg-subtle); color: var(--text-primary); }
+  .nav-item.active { background: var(--accent-primary-soft); color: var(--accent-primary); }
+
   .okr-card {
     background: var(--bg-subtle);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    padding: 11px;
+    padding: 10px;
     margin-bottom: 8px;
   }
   [data-theme="cozy"] .okr-card { border-style: dashed; }
@@ -368,423 +463,62 @@
     justify-content: space-between;
     align-items: flex-start;
     gap: 6px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
+  .okr-title { font-weight: 600; font-size: 12.5px; flex: 1; }
 
-  .okr-title { font-weight: 600; font-size: 13px; flex: 1; }
-
-  .okr-slider-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .okr-slider {
-    flex: 1;
-    accent-color: var(--accent-primary);
+  .progress-track {
     height: 6px;
-    cursor: pointer;
-  }
-
-  .okr-pct {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--accent-primary);
-    min-width: 36px;
-    text-align: right;
-  }
-
-  .cat-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-  }
-
-  .cat-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 11px;
-    border-radius: var(--radius-pill);
-    font-size: 12px;
-    font-weight: 600;
-    border: 1px solid transparent;
-    opacity: 0.85;
-  }
-  .cat-chip.active {
-    opacity: 1;
-    border-color: currentColor;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .cat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-
-  .todo-form {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    background: var(--bg-subtle);
-    padding: 10px;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-color);
-  }
-
-  .todo-input-row, .todo-meta-row {
-    display: flex;
-    gap: 6px;
-  }
-
-  .input-ctrl {
-    width: 100%;
-    padding: 8px 10px;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-color);
-    background: var(--bg-panel);
-    font-size: 13.5px;
-    outline: none;
-    min-height: 36px;
-  }
-  .input-ctrl:focus { border-color: var(--accent-primary); }
-
-  .todo-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    margin-bottom: 8px;
-    cursor: grab;
-  }
-  .todo-item.done .todo-text { text-decoration: line-through; color: var(--text-muted); }
-
-  .prio-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-  .prio-high { background: #EF4444; }
-  .prio-med { background: #F59E0B; }
-  .prio-low { background: #10B981; }
-
-  .todo-body { flex: 1; min-width: 0; }
-  .todo-text { font-size: 13px; font-weight: 500; word-break: break-word; }
-  .todo-actions { display: flex; align-items: center; gap: 6px; }
-
-  /* =========================================================
-6. CENTER COLUMN: MILESTONES, CALENDAR & CHARTS
-     ========================================================= */
-  .center-header {
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-
-  .month-nav {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .month-title {
-    font-size: 16px;
-    font-weight: 800;
-    min-width: 105px;
-    text-align: center;
-  }
-
-  .view-tabs {
-    display: flex;
-    background: var(--bg-subtle);
-    padding: 3px;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--border-color);
-  }
-
-  .view-tab {
-    padding: 5px 11px;
-    border-radius: var(--radius-pill);
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-secondary);
-  }
-  .view-tab.active {
-    background: var(--bg-panel);
-    color: var(--accent-primary);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .milestone-bar {
-    background: var(--bg-subtle);
-    border-bottom: 1px solid var(--border-color);
-    padding: 8px 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .milestone-chips {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 6px;
-    align-items: center;
-    padding-bottom: 2px;
-  }
-
-  .ms-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    padding: 5px 10px;
-    border-radius: var(--radius-pill);
-    font-size: 12px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .ms-chip.done { opacity: 0.65; text-decoration: line-through; }
-
-  .calendar-wrapper {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    background: var(--border-color);
+    border-radius: 99px;
     overflow: hidden;
-    padding: 8px 10px 10px;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 99px;
+    transition: width 0.3s ease;
   }
 
-  .weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    text-align: center;
-    font-weight: 700;
-    font-size: 11.5px;
-    color: var(--text-secondary);
-    padding-bottom: 6px;
-  }
+  .okr-slider-row { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+  .okr-slider { flex: 1; accent-color: var(--accent-primary); height: 5px; cursor: pointer; }
+  .okr-pct { font-size: 11.5px; font-weight: 700; color: var(--accent-primary); min-width: 34px; text-align: right; }
 
-  .cal-grid {
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-auto-rows: minmax(76px, 1fr);
-    gap: 5px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .cal-cell {
-    background: var(--bg-panel);
+  /* Habit Check-in Card */
+  .habit-card {
+    background: var(--bg-subtle);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    padding: 4px 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    cursor: pointer;
-    overflow: hidden;
-    position: relative;
-  }
-  .cal-cell:active { transform: scale(0.97); }
-  .cal-cell.out-range { opacity: 0.4; background: var(--bg-subtle); }
-  .cal-cell.is-today { background: var(--bg-today); border-color: var(--accent-primary); }
-  .cal-cell.is-selected { background: var(--bg-selected); box-shadow: inset 0 0 0 1.5px var(--accent-primary); }
-  .cal-cell.drag-over { background: var(--accent-primary-soft); border: 2px dashed var(--accent-primary); }
-
-  .cell-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 10px;
   }
 
-  .day-num {
-    font-weight: 700;
-    font-size: 12px;
-    width: 21px;
-    height: 21px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-  }
-  .is-today .day-num { background: var(--accent-primary); color: var(--text-inverse); }
-
-  .workout-badge {
-    font-size: 9.5px;
-    padding: 1px 4px;
-    border-radius: var(--radius-pill);
+  .streak-badge {
     background: var(--accent-secondary-soft);
     color: var(--accent-secondary);
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  .cell-events {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    overflow: hidden;
-  }
-
-  .event-pill {
-    font-size: 10px;
-    padding: 1px 4px;
-    border-radius: var(--radius-pill);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: 600;
-  }
-  .event-pill.done { text-decoration: line-through; opacity: 0.6; }
-
-  .mobile-dots {
-    display: none;
-    flex-wrap: wrap;
-    gap: 3px;
-    margin-top: 2px;
-  }
-  .m-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-  }
-
-  /* Analytics View */
-  .analytics-view {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 14px;
-    display: none;
-    flex-direction: column;
-    gap: 14px;
-  }
-  .analytics-view.active { display: flex; }
-
-  .stat-cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-  }
-
-  .stat-card {
-    background: var(--bg-subtle);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 10px;
-  }
-  .stat-label { font-size: 11px; color: var(--text-secondary); }
-  .stat-val { font-size: 17px; font-weight: 800; color: var(--text-primary); margin-top: 2px; }
-  .stat-sub { font-size: 10.5px; color: var(--accent-primary); margin-top: 2px; }
-
-  .charts-grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .chart-box {
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 12px;
-  }
-  .chart-title {
-    font-weight: 700;
-    font-size: 13px;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
-  }
-  canvas { width: 100%; height: 170px; display: block; }
-
-  /* =========================================================
-7. RIGHT COLUMN: DAY WORKSPACE & HEALTH TRACKER
-     ========================================================= */
-  .day-header {
-    padding: 11px 14px;
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--bg-subtle);
-  }
-  .day-title { font-size: 15px; font-weight: 800; }
-  .day-sub { font-size: 11.5px; color: var(--text-secondary); }
-
-  .sub-card {
-    background: var(--bg-subtle);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 12px;
-  }
-
-  .sched-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    padding: 9px 10px;
-    border-radius: var(--radius-md);
-    margin-bottom: 7px;
-  }
-  .sched-time {
     font-size: 11px;
     font-weight: 700;
-    padding: 2px 6px;
-    border-radius: var(--radius-sm);
-    background: var(--bg-subtle);
-    color: var(--text-secondary);
-    white-space: nowrap;
-  }
-  .sched-text { flex: 1; font-size: 13px; font-weight: 500; }
-  .sched-item.done .sched-text { text-decoration: line-through; color: var(--text-muted); }
-
-  .profile-banner {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 6px;
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 8px 10px;
-    margin-bottom: 10px;
-    font-size: 12px;
-  }
-
-  .metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-
-  .metric-box {
-    background: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    padding: 7px 8px;
-    min-width: 0;
-  }
-  .metric-box label { display: block; font-size: 11px; color: var(--text-secondary); margin-bottom: 3px; }
-  .metric-box input { width: 100%; border: none; background: transparent; font-weight: 700; font-size: 15px; outline: none; }
-
-  .split-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin: 8px 0 10px;
-  }
-
-  .split-tag {
-    padding: 7px 12px;
+    padding: 2px 8px;
     border-radius: var(--radius-pill);
+  }
+
+  .habit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    padding: 7px 9px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 6px;
     font-size: 12.5px;
+    font-weight: 600;
+  }
+
+  .split-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+  .split-tag {
+    padding: 4px 9px;
+    border-radius: var(--radius-pill);
+    font-size: 11.5px;
     font-weight: 600;
     background: var(--bg-panel);
     border: 1px solid var(--border-color);
@@ -796,80 +530,248 @@
     border-color: var(--accent-secondary);
   }
 
-  .meal-grid {
+  .mini-metrics {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 8px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
     margin-top: 8px;
   }
-
-  .meal-card {
+  .mini-metric-box {
     background: var(--bg-panel);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
-    padding: 8px;
-    min-width: 0;
-  }
-  .meal-head { font-size: 12px; font-weight: 700; margin-bottom: 5px; }
-  .meal-inputs { display: flex; gap: 5px; width: 100%; }
-  .meal-inputs input[type="text"] {
-    flex: 1;
-    min-width: 0;
-    width: 100%;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
     padding: 5px 6px;
-    font-size: 12.5px;
   }
-  .meal-inputs input[type="number"] {
-    width: 54px;
-    flex-shrink: 0;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
-    padding: 5px 4px;
-    font-size: 12.5px;
-    text-align: right;
+  .mini-metric-box label { display: block; font-size: 10px; color: var(--text-secondary); }
+  .mini-metric-box input { width: 100%; border: none; background: transparent; font-weight: 700; font-size: 13px; outline: none; }
+
+  /* =========================================================
+     6. CENTER COLUMN: TODAY'S BATTLEFIELD (TASKS + INBOX)
+     ========================================================= */
+  .battlefield-tabs {
+    display: flex;
+    gap: 6px;
   }
 
-  .kcal-summary {
-    margin-top: 10px;
-    padding: 8px 10px;
-    border-radius: var(--radius-sm);
+  .sub-panel {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 12px;
+  }
+
+  .task-group { margin-bottom: 10px; }
+  .task-group-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .task-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     background: var(--bg-panel);
     border: 1px solid var(--border-color);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 4px;
-    font-size: 12px;
+    padding: 8px 10px;
+    border-radius: var(--radius-md);
+    margin-bottom: 6px;
+  }
+  .task-item.done .task-text { text-decoration: line-through; color: var(--text-muted); }
+
+  .task-body { flex: 1; min-width: 0; }
+  .task-text { font-size: 13px; font-weight: 600; word-break: break-word; }
+  .task-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 3px; }
+
+  .pill-tag {
+    font-size: 10.5px;
+    padding: 1px 6px;
+    border-radius: var(--radius-pill);
     font-weight: 600;
   }
 
-  .mood-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 6px;
-    margin-bottom: 10px;
+  .okr-link-tag {
+    font-size: 10.5px;
+    padding: 1px 6px;
+    border-radius: var(--radius-pill);
+    background: var(--accent-primary-soft);
+    color: var(--accent-primary);
+    font-weight: 600;
   }
 
-  .mood-btn {
-    flex: 1;
-    font-size: 19px;
-    padding: 6px 0;
-    border-radius: var(--radius-pill);
+  /* Inbox Items */
+  .inbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
     background: var(--bg-panel);
     border: 1px solid var(--border-color);
-    opacity: 0.65;
+    border-radius: var(--radius-md);
+    margin-bottom: 6px;
+    cursor: grab;
   }
-  .mood-btn.active {
-    opacity: 1;
-    border-color: var(--accent-primary);
-    background: var(--accent-primary-soft);
-    transform: scale(1.06);
-  }
+  .inbox-item.done .task-text { text-decoration: line-through; color: var(--text-muted); }
+  .prio-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .prio-high { background: #EF4444; }
+  .prio-med { background: #F59E0B; }
+  .prio-low { background: #10B981; }
+
+  /* Health Analytics View (toggled in Center) */
+  .analytics-view { display: none; flex-direction: column; gap: 12px; }
+  .analytics-view.active { display: flex; }
+  .stat-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .stat-card { background: var(--bg-subtle); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px; }
+  .stat-label { font-size: 11px; color: var(--text-secondary); }
+  .stat-val { font-size: 16px; font-weight: 800; margin-top: 2px; }
+  .chart-box { background: var(--bg-panel); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px; }
+  canvas { width: 100%; height: 150px; display: block; }
 
   /* =========================================================
-8. MOBILE BOTTOM TAB BAR & ACTION SHEET MODAL
+     7. RIGHT COLUMN: CALENDAR (MONTH/WEEK) & TIMEBOX
+     ========================================================= */
+  .view-switch {
+    display: flex;
+    background: var(--bg-panel);
+    padding: 2px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-color);
+  }
+  .view-switch-btn {
+    padding: 3px 9px;
+    border-radius: var(--radius-pill);
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .view-switch-btn.active {
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+  }
+
+  .milestone-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+  .ms-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    padding: 3px 8px;
+    border-radius: var(--radius-pill);
+    font-size: 11.5px;
+  }
+  .ms-chip.done { opacity: 0.6; text-decoration: line-through; }
+
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: 700;
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+  }
+
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  .cal-cell {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 4px;
+    min-height: 46px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  .cal-cell.week-mode { min-height: 76px; }
+  .cal-cell.out-range { opacity: 0.38; background: var(--bg-subtle); }
+  .cal-cell.is-today { background: var(--bg-today); border-color: var(--accent-primary); }
+  .cal-cell.is-selected { background: var(--bg-selected); box-shadow: inset 0 0 0 1.5px var(--accent-primary); }
+  .cal-cell.drag-over { background: var(--accent-primary-soft); border: 1.5px dashed var(--accent-primary); }
+
+  .day-num {
+    font-weight: 700;
+    font-size: 11.5px;
+    width: 19px;
+    height: 19px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  .is-today .day-num { background: var(--accent-primary); color: var(--text-inverse); }
+
+  .cell-dots { display: flex; flex-wrap: wrap; gap: 2px; margin-top: 3px; }
+  .c-dot { width: 5px; height: 5px; border-radius: 50%; }
+
+  /* Timebox Timeline */
+  .timebox-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .timebox-slot {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 7px 9px;
+  }
+
+  .tb-time {
+    width: 68px;
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    border-right: 2px solid var(--accent-primary-soft);
+    padding-right: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .tb-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .tb-block {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 7px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-panel);
+    border-left: 3px solid var(--accent-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .tb-block.done { opacity: 0.55; text-decoration: line-through; }
+
+  /* =========================================================
+     8. MOBILE RESPONSIVE & MODALS
      ========================================================= */
   .mobile-bottom-bar {
     display: none;
@@ -877,40 +779,24 @@
     border-top: 1px solid var(--border-color);
     padding: 6px 8px calc(6px + var(--safe-bottom));
     justify-content: space-around;
-    align-items: center;
     z-index: 40;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.04);
-    flex-shrink: 0;
   }
-
   .bottom-tab {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 2px;
-    padding: 4px 0;
     color: var(--text-muted);
     font-size: 11px;
     font-weight: 600;
-    border-radius: var(--radius-md);
   }
+  .bottom-tab.active { color: var(--accent-primary); }
 
-  .bottom-tab .tab-icon {
-    font-size: 19px;
-    line-height: 1.1;
-  }
-
-  .bottom-tab.active {
-    color: var(--accent-primary);
-  }
-
-  /* Modals */
   .modal-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(15, 23, 42, 0.48);
+    background: rgba(15, 23, 42, 0.45);
     display: none;
     align-items: center;
     justify-content: center;
@@ -918,514 +804,338 @@
     padding: 16px;
   }
   .modal-backdrop.open { display: flex; }
-
   .modal-box {
     background: var(--bg-panel);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
     padding: 18px;
     width: 100%;
-    max-width: 400px;
+    max-width: 380px;
     box-shadow: var(--shadow-lg);
   }
-
-  .modal-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
-  .form-group { margin-bottom: 12px; }
-  .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 5px; color: var(--text-secondary); }
-  .modal-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+  .modal-title { font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+  .form-group { margin-bottom: 10px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: var(--text-secondary); }
+  .modal-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
 
   .sticker-toast {
     position: fixed;
-    top: calc(58px + var(--safe-top));
+    top: calc(56px + var(--safe-top));
     left: 50%;
-    transform: translateX(-50%) translateY(-12px) scale(0.92);
+    transform: translateX(-50%) translateY(-10px);
     background: var(--bg-panel);
     border: 2px solid var(--accent-primary);
-    color: var(--text-primary);
-    padding: 8px 16px;
+    padding: 7px 15px;
     border-radius: var(--radius-pill);
     box-shadow: var(--shadow-md);
     font-weight: 700;
-    font-size: 13px;
+    font-size: 12.5px;
     z-index: 200;
-    pointer-events: none;
     opacity: 0;
-    white-space: nowrap;
-    transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+    transition: all 0.25s ease;
   }
-  .sticker-toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-  }
+  .sticker-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  /* =========================================================
-9. MOBILE RESPONSIVE BREAKPOINTS (<= 900px)
-     ========================================================= */
-  .desktop-only { display: inline-flex; }
-  .mobile-only { display: none; }
-
-  @media (max-width: 1180px) {
-    .workspace {
-      grid-template-columns: 265px 1fr 340px;
-      gap: 10px;
-      padding: 10px;
-    }
-    .global-progress { max-width: 240px; }
+  @media (max-width: 1140px) {
+    .workspace { grid-template-columns: 245px 1fr 320px; gap: 8px; padding: 8px; }
+    .top-mood-picker { display: none; }
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 880px) {
+    .topbar { flex-wrap: wrap; gap: 6px; }
+    .top-focus-box { order: 3; max-width: 100%; flex-basis: 100%; }
     .desktop-only { display: none !important; }
-    .mobile-only { display: inline-flex !important; }
-
-    /* Prevent iOS Safari input auto-zoom */
-    input, select, textarea { font-size: 16px !important; }
-
-    .topbar {
-      padding: calc(8px + var(--safe-top)) 12px 8px;
-      gap: 6px;
-    }
-
-    .brand-badge { display: none; }
-    .global-progress { display: none; }
-
-    .mobile-progress-strip {
-      display: flex !important;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      background: var(--bg-subtle);
-      padding: 6px 12px;
-      border-bottom: 1px solid var(--border-color);
-      font-size: 11.5px;
-      font-weight: 600;
-      color: var(--text-secondary);
-      flex-shrink: 0;
-    }
-
-    .workspace {
-      display: flex;
-      flex-direction: column;
-      padding: 0;
-      gap: 0;
-      flex: 1;
-      overflow: hidden;
-    }
-
-    .column {
-      display: none;
-      flex: 1;
-      border: none;
-      border-radius: 0;
-      box-shadow: none;
-      overflow: hidden;
-    }
-
-    .column.mobile-active {
-      display: flex;
-    }
-
-    .col-scroll {
-      padding: 12px 12px 24px;
-    }
-
-    .calendar-wrapper {
-      padding: 6px 6px 8px;
-    }
-    .cal-grid {
-      gap: 3px;
-      grid-auto-rows: minmax(58px, 1fr);
-    }
-    .cal-cell {
-      padding: 3px 3px;
-      border-radius: var(--radius-sm);
-    }
-    .day-num {
-      font-size: 11.5px;
-      width: 20px;
-      height: 20px;
-    }
-    .workout-badge {
-      font-size: 9px;
-      padding: 0 3px;
-    }
-
-    @media (max-width: 480px) {
-      .cell-events { display: none; }
-      .mobile-dots { display: flex; }
-      .workout-badge { font-size: 8.5px; }
-      .stat-cards { grid-template-columns: 1fr 1fr; }
-      .charts-grid-2 { grid-template-columns: 1fr; }
-      .meal-grid { grid-template-columns: 1fr; }
-    }
-
-    .modal-backdrop {
-      align-items: flex-end;
-      padding: 0;
-    }
-    .modal-box {
-      max-width: 100%;
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      padding: 20px 18px calc(20px + var(--safe-bottom));
-      animation: slideUp 0.22s ease-out;
-    }
-
-    .mobile-bottom-bar {
-      display: flex;
-    }
-  }
-
-  @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
+    .workspace { display: flex; flex-direction: column; padding: 0; }
+    .column { display: none; flex: 1; border: none; border-radius: 0; }
+    .column.mobile-active { display: flex; }
+    .mobile-bottom-bar { display: flex; }
   }
 </style>
 </head>
 <body>
 
-  <!-- ==================== TOP TOOLBAR ==================== -->
+  <!-- ==================== 顶部状态栏 ==================== -->
   <header class="topbar">
     <div class="brand">
       <span id="brandIcon">🧭</span>
       <span>LifeOS</span>
-      <span class="brand-badge" id="themeBadge">简洁清晰</span>
     </div>
 
-    <!-- Phase Switcher -->
-    <div class="phase-switcher">
-      <button class="phase-btn active" data-phase="2026" onclick="switchPhase('2026')">🔥 2026冲刺</button>
-      <button class="phase-btn" data-phase="2027" onclick="switchPhase('2027')">🌱 2027全年</button>
+    <!-- 今日核心焦点 (Top 1 Priority) -->
+    <div class="top-focus-box">
+      <span class="focus-tag">🎯 今日焦点 Top 1</span>
+      <input type="text" id="topPriorityInput" class="focus-input" placeholder="设定今天最核心的一件事..." onchange="saveTopPriority()">
     </div>
 
-    <!-- Desktop Global Time Progress -->
-    <div class="global-progress">
-      <div class="progress-meta">
-        <span id="progressLabel">2026年底冲刺 (11.19 - 12.31)</span>
-        <span id="progressStats">剩余 <strong>42</strong> 天 · 已过 <strong>0%</strong></span>
+    <!-- 日期 / 倒计时 / 心情状态 / 三风格切换 -->
+    <div class="top-status-group">
+      <div class="status-pill">
+        <span id="topDateDisplay">11月19日 周四</span>
+        <span style="color:var(--border-strong);">|</span>
+        <button class="phase-mini-btn active" data-phase="2026" onclick="switchPhase('2026')">2026冲刺</button>
+        <button class="phase-mini-btn" data-phase="2027" onclick="switchPhase('2027')">2027全年</button>
+        <span id="topCountdownBadge" style="color:var(--accent-primary);">剩42天</span>
       </div>
-      <div class="progress-track">
-        <div class="progress-fill" id="progressFill" style="width: 5%;"></div>
-      </div>
-    </div>
 
-    <!-- Right Controls -->
-    <div class="top-actions">
-      <button class="btn theme-toggle" onclick="toggleTheme()" id="themeToggleBtn">✨ 温馨风</button>
-      <button class="btn desktop-only" onclick="exportJSON()">📤 导出</button>
-      <button class="btn desktop-only" onclick="document.getElementById('importFile').click()">📥 导入</button>
-      <button class="btn desktop-only" onclick="clearDemoData()">🧹 清空示例</button>
-      <button class="btn mobile-only" onclick="openModal('mobileMenuModal')" aria-label="更多设置">⚙️</button>
+      <div class="top-mood-picker" title="今日心情状态">
+        <button class="top-mood-btn" data-mood="✨" onclick="setDayMood('✨')">✨</button>
+        <button class="top-mood-btn" data-mood="🔥" onclick="setDayMood('🔥')">🔥</button>
+        <button class="top-mood-btn" data-mood="🥰" onclick="setDayMood('🥰')">🥰</button>
+        <button class="top-mood-btn" data-mood="😌" onclick="setDayMood('😌')">😌</button>
+        <button class="top-mood-btn" data-mood="💪" onclick="setDayMood('💪')">💪</button>
+      </div>
+
+      <!-- 三风格切换器：简洁风 / 温馨风 / 清新风 -->
+      <div class="theme-switcher" title="切换界面风格">
+        <button class="theme-pill-btn active" data-theme-val="minimal" onclick="setTheme('minimal')">🧊 简洁</button>
+        <button class="theme-pill-btn" data-theme-val="cozy" onclick="setTheme('cozy')">🧸 温馨</button>
+        <button class="theme-pill-btn" data-theme-val="fresh" onclick="setTheme('fresh')">🌿 清新</button>
+      </div>
+
+      <button class="btn desktop-only" onclick="exportJSON()" title="导出备份">📤</button>
+      <button class="btn desktop-only" onclick="document.getElementById('importFile').click()" title="导入备份">📥</button>
       <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
     </div>
   </header>
 
-  <!-- Mobile Compact Progress Strip -->
-  <div class="mobile-progress-strip" style="display:none;">
-    <span id="mobileProgressText">2026冲刺 · 剩余 42 天</span>
-    <div class="progress-track" style="flex:1; max-width:140px;">
-      <div class="progress-fill" id="mobileProgressFill" style="width: 5%;"></div>
-    </div>
-  </div>
-
-  <!-- ==================== 3-COLUMN / MOBILE TABBED WORKSPACE ==================== -->
+  <!-- ==================== 理想三栏主体工作区 ==================== -->
   <main class="workspace">
 
-    <!-- VIEW 1 (LEFT): OKRs, Categories, Todo Inbox -->
+    <!-- 左栏：导航与目标 -->
     <aside class="column" id="col-left">
+      <div class="col-header">
+        <span>🧭 导航与目标</span>
+        <button class="icon-btn" onclick="openProfileModal()" title="身体基础档案">⚙️</button>
+      </div>
       <div class="col-scroll">
-        <!-- Annual OKR Section -->
+        <!-- 1. 快捷视图导航 -->
         <div>
           <div class="section-header">
-            <div class="section-title">🎯 <span id="okrPhaseTitle">2026 冲刺核心目标</span></div>
+            <div class="section-title">⚡ 快捷视图导航</div>
+          </div>
+          <div class="nav-menu">
+            <button class="nav-item active" id="navBattlefield" onclick="switchCenterMode('battlefield')">
+              <span>⚔️ 今日执行主战场</span>
+              <span style="font-size:11px; color:var(--text-muted);" id="navTaskCount">0项</span>
+            </button>
+            <button class="nav-item" id="navAnalytics" onclick="switchCenterMode('analytics')">
+              <span>📊 健康体态趋势图</span>
+              <span style="font-size:11px; color:var(--text-muted);">BMR/体重</span>
+            </button>
+            <button class="nav-item" onclick="jumpToToday()">
+              <span>📍 回到基准日 (11.19)</span>
+              <span style="font-size:11px; color:var(--accent-primary);">Today</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. 年度/季度目标 (进度条展示) -->
+        <div>
+          <div class="section-header">
+            <div class="section-title">🎯 <span id="okrPhaseTitle">2026 冲刺目标</span></div>
             <button class="icon-btn" onclick="openOkrModal()" title="新增目标">+</button>
           </div>
           <div id="okrList"></div>
         </div>
 
-        <!-- Color-Coded Categories -->
-        <div>
+        <!-- 3. 习惯打卡 (每日勾选清单 + 连续打卡天数) -->
+        <div class="habit-card">
           <div class="section-header">
-            <div class="section-title">🏷️ 计划分类筛选</div>
-            <button class="icon-btn" onclick="openCatModal()" title="新增自定义分类">+</button>
+            <div class="section-title">🔥 习惯与体态打卡</div>
+            <span class="streak-badge" id="habitStreakBadge">连续 3 天</span>
           </div>
-          <div class="cat-list" id="categoryFilterList"></div>
-        </div>
 
-        <!-- Todo Inbox -->
-        <div style="flex:1; display:flex; flex-direction:column;">
-          <div class="section-header">
-            <div class="section-title">📥 待办收集箱 <span class="desktop-only" style="font-weight:400; color:var(--text-muted); font-size:11px;">(可拖拽至日历)</span></div>
-          </div>
-          <div class="todo-form">
-            <div class="todo-input-row">
-              <input type="text" id="todoInput" class="input-ctrl" placeholder="输入零碎待办，点击添加..." onkeydown="if(event.key==='Enter') addTodo()">
-              <button class="btn btn-primary" onclick="addTodo()">添加</button>
+          <!-- 每日习惯勾选清单 -->
+          <div id="dailyHabitsList"></div>
+
+          <!-- 六分化力量训练点亮 -->
+          <div style="font-size:11.5px; font-weight:700; color:var(--text-secondary); margin-top:8px;">🏋️‍♀️ 力量训练部位：</div>
+          <div class="split-tags" id="splitTagsContainer"></div>
+
+          <!-- 体重/体脂/步数快录 -->
+          <div class="mini-metrics">
+            <div class="mini-metric-box">
+              <label>体重(kg)</label>
+              <input type="number" step="0.1" id="dayWeight" placeholder="50.0" onchange="saveDayHealth()">
             </div>
-            <div class="todo-meta-row">
-              <select id="todoCatSelect" class="input-ctrl"></select>
-              <select id="todoPrioSelect" class="input-ctrl" style="width:105px;">
-                <option value="high">🔴 高优</option>
-                <option value="med" selected>🟡 中优</option>
-                <option value="low">🟢 低优</option>
-              </select>
+            <div class="mini-metric-box">
+              <label>体脂(%)</label>
+              <input type="number" step="0.1" id="dayBodyFat" placeholder="23.5" onchange="saveDayHealth()">
+            </div>
+            <div class="mini-metric-box">
+              <label>步数</label>
+              <input type="number" step="100" id="daySteps" placeholder="8000" onchange="saveDayHealth()">
             </div>
           </div>
-          <div id="todoList" style="margin-top:10px; flex:1;"></div>
         </div>
       </div>
     </aside>
 
-    <!-- VIEW 2 (CENTER): Milestones + Calendar / Health Analytics -->
+    <!-- 中栏：今日执行主战场 -->
     <section class="column mobile-active" id="col-center">
-      <div class="center-header">
-        <div class="month-nav">
-          <button class="icon-btn" onclick="changeMonth(-1)">◀</button>
-          <div class="month-title" id="currentMonthLabel">2026年 11月</div>
-          <button class="icon-btn" onclick="changeMonth(1)">▶</button>
-          <button class="btn" onclick="jumpToToday()" style="padding:4px 9px; font-size:12px;">今天</button>
-        </div>
-
-        <div class="view-tabs">
-          <button class="view-tab active" id="tabCalendar" onclick="switchCenterTab('calendar')">📅 月历</button>
-          <button class="view-tab" id="tabHealth" onclick="switchCenterTab('health')">📊 健康趋势</button>
-        </div>
-      </div>
-
-      <!-- Monthly Milestones Bar -->
-      <div class="milestone-bar" id="milestoneSection">
-        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
-          <span style="font-size:12px; font-weight:700; color:var(--text-secondary); white-space:nowrap;">🚩 本月里程碑</span>
-          <div style="display:flex; gap:4px; flex:1; max-width:240px;">
-            <input type="text" id="msInput" class="input-ctrl" style="padding:4px 8px; min-height:30px; font-size:12px;" placeholder="新增本月重点..." onkeydown="if(event.key==='Enter') addMilestone()">
-            <button class="btn btn-primary" style="padding:4px 10px; min-height:30px;" onclick="addMilestone()">+</button>
-          </div>
-        </div>
-        <div class="milestone-chips" id="milestoneList"></div>
-      </div>
-
-      <!-- Calendar Main Grid -->
-      <div class="calendar-wrapper" id="calendarView">
-        <div class="weekdays">
-          <div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div><div>日</div>
-        </div>
-        <div class="cal-grid" id="calGrid"></div>
-      </div>
-
-      <!-- Health Data Visualization Panel -->
-      <div class="analytics-view" id="healthView">
-        <div class="stat-cards" id="healthStatCards"></div>
-
-        <div class="chart-box">
-          <div class="chart-title">
-            <span>📉 体重 (kg) 与体脂率 (%) 趋势</span>
-            <span style="font-size:11px; color:var(--text-secondary); font-weight:400;">近期动态</span>
-          </div>
-          <canvas id="weightChart" width="600" height="170"></canvas>
-        </div>
-
-        <div class="charts-grid-2">
-          <div class="chart-box">
-            <div class="chart-title">
-              <span>👟 近7日步数达标</span>
-              <span style="font-size:11px; color:var(--accent-primary);" id="stepGoalTag">目标: 8,000步</span>
-            </div>
-            <canvas id="stepsChart" width="300" height="170"></canvas>
-          </div>
-          <div class="chart-box">
-            <div class="chart-title">
-              <span>🏋️‍♀️ 六大肌群训练分布</span>
-              <span style="font-size:11px; color:var(--text-secondary);">累计频次</span>
-            </div>
-            <canvas id="muscleChart" width="300" height="170"></canvas>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- VIEW 3 (RIGHT): Selected Day Workspace & Health Tracker -->
-    <aside class="column" id="col-right">
-      <div class="day-header">
-        <div style="display:flex; align-items:center; gap:8px;">
-          <button class="icon-btn mobile-only" onclick="setMobileCol('center')" title="返回日历">←</button>
-          <div>
-            <div class="day-title" id="selectedDateTitle">2026年11月19日</div>
-            <div class="day-sub" id="selectedDateSub">星期四 · 基准日</div>
-          </div>
-        </div>
-        <div style="display:flex; align-items:center; gap:6px;">
+      <div class="col-header">
+        <span id="centerPanelTitle">⚔️ 今日执行主战场 · 2026年11月19日</span>
+        <div class="battlefield-tabs">
           <button class="icon-btn" onclick="shiftSelectedDay(-1)" title="前一天">‹</button>
-          <span style="font-size:20px;" id="dayMoodDisplay">✨</span>
           <button class="icon-btn" onclick="shiftSelectedDay(1)" title="后一天">›</button>
         </div>
       </div>
 
       <div class="col-scroll">
-        <!-- 1. Daily Schedule Timeline -->
-        <div class="sub-card">
-          <div class="section-header">
-            <div class="section-title">⏰ 当日日程时间轴</div>
+        <!-- 模式 A：执行主战场 -->
+        <div id="battlefieldView" style="display:flex; flex-direction:column; gap:14px;">
+
+          <!-- 1. 今日日程 (按时间段分组 + 关联所属目标) -->
+          <div class="sub-panel">
+            <div class="section-header">
+              <div class="section-title">📋 今日日程 (Today's Tasks)</div>
+              <span style="font-size:11.5px; color:var(--text-secondary);" id="todayCompletionRate">完成度 0%</span>
+            </div>
+
+            <!-- 新增任务表单 -->
+            <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:10px;">
+              <div style="display:flex; gap:6px;">
+                <select id="schedPeriod" class="input-ctrl" style="width:84px;">
+                  <option value="上午">上午</option>
+                  <option value="下午">下午</option>
+                  <option value="晚上">晚上</option>
+                  <option value="全天">全天</option>
+                </select>
+                <select id="schedCat" class="input-ctrl" style="width:105px;"></select>
+                <select id="schedOkrSelect" class="input-ctrl" style="flex:1;">
+                  <option value="">🔗 关联目标(可选)</option>
+                </select>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <input type="text" id="schedInput" class="input-ctrl" placeholder="添加今日行动项，按回车快速创建..." onkeydown="if(event.key==='Enter') addSchedule()">
+                <button class="btn btn-primary" onclick="addSchedule()">添加</button>
+              </div>
+            </div>
+
+            <!-- 按时间段分组渲染区 -->
+            <div id="groupedScheduleList"></div>
           </div>
-          <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:10px;">
-            <div style="display:flex; gap:6px;">
-              <select id="schedPeriod" class="input-ctrl" style="width:88px;">
-                <option value="上午">上午</option>
-                <option value="下午">下午</option>
-                <option value="晚上">晚上</option>
-                <option value="全天">全天</option>
+
+          <!-- 2. 灵感 / 临时收件箱 (Inbox) -->
+          <div class="sub-panel">
+            <div class="section-header">
+              <div class="section-title">💡 灵感 / 临时收件箱 (Inbox)</div>
+              <span style="font-size:11px; color:var(--text-muted);">可一键排入今日或拖拽至右侧日历</span>
+            </div>
+
+            <div style="display:flex; gap:6px; margin-bottom:8px;">
+              <input type="text" id="todoInput" class="input-ctrl" placeholder="快速记录突发想法、零碎待办..." onkeydown="if(event.key==='Enter') addTodo()">
+              <select id="todoPrioSelect" class="input-ctrl" style="width:84px;">
+                <option value="high">🔴 高优</option>
+                <option value="med" selected>🟡 中优</option>
+                <option value="low">🟢 低优</option>
               </select>
-              <select id="schedCat" class="input-ctrl" style="flex:1;"></select>
+              <button class="btn btn-primary" onclick="addTodo()">捕获</button>
             </div>
-            <div style="display:flex; gap:6px;">
-              <input type="text" id="schedInput" class="input-ctrl" placeholder="输入具体日程安排..." onkeydown="if(event.key==='Enter') addSchedule()">
-              <button class="btn btn-primary" onclick="addSchedule()">添加</button>
-            </div>
-          </div>
-          <div id="scheduleList"></div>
-        </div>
 
-        <!-- 2. Women's Fitness, Posture & Strength Management -->
-        <div class="sub-card">
-          <div class="section-header">
-            <div class="section-title">💪 健康体态与力量训练</div>
-            <button class="btn" style="padding:4px 9px; font-size:12px;" onclick="openProfileModal()">⚙️ 身体档案</button>
+            <div id="todoList"></div>
           </div>
 
-          <!-- BMR & BMI Reference Banner -->
-          <div class="profile-banner" id="bmrBanner"></div>
-
-          <!-- Weight, Body Fat, Steps -->
-          <div class="metrics-grid">
-            <div class="metric-box">
-              <label>体重 (kg)</label>
-              <input type="number" step="0.1" inputmode="decimal" id="dayWeight" placeholder="58.0" onchange="saveDayHealth()">
+          <!-- 3. 轻量复盘与饮食热量备注 -->
+          <div class="sub-panel">
+            <div class="section-header">
+              <div class="section-title">📝 今日简记与热量备忘</div>
+              <span style="font-size:11px; color:var(--accent-secondary); font-weight:700;" id="bmrInlineText">BMR: 1185 kcal</span>
             </div>
-            <div class="metric-box">
-              <label>体脂率 (%)</label>
-              <input type="number" step="0.1" inputmode="decimal" id="dayBodyFat" placeholder="26.5" onchange="saveDayHealth()">
+            <div style="display:flex; gap:6px; margin-bottom:6px;">
+              <input type="text" id="workoutNote" class="input-ctrl" placeholder="饮食/训练备注（如：三餐共1250kcal，深蹲30kg）" onchange="saveDayHealth()">
             </div>
-            <div class="metric-box">
-              <label>今日步数</label>
-              <input type="number" step="100" inputmode="numeric" id="daySteps" placeholder="8000" onchange="saveDayHealth()">
-            </div>
-          </div>
-
-          <!-- Step Progress Bar -->
-          <div style="margin-bottom:12px;">
-            <div style="display:flex; justify-content:space-between; font-size:11.5px; color:var(--text-secondary); margin-bottom:4px;">
-              <span>🚶‍♀️ 步数目标达成度</span>
-              <span id="stepProgressText">0 / 8,000 步 (0%)</span>
-            </div>
-            <div class="progress-track">
-              <div class="progress-fill" id="stepProgressBar" style="width:0%;"></div>
-            </div>
-          </div>
-
-          <!-- 6-Split Routine Check-in -->
-          <div style="font-size:12px; font-weight:700; color:var(--text-secondary);">🏋️‍♀️ 六分化力量训练打卡 (点击点亮)：</div>
-          <div class="split-tags" id="splitTagsContainer"></div>
-          <input type="text" id="workoutNote" class="input-ctrl" placeholder="训练备注：如 高位下拉 25kg 4x12..." onchange="saveDayHealth()">
-
-          <!-- 4-Meal Diet Log -->
-          <div style="font-size:12px; font-weight:700; color:var(--text-secondary); margin-top:12px;">🥗 每日饮食与热量记录 (kcal)：</div>
-          <div class="meal-grid">
-            <div class="meal-card">
-              <div class="meal-head">🌅 早餐</div>
-              <div class="meal-inputs">
-                <input type="text" id="mealBName" placeholder="燕麦牛奶鸡蛋" onchange="saveDayHealth()">
-                <input type="number" inputmode="numeric" id="mealBKcal" placeholder="kcal" onchange="saveDayHealth()">
-              </div>
-            </div>
-            <div class="meal-card">
-              <div class="meal-head">☀️ 午餐</div>
-              <div class="meal-inputs">
-                <input type="text" id="mealLName" placeholder="鸡胸糙米西兰花" onchange="saveDayHealth()">
-                <input type="number" inputmode="numeric" id="mealLKcal" placeholder="kcal" onchange="saveDayHealth()">
-              </div>
-            </div>
-            <div class="meal-card">
-              <div class="meal-head">🌙 晚餐</div>
-              <div class="meal-inputs">
-                <input type="text" id="mealDName" placeholder="清蒸鱼豆腐青菜" onchange="saveDayHealth()">
-                <input type="number" inputmode="numeric" id="mealDKcal" placeholder="kcal" onchange="saveDayHealth()">
-              </div>
-            </div>
-            <div class="meal-card">
-              <div class="meal-head">🍎 加餐</div>
-              <div class="meal-inputs">
-                <input type="text" id="mealSName" placeholder="黑咖啡/蛋白棒" onchange="saveDayHealth()">
-                <input type="number" inputmode="numeric" id="mealSKcal" placeholder="kcal" onchange="saveDayHealth()">
-              </div>
-            </div>
-          </div>
-
-          <div class="kcal-summary" id="kcalSummaryBox">
-            <span>今日总摄入：0 kcal</span>
-            <span style="color:var(--accent-secondary);">对比BMR: -1265 kcal</span>
+            <textarea id="dayReviewText" class="input-ctrl" rows="2" placeholder="今日复盘：完成得最好的事 / 明日改进..." onchange="saveDayReview()"></textarea>
           </div>
         </div>
 
-        <!-- 3. Daily Review & Mood -->
-        <div class="sub-card">
+        <!-- 模式 B：健康趋势分析视图 -->
+        <div class="analytics-view" id="healthView">
+          <div class="stat-cards" id="healthStatCards"></div>
+          <div class="chart-box">
+            <div style="font-weight:700; font-size:12.5px; margin-bottom:6px;">📉 体重 (kg) 与体脂率 (%) 趋势</div>
+            <canvas id="weightChart" width="500" height="150"></canvas>
+          </div>
+          <div class="chart-box">
+            <div style="font-weight:700; font-size:12.5px; margin-bottom:6px;">👟 近7日步数达标情况</div>
+            <canvas id="stepsChart" width="500" height="150"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 右栏：时间与打卡 -->
+    <aside class="column" id="col-right">
+      <div class="col-header">
+        <span>📅 时间与打卡</span>
+        <div class="view-switch">
+          <button class="view-switch-btn active" id="btnMonthView" onclick="setCalMode('month')">月视图</button>
+          <button class="view-switch-btn" id="btnWeekView" onclick="setCalMode('week')">周视图</button>
+        </div>
+      </div>
+
+      <div class="col-scroll">
+        <!-- 1. Calendar 日历 + 关键节点提醒 -->
+        <div class="sub-panel">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <button class="icon-btn" onclick="changeMonth(-1)">◀</button>
+              <strong style="font-size:14px;" id="currentMonthLabel">2026年 11月</strong>
+              <button class="icon-btn" onclick="changeMonth(1)">▶</button>
+            </div>
+            <div style="display:flex; gap:4px;">
+              <input type="text" id="msInput" class="input-ctrl" style="width:110px; padding:3px 7px; font-size:11.5px;" placeholder="+ 关键节点" onkeydown="if(event.key==='Enter') addMilestone()">
+              <button class="btn btn-primary" style="padding:3px 8px;" onclick="addMilestone()">+</button>
+            </div>
+          </div>
+
+          <!-- 关键节点提醒条 -->
+          <div class="milestone-strip" id="milestoneList"></div>
+
+          <!-- 日历格子 -->
+          <div class="weekdays">
+            <div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div><div>日</div>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+
+        <!-- 2. 时间块 (Timebox 今日时间轴安排) -->
+        <div class="sub-panel" style="flex:1;">
           <div class="section-header">
-            <div class="section-title">📝 每日复盘与心情贴纸</div>
+            <div class="section-title">⏳ 时间块 (Timebox)</div>
+            <span style="font-size:11px; color:var(--text-secondary);">今日时间轴映射</span>
           </div>
-          <div class="mood-row" id="moodSelector">
-            <button class="mood-btn" data-mood="✨" onclick="setDayMood('✨')">✨</button>
-            <button class="mood-btn" data-mood="🔥" onclick="setDayMood('🔥')">🔥</button>
-            <button class="mood-btn" data-mood="🥰" onclick="setDayMood('🥰')">🥰</button>
-            <button class="mood-btn" data-mood="😌" onclick="setDayMood('😌')">😌</button>
-            <button class="mood-btn" data-mood="🥱" onclick="setDayMood('🥱')">🥱</button>
-            <button class="mood-btn" data-mood="💪" onclick="setDayMood('💪')">💪</button>
-          </div>
-          <textarea id="dayReviewText" class="input-ctrl" rows="3" placeholder="记录今日闪光点、复盘总结或明日改进..." onchange="saveDayReview()"></textarea>
+          <div class="timebox-list" id="timeboxContainer"></div>
         </div>
       </div>
     </aside>
   </main>
 
-  <!-- ==================== MOBILE BOTTOM NAVIGATION BAR ==================== -->
-  <nav class="mobile-bottom-bar" id="mobileBottomBar">
+  <!-- ==================== 移动端底部切换栏 ==================== -->
+  <nav class="mobile-bottom-bar">
     <button class="bottom-tab" data-col="left" onclick="setMobileCol('left')">
-      <span class="tab-icon">🎯</span>
-      <span>目标与待办</span>
+      <span>🧭</span><span>导航与目标</span>
     </button>
     <button class="bottom-tab active" data-col="center" onclick="setMobileCol('center')">
-      <span class="tab-icon">📅</span>
-      <span>日历与趋势</span>
+      <span>⚔️</span><span>执行主战场</span>
     </button>
     <button class="bottom-tab" data-col="right" onclick="setMobileCol('right')">
-      <span class="tab-icon">💪</span>
-      <span>今日打卡</span>
+      <span>📅</span><span>日历与时间块</span>
     </button>
   </nav>
 
-  <!-- ==================== MODALS & BOTTOM SHEETS ==================== -->
-  <!-- Mobile Data & Settings Menu Sheet -->
-  <div class="modal-backdrop" id="mobileMenuModal" onclick="if(event.target===this) closeModal('mobileMenuModal')">
-    <div class="modal-box">
-      <div class="modal-title">⚙️ 数据备份与系统设置</div>
-      <div style="display:flex; flex-direction:column; gap:10px;">
-        <button class="btn" style="width:100%; justify-content:flex-start;" onclick="closeModal('mobileMenuModal'); openProfileModal();">👩 编辑身体基础档案 (30岁/157cm/58kg)</button>
-        <button class="btn" style="width:100%; justify-content:flex-start;" onclick="closeModal('mobileMenuModal'); exportJSON();">📤 导出 JSON 数据备份</button>
-        <button class="btn" style="width:100%; justify-content:flex-start;" onclick="closeModal('mobileMenuModal'); document.getElementById('importFile').click();">📥 从 JSON 文件恢复数据</button>
-        <button class="btn" style="width:100%; justify-content:flex-start; color:var(--accent-danger);" onclick="closeModal('mobileMenuModal'); clearDemoData();">🧹 清空示例数据</button>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" style="width:100%;" onclick="closeModal('mobileMenuModal')">关闭</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Add OKR Modal -->
+  <!-- ==================== 弹窗组件 ==================== -->
+  <!-- 新增目标 Modal -->
   <div class="modal-backdrop" id="okrModal" onclick="if(event.target===this) closeModal('okrModal')">
     <div class="modal-box">
-      <div class="modal-title">🎯 新增阶段核心目标 (OKR)</div>
+      <div class="modal-title">🎯 新增阶段核心目标</div>
       <div class="form-group">
         <label>目标描述</label>
-        <input type="text" id="newOkrTitle" class="input-ctrl" placeholder="例如：体脂率降至23%，养成规律力量训练习惯">
+        <input type="text" id="newOkrTitle" class="input-ctrl" placeholder="例如：体脂率降至21%，养成规律力量训练习惯">
       </div>
       <div class="form-group">
-        <label>关联分类</label>
+        <label>所属分类</label>
         <select id="newOkrCat" class="input-ctrl"></select>
       </div>
       <div class="modal-footer">
@@ -1435,114 +1145,79 @@
     </div>
   </div>
 
-  <!-- Add Category Modal -->
-  <div class="modal-backdrop" id="catModal" onclick="if(event.target===this) closeModal('catModal')">
-    <div class="modal-box">
-      <div class="modal-title">🏷️ 新增自定义分类</div>
-      <div class="form-group">
-        <label>分类名称</label>
-        <input type="text" id="newCatName" class="input-ctrl" placeholder="例如：副业探索 / 阅读影音">
-      </div>
-      <div class="form-group">
-        <label>选择专属色标</label>
-        <input type="color" id="newCatColor" value="#06B6D4" style="width:100%; height:40px; border:none; cursor:pointer;">
-      </div>
-      <div class="modal-footer">
-        <button class="btn" onclick="closeModal('catModal')">取消</button>
-        <button class="btn btn-primary" onclick="confirmAddCategory()">创建分类</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Assign Date Modal for Todo -->
+  <!-- 排期 Modal -->
   <div class="modal-backdrop" id="assignModal" onclick="if(event.target===this) closeModal('assignModal')">
     <div class="modal-box">
-      <div class="modal-title">📅 分配待办至具体日期</div>
-      <p id="assignTodoPreview" style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;"></p>
+      <div class="modal-title">📅 排入执行日程</div>
+      <p id="assignTodoPreview" style="font-size:12.5px; color:var(--text-secondary); margin-bottom:10px;"></p>
       <div class="form-group">
-        <label>选择日程日期</label>
+        <label>目标日期</label>
         <input type="date" id="assignDateInput" class="input-ctrl" min="2026-11-19" max="2027-12-31">
       </div>
       <div class="form-group">
         <label>时间段</label>
         <select id="assignPeriodInput" class="input-ctrl">
-          <option value="上午">上午</option>
-          <option value="下午">下午</option>
-          <option value="晚上">晚上</option>
-          <option value="全天">全天</option>
+          <option value="上午">上午 (09:00 - 12:00)</option>
+          <option value="下午">下午 (14:00 - 18:00)</option>
+          <option value="晚上">晚上 (19:00 - 22:30)</option>
+          <option value="全天">全天弹性</option>
         </select>
       </div>
-      <div class="modal-footer" style="flex-wrap:wrap;">
+      <div class="modal-footer">
         <button class="btn" onclick="closeModal('assignModal')">取消</button>
-        <button class="btn" onclick="quickAssignToday()">⚡ 安排到今天</button>
-        <button class="btn btn-primary" onclick="confirmAssignTodo()">确认安排</button>
+        <button class="btn btn-primary" onclick="confirmAssignTodo()">确认排入</button>
       </div>
     </div>
   </div>
 
-  <!-- Body Profile Settings Modal -->
+  <!-- 身体档案 Modal -->
   <div class="modal-backdrop" id="profileModal" onclick="if(event.target===this) closeModal('profileModal')">
     <div class="modal-box">
-      <div class="modal-title">⚙️ 个人健康档案与目标设置</div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-        <div class="form-group">
-          <label>年龄 (岁)</label>
-          <input type="number" inputmode="numeric" id="profAge" class="input-ctrl">
-        </div>
-        <div class="form-group">
-          <label>身高 (cm)</label>
-          <input type="number" inputmode="numeric" id="profHeight" class="input-ctrl">
-        </div>
-        <div class="form-group">
-          <label>初始体重 (kg)</label>
-          <input type="number" step="0.1" inputmode="decimal" id="profWeight" class="input-ctrl">
-        </div>
-        <div class="form-group">
-          <label>目标体重 (kg)</label>
-          <input type="number" step="0.1" inputmode="decimal" id="profTargetWeight" class="input-ctrl">
-        </div>
+      <div class="modal-title">⚙️ 身体档案与系统操作</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div class="form-group"><label>年龄 (岁)</label><input type="number" id="profAge" class="input-ctrl"></div>
+        <div class="form-group"><label>身高 (cm)</label><input type="number" id="profHeight" class="input-ctrl"></div>
+        <div class="form-group"><label>初始体重 (kg)</label><input type="number" step="0.1" id="profWeight" class="input-ctrl"></div>
+        <div class="form-group"><label>目标体重 (kg)</label><input type="number" step="0.1" id="profTargetWeight" class="input-ctrl"></div>
       </div>
-      <div class="form-group">
-        <label>每日步数目标 (步)</label>
-        <input type="number" step="500" inputmode="numeric" id="profStepGoal" class="input-ctrl">
-      </div>
-      <div class="modal-footer">
-        <button class="btn" onclick="closeModal('profileModal')">取消</button>
-        <button class="btn btn-primary" onclick="saveProfileSettings()">保存更新</button>
+      <div class="form-group"><label>每日步数目标</label><input type="number" step="500" id="profStepGoal" class="input-ctrl"></div>
+      <div style="display:flex; gap:6px; margin-top:8px;">
+        <button class="btn" style="flex:1; color:var(--accent-danger);" onclick="clearDemoData()">🧹 清空示例数据</button>
+        <button class="btn btn-primary" style="flex:1;" onclick="saveProfileSettings()">保存档案</button>
       </div>
     </div>
   </div>
 
-  <!-- Toast Feedback -->
-  <div class="sticker-toast" id="stickerToast">🌟 太棒啦！打卡完成 +1 ✨</div>
+  <div class="sticker-toast" id="stickerToast">🌟 打卡完成 +1 ✨</div>
 
 <script>
-/* ==========================================================================
-   LifeOS 2026-2027 - Mobile-First & Desktop Responsive Core (Timezone-Safe)
-   ========================================================================== */
-
-const STORAGE_KEY = 'lifeos_2026_2027_v1';
+const STORAGE_KEY = 'lifeos_ideal_layout_v4';
 const BASELINE_TODAY = '2026-11-19';
 
 const SPLIT_OPTIONS = [
-  { id: 'chest', label: '胸部', short: '练胸' },
-  { id: 'back', label: '背部', short: '练背' },
-  { id: 'legs', label: '腿部', short: '练腿' },
-  { id: 'shoulders', label: '肩部', short: '练肩' },
-  { id: 'arms', label: '手臂', short: '手臂' },
-  { id: 'core', label: '核心', short: '核心' },
-  { id: 'cardio', label: '有氧/休息日', short: '有氧/休' }
+  { id: 'chest', label: '练胸', short: '胸' },
+  { id: 'back', label: '练背', short: '背' },
+  { id: 'legs', label: '练腿', short: '腿' },
+  { id: 'shoulders', label: '练肩', short: '肩' },
+  { id: 'arms', label: '手臂', short: '臂' },
+  { id: 'core', label: '核心', short: '核' },
+  { id: 'cardio', label: '有氧/休', short: '氧' }
+];
+
+const DAILY_HABITS_DEF = [
+  { id: 'h_water', label: '💧 饮水 2000ml 达标' },
+  { id: 'h_protein', label: '🥗 优质蛋白摄入达标' },
+  { id: 'h_sleep', label: '🌙 23:30 前放下手机入睡' }
 ];
 
 const DEFAULT_CATEGORIES = [
-  { id: 'work', name: '事业/学业', cssVar: 'work', customColor: null },
-  { id: 'finance', name: '财务/理财', cssVar: 'finance', customColor: null },
-  { id: 'health', name: '健康/运动', cssVar: 'health', customColor: null },
-  { id: 'family', name: '家庭/社交', cssVar: 'family', customColor: null },
-  { id: 'growth', name: '个人成长', cssVar: 'growth', customColor: null }
+  { id: 'work', name: '事业/学业', cssVar: 'work' },
+  { id: 'finance', name: '财务/理财', cssVar: 'finance' },
+  { id: 'health', name: '健康/运动', cssVar: 'health' },
+  { id: 'family', name: '家庭/社交', cssVar: 'family' },
+  { id: 'growth', name: '个人成长', cssVar: 'growth' }
 ];
 
-// Local-timezone-safe date formatter (YYYY-MM-DD)
 function formatLocalDate(dateObj) {
   const y = dateObj.getFullYear();
   const m = String(dateObj.getMonth() + 1).padStart(2, '0');
@@ -1552,103 +1227,67 @@ function formatLocalDate(dateObj) {
 
 function getDefaultState() {
   return {
-    theme: 'minimal',
+    theme: 'fresh',
     phase: '2026',
+    calMode: 'month',
     viewYear: 2026,
     viewMonth: 10,
     selectedDate: '2026-11-19',
-    activeCatFilter: 'all',
-    profile: {
-      gender: 'female',
-      age: 30,
-      height: 157,
-      initialWeight: 58.0,
-      targetWeight: 52.0,
-      stepGoal: 8000
-    },
+    profile: { age: 30, height: 157, initialWeight: 50.0, targetWeight: 48.0, stepGoal: 8000 },
     categories: JSON.parse(JSON.stringify(DEFAULT_CATEGORIES)),
     okrs: {
       '2026': [
-        { id: 'okr1', title: '完成年底项目复盘与2027路线图汇报', catId: 'work', progress: 45 },
-        { id: 'okr2', title: '建立六分化力量训练循环，体重降至56kg', catId: 'health', progress: 30 },
-        { id: 'okr3', title: '年底储蓄盘点与年度基金定投优化', catId: 'finance', progress: 60 }
+        { id: 'okr1', title: '完成年底项目复盘与2027路线图', catId: 'work', progress: 45 },
+        { id: 'okr2', title: '建立六分化力量循环，体重稳在49kg', catId: 'health', progress: 35 },
+        { id: 'okr3', title: '年度储蓄盘点与基金定投优化', catId: 'finance', progress: 60 }
       ],
       '2027': [
-        { id: 'okr4', title: '体脂率稳定在22%-23%，解锁标准引体向上', catId: 'health', progress: 10 },
-        { id: 'okr5', title: '考取核心专业资质认证，实现薪资跃迁', catId: 'work', progress: 5 },
-        { id: 'okr6', title: '深度阅读24本非虚构书籍并输出笔记', catId: 'growth', progress: 8 }
+        { id: 'okr4', title: '体脂率稳定在21%-22%', catId: 'health', progress: 10 },
+        { id: 'okr5', title: '考取核心专业资质认证', catId: 'work', progress: 5 }
       ]
     },
     milestones: {
       '2026-11': [
-        { id: 'ms1', text: '确定2026冲刺42天行动清单', done: true },
-        { id: 'ms2', text: '完成两轮完整六分化力量训练', done: false }
+        { id: 'ms1', text: '确定42天冲刺清单', done: true },
+        { id: 'ms2', text: '完成2轮六分化训练', done: false }
       ],
       '2026-12': [
-        { id: 'ms3', text: '年度财务资产负债表盘点', done: false },
-        { id: 'ms4', text: '圣诞家庭聚会筹备', done: false }
-      ],
-      '2027-01': [
-        { id: 'ms5', text: '启动2027 Q1体态重塑计划', done: false }
+        { id: 'ms3', text: '年度资产负债表盘点', done: false }
       ]
     },
     todos: [
-      { id: 'td1', text: '预约下周体态评估与体成分测试', catId: 'health', prio: 'high', done: false },
-      { id: 'td2', text: '整理2026年度报销发票', catId: 'finance', prio: 'med', done: false },
-      { id: 'td3', text: '购买新的护腕与弹力带', catId: 'health', prio: 'low', done: false },
-      { id: 'td4', text: '周末陪爸妈吃顿晚饭', catId: 'family', prio: 'med', done: false }
+      { id: 'td1', text: '预约下周体态评估与体成分测试', prio: 'high', done: false },
+      { id: 'td2', text: '整理2026年度报销发票', prio: 'med', done: false },
+      { id: 'td3', text: '周末陪爸妈吃顿晚饭', prio: 'low', done: false }
     ],
     days: {
       '2026-11-17': {
-        schedules: [{ id: 's1', period: '晚上', catId: 'health', text: '力量训练：背部肌群塑形', done: true }],
-        health: {
-          weight: 58.2, bodyFat: 26.8, steps: 8650,
-          splits: ['back', 'core'],
-          workoutNote: '高位下拉 25kg 4x12，坐姿划船 20kg 4x12，平板支撑 3组',
-          meals: {
-            b: { name: '全麦吐司+水煮蛋+美式', kcal: 340 },
-            l: { name: '香煎鸡胸肉+杂粮饭+西兰花', kcal: 480 },
-            d: { name: '虾仁豆腐汤+清炒油麦菜', kcal: 320 },
-            s: { name: '无糖酸奶', kcal: 110 }
-          }
-        },
+        topPriority: '完成背部力量训练与项目周报',
+        habits: ['h_water', 'h_protein', 'h_sleep'],
+        schedules: [{ id: 's1', period: '晚上', catId: 'health', okrId: 'okr2', text: '背部肌群塑形训练', done: true }],
+        health: { weight: 50.2, bodyFat: 23.8, steps: 8650, splits: ['back', 'core'], workoutNote: '高位下拉 25kg 4x12' },
         mood: '💪',
-        review: '背部发力感越来越清晰，控制住了晚上的零食欲望！'
+        review: '背部发力感越来越清晰。'
       },
       '2026-11-18': {
-        schedules: [{ id: 's2', period: '下午', catId: 'work', text: '对齐Q4冲刺关键节点', done: true }],
-        health: {
-          weight: 58.1, bodyFat: 26.7, steps: 7420,
-          splits: ['shoulders', 'arms'],
-          workoutNote: '哑铃推举 6kg 4x12，侧平举 3kg 4x15，绳索下压 15kg 3x15',
-          meals: {
-            b: { name: '燕麦牛奶+蓝莓', kcal: 310 },
-            l: { name: '牛肉荞麦面', kcal: 510 },
-            d: { name: '清蒸鲈鱼+炒时蔬', kcal: 360 },
-            s: { name: '苹果半个', kcal: 55 }
-          }
-        },
+        topPriority: '对齐 Q4 冲刺关键节点',
+        habits: ['h_water', 'h_protein'],
+        schedules: [{ id: 's2', period: '下午', catId: 'work', okrId: 'okr1', text: '对齐Q4冲刺关键节点', done: true }],
+        health: { weight: 50.1, bodyFat: 23.7, steps: 7420, splits: ['shoulders', 'arms'], workoutNote: '哑铃推举 6kg 4x12' },
         mood: '😌',
-        review: '肩部泵感很好，注意睡眠时间尽量在23:30前入睡。'
+        review: '肩部泵感很好。'
       },
       '2026-11-19': {
+        topPriority: '拆解2026年底42天冲刺行动清单并完成臀腿训练',
+        habits: ['h_water'],
         schedules: [
-          { id: 's3', period: '上午', catId: 'work', text: '启动2026年底42天冲刺规划', done: true },
-          { id: 's4', period: '晚上', catId: 'health', text: '下肢臀腿力量训练日', done: false }
+          { id: 's3', period: '上午', catId: 'work', okrId: 'okr1', text: '梳理年底项目复盘框架', done: true },
+          { id: 's4', period: '下午', catId: 'finance', okrId: 'okr3', text: '核对11月基金定投账户', done: false },
+          { id: 's5', period: '晚上', catId: 'health', okrId: 'okr2', text: '下肢臀腿力量训练日', done: false }
         ],
-        health: {
-          weight: 58.0, bodyFat: 26.5, steps: 6200,
-          splits: ['legs'],
-          workoutNote: '史密斯深蹲 30kg 4x10，罗马尼亚硬拉 25kg 4x12',
-          meals: {
-            b: { name: '豆浆+全麦三明治', kcal: 360 },
-            l: { name: '三文鱼波奇饭', kcal: 520 },
-            d: { name: '', kcal: '' },
-            s: { name: '黑咖啡', kcal: 10 }
-          }
-        },
+        health: { weight: 50.0, bodyFat: 23.5, steps: 6200, splits: ['legs'], workoutNote: '史密斯深蹲 30kg 4x10，三餐共约 1250 kcal' },
         mood: '🔥',
-        review: '新系统上线第一天！冲刺2026最后42天，稳扎稳打。'
+        review: '新三栏执行工作台启动，专注当下！'
       }
     }
   };
@@ -1661,52 +1300,64 @@ function loadState() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) return JSON.parse(raw);
-  } catch (e) { console.error(e); }
+  } catch (e) {}
   const init = getDefaultState();
   saveState(init);
   return init;
 }
 
-function saveState(targetState = state) {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(targetState)); } catch (e) { console.error(e); }
+function saveState(s = state) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
+}
+
+function ensureDayRecord(dateStr) {
+  if (!state.days[dateStr]) {
+    state.days[dateStr] = {
+      topPriority: '',
+      habits: [],
+      schedules: [],
+      health: { weight: '', bodyFat: '', steps: '', splits: [], workoutNote: '' },
+      mood: '✨',
+      review: ''
+    };
+  }
 }
 
 /* ==========================================================================
-   THEME, PHASE & MOBILE NAVIGATION
+   TOP BAR & TRI-THEME CONTROLS (简洁风 / 温馨风 / 清新风)
    ========================================================================== */
 function applyTheme() {
-  document.documentElement.setAttribute('data-theme', state.theme);
-  const badge = document.getElementById('themeBadge');
-  const toggleBtn = document.getElementById('themeToggleBtn');
-  const brandIcon = document.getElementById('brandIcon');
+  const validThemes = ['minimal', 'cozy', 'fresh'];
+  if (!validThemes.includes(state.theme)) state.theme = 'fresh';
 
-  if (state.theme === 'cozy') {
-    badge.textContent = '温馨可爱风';
-    toggleBtn.textContent = '🧊 简洁风';
-    brandIcon.textContent = '🧸';
-  } else {
-    badge.textContent = '简洁清晰风';
-    toggleBtn.textContent = '✨ 温馨风';
-    brandIcon.textContent = '🧭';
-  }
+  document.documentElement.setAttribute('data-theme', state.theme);
+
+  const iconMap = { minimal: '🧭', cozy: '🧸', fresh: '🌿' };
+  document.getElementById('brandIcon').textContent = iconMap[state.theme] || '🧭';
+
+  document.querySelectorAll('.theme-pill-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.themeVal === state.theme);
+  });
+}
+
+function setTheme(themeName) {
+  state.theme = themeName;
+  saveState();
+  applyTheme();
   if (document.getElementById('healthView').classList.contains('active')) {
     renderHealthCharts();
   }
-}
-
-function toggleTheme() {
-  state.theme = state.theme === 'minimal' ? 'cozy' : 'minimal';
-  saveState();
-  applyTheme();
-  triggerCozyToast(state.theme === 'cozy' ? '🌸 已切换到温馨手账风~' : '✨ 已切换回简洁清晰模式');
+  const labelMap = {
+    minimal: '🧊 已切换至简洁风',
+    cozy: '🧸 已切换至温馨风',
+    fresh: '🌿 已切换至蓝绿清新风'
+  };
+  triggerToast(labelMap[themeName] || '主题已切换');
 }
 
 function switchPhase(phase) {
   state.phase = phase;
-  document.querySelectorAll('.phase-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.phase === phase);
-  });
-
+  document.querySelectorAll('.phase-mini-btn').forEach(b => b.classList.toggle('active', b.dataset.phase === phase));
   if (phase === '2026') {
     state.viewYear = 2026;
     if (state.viewMonth < 10) state.viewMonth = 10;
@@ -1718,62 +1369,56 @@ function switchPhase(phase) {
   renderAll();
 }
 
-function setMobileCol(colName) {
-  ['left', 'center', 'right'].forEach(c => {
-    document.getElementById('col-' + c).classList.toggle('mobile-active', c === colName);
+function updateTopStatus() {
+  const [y, m, d] = state.selectedDate.split('-').map(Number);
+  const dObj = new Date(y, m - 1, d);
+  const wds = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+  document.getElementById('topDateDisplay').textContent = `${m}月${d}日 ${wds[dObj.getDay()]}`;
+
+  const end = state.phase === '2026' ? new Date(2026, 11, 31) : new Date(2027, 11, 31);
+  const ref = new Date(2026, 10, 19);
+  const rem = Math.max(0, Math.ceil((end - ref) / (1000 * 60 * 60 * 24)));
+  document.getElementById('topCountdownBadge').textContent = `剩${rem}天`;
+
+  ensureDayRecord(state.selectedDate);
+  const dayData = state.days[state.selectedDate];
+  document.getElementById('topPriorityInput').value = dayData.topPriority || '';
+
+  document.querySelectorAll('.top-mood-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mood === (dayData.mood || '✨'));
   });
-  document.querySelectorAll('.bottom-tab').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.col === colName);
-  });
-  if (colName === 'center' && document.getElementById('healthView').classList.contains('active')) {
-    renderHealthCharts();
-  }
 }
 
-function updateGlobalProgress() {
-  const now = new Date();
-  const realStr = formatLocalDate(now);
-  const refDateStr = realStr >= '2026-11-19' && realStr <= '2027-12-31' ? realStr : BASELINE_TODAY;
-  const [ry, rm, rd] = refDateStr.split('-').map(Number);
-  const refDate = new Date(ry, rm - 1, rd);
+function saveTopPriority() {
+  ensureDayRecord(state.selectedDate);
+  state.days[state.selectedDate].topPriority = document.getElementById('topPriorityInput').value.trim();
+  saveState();
+  triggerToast('🎯 今日核心焦点已更新');
+}
 
-  let start, end, label, shortLabel;
-  if (state.phase === '2026') {
-    start = new Date(2026, 10, 19);
-    end = new Date(2026, 11, 31, 23, 59, 59);
-    label = '2026年底冲刺 (11.19 - 12.31)';
-    shortLabel = '2026冲刺';
-  } else {
-    start = new Date(2027, 0, 1);
-    end = new Date(2027, 11, 31, 23, 59, 59);
-    label = '2027全年规划 (01.01 - 12.31)';
-    shortLabel = '2027全年';
-  }
-
-  const totalDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-  let elapsed = Math.floor((refDate - start) / (1000 * 60 * 60 * 24));
-  if (elapsed < 0) elapsed = 0;
-  if (elapsed > totalDays) elapsed = totalDays;
-
-  const remaining = Math.max(0, totalDays - elapsed);
-  const pct = Math.min(100, Math.max(0, Math.round((elapsed / totalDays) * 100)));
-
-  document.getElementById('progressLabel').textContent = label;
-  document.getElementById('progressStats').innerHTML = `剩余 <strong>${remaining}</strong> 天 · 已过 <strong>${pct}%</strong>`;
-  document.getElementById('progressFill').style.width = `${Math.max(4, pct)}%`;
-
-  document.getElementById('mobileProgressText').textContent = `${shortLabel} · 剩 ${remaining} 天 (${pct}%)`;
-  document.getElementById('mobileProgressFill').style.width = `${Math.max(4, pct)}%`;
+function setDayMood(mood) {
+  ensureDayRecord(state.selectedDate);
+  state.days[state.selectedDate].mood = mood;
+  saveState();
+  updateTopStatus();
+  triggerToast(`心情状态已更新为 ${mood}`);
 }
 
 /* ==========================================================================
-   CATEGORIES
+   LEFT COLUMN: NAVIGATION, OKRs & HABIT STREAKS
    ========================================================================== */
+function switchCenterMode(mode) {
+  const isBattle = mode === 'battlefield';
+  document.getElementById('navBattlefield').classList.toggle('active', isBattle);
+  document.getElementById('navAnalytics').classList.toggle('active', !isBattle);
+  document.getElementById('battlefieldView').style.display = isBattle ? 'flex' : 'none';
+  document.getElementById('healthView').classList.toggle('active', !isBattle);
+  if (!isBattle) renderHealthCharts();
+  if (window.innerWidth <= 880) setMobileCol('center');
+}
+
 function getCatStyle(catId) {
   const cat = state.categories.find(c => c.id === catId) || state.categories[0];
-  if (cat.customColor) {
-    return { bg: cat.customColor + '22', fg: cat.customColor, dot: cat.customColor, name: cat.name };
-  }
   return {
     bg: `var(--cat-${cat.cssVar}-bg)`,
     fg: `var(--cat-${cat.cssVar}-fg)`,
@@ -1782,66 +1427,17 @@ function getCatStyle(catId) {
   };
 }
 
-function renderCategories() {
-  const filterContainer = document.getElementById('categoryFilterList');
-  const selects = ['todoCatSelect', 'schedCat', 'newOkrCat'];
-
-  let html = `<button class="cat-chip ${state.activeCatFilter === 'all' ? 'active' : ''}" 
-    style="background:var(--bg-subtle); color:var(--text-primary);" 
-    onclick="setCatFilter('all')">全部</button>`;
-
-  state.categories.forEach(cat => {
-    const st = getCatStyle(cat.id);
-    const active = state.activeCatFilter === cat.id ? 'active' : '';
-    html += `<button class="cat-chip ${active}" 
-      style="background:${st.bg}; color:${st.fg};" 
-      onclick="setCatFilter('${cat.id}')">
-      <span class="cat-dot" style="background:${st.dot}"></span>${escapeHtml(cat.name)}
-    </button>`;
-  });
-  filterContainer.innerHTML = html;
-
-  const optionsHtml = state.categories.map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join('');
-  selects.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = optionsHtml;
-  });
-}
-
-function setCatFilter(catId) {
-  state.activeCatFilter = catId;
-  saveState();
-  renderCategories();
-  renderTodos();
-  renderCalendar();
-}
-
-function openCatModal() {
-  document.getElementById('newCatName').value = '';
-  document.getElementById('catModal').classList.add('open');
-}
-
-function confirmAddCategory() {
-  const name = document.getElementById('newCatName').value.trim();
-  const color = document.getElementById('newCatColor').value;
-  if (!name) return;
-  state.categories.push({ id: 'cat_' + Date.now(), name, cssVar: null, customColor: color });
-  saveState();
-  closeModal('catModal');
-  renderCategories();
-  triggerCozyToast('🎨 新增分类成功！');
-}
-
-/* ==========================================================================
-   ANNUAL OKRs
-   ========================================================================== */
 function renderOkrs() {
-  document.getElementById('okrPhaseTitle').textContent = state.phase === '2026' ? '2026 冲刺核心目标' : '2027 全年核心愿景';
+  document.getElementById('okrPhaseTitle').textContent = state.phase === '2026' ? '2026 冲刺目标' : '2027 年度目标';
   const list = state.okrs[state.phase] || [];
   const container = document.getElementById('okrList');
 
+  const okrSelect = document.getElementById('schedOkrSelect');
+  okrSelect.innerHTML = `<option value="">🔗 关联目标(可选)</option>` +
+    list.map(o => `<option value="${o.id}">🎯 ${escapeHtml(o.title.slice(0, 14))}</option>`).join('');
+
   if (list.length === 0) {
-    container.innerHTML = `<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:10px;">暂无目标，点击右上角 + 设定</div>`;
+    container.innerHTML = `<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:8px;">暂无目标，点击 + 创建</div>`;
     return;
   }
 
@@ -1850,9 +1446,12 @@ function renderOkrs() {
     return `
       <div class="okr-card">
         <div class="okr-top">
-          <span class="event-pill" style="background:${st.bg}; color:${st.fg}; flex-shrink:0; font-size:11px; padding:2px 6px;">${escapeHtml(st.name)}</span>
+          <span class="pill-tag" style="background:${st.bg}; color:${st.fg}; flex-shrink:0;">${escapeHtml(st.name)}</span>
           <span class="okr-title">${escapeHtml(okr.title)}</span>
-          <button onclick="deleteOkr('${okr.id}')" style="color:var(--text-muted); padding:2px 4px;">✕</button>
+          <button onclick="deleteOkr('${okr.id}')" style="color:var(--text-muted);">✕</button>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width:${okr.progress}%;"></div>
         </div>
         <div class="okr-slider-row">
           <input type="range" class="okr-slider" min="0" max="100" value="${okr.progress}" oninput="updateOkrProgress('${okr.id}', this.value)">
@@ -1865,6 +1464,7 @@ function renderOkrs() {
 
 function openOkrModal() {
   document.getElementById('newOkrTitle').value = '';
+  document.getElementById('newOkrCat').innerHTML = state.categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
   document.getElementById('okrModal').classList.add('open');
 }
 
@@ -1876,7 +1476,7 @@ function confirmAddOkr() {
   saveState();
   closeModal('okrModal');
   renderOkrs();
-  triggerCozyToast('🎯 新目标已立下！');
+  triggerToast('🎯 新目标已添加');
 }
 
 function updateOkrProgress(id, val) {
@@ -1885,7 +1485,6 @@ function updateOkrProgress(id, val) {
     item.progress = Number(val);
     saveState();
     renderOkrs();
-    if (Number(val) === 100) triggerCozyToast('🎉 恭喜达成年度核心目标！');
   }
 }
 
@@ -1895,74 +1494,235 @@ function deleteOkr(id) {
   renderOkrs();
 }
 
-/* ==========================================================================
-   TODO INBOX & ASSIGN TO CALENDAR
-   ========================================================================== */
-function renderTodos() {
-  const container = document.getElementById('todoList');
-  let list = state.todos;
-  if (state.activeCatFilter !== 'all') {
-    list = list.filter(t => t.catId === state.activeCatFilter);
+function computeHabitStreak() {
+  let streak = 0;
+  const [y, m, d] = state.selectedDate.split('-').map(Number);
+  let cur = new Date(y, m - 1, d);
+  for (let i = 0; i < 60; i++) {
+    const key = formatLocalDate(cur);
+    const rec = state.days[key];
+    if (rec && ((rec.habits && rec.habits.length > 0) || (rec.health && rec.health.splits && rec.health.splits.length > 0))) {
+      streak++;
+      cur.setDate(cur.getDate() - 1);
+    } else {
+      break;
+    }
   }
+  return streak;
+}
 
-  if (list.length === 0) {
-    container.innerHTML = `<div style="color:var(--text-muted); font-size:12.5px; text-align:center; padding:18px;">收集箱空空如也 ~</div>`;
-    return;
-  }
+function renderLeftHabits() {
+  ensureDayRecord(state.selectedDate);
+  const dayData = state.days[state.selectedDate];
+  const checkedHabits = dayData.habits || [];
 
-  container.innerHTML = list.map(todo => {
-    const st = getCatStyle(todo.catId);
+  document.getElementById('habitStreakBadge').textContent = `连续 ${computeHabitStreak()} 天`;
+
+  document.getElementById('dailyHabitsList').innerHTML = DAILY_HABITS_DEF.map(h => {
+    const isDone = checkedHabits.includes(h.id);
     return `
-      <div class="todo-item ${todo.done ? 'done' : ''}" draggable="true" ondragstart="onTodoDragStart(event, '${todo.id}')">
-        <input type="checkbox" ${todo.done ? 'checked' : ''} onchange="toggleTodo('${todo.id}')">
-        <span class="prio-dot prio-${todo.prio}"></span>
-        <div class="todo-body">
-          <div class="todo-text">${escapeHtml(todo.text)}</div>
-          <span class="event-pill" style="background:${st.bg}; color:${st.fg}; display:inline-block; margin-top:4px; font-size:11px; padding:1px 6px;">${escapeHtml(st.name)}</span>
-        </div>
-        <div class="todo-actions">
-          <button class="icon-btn" onclick="openAssignModal('${todo.id}')" title="排入日历">📅</button>
-          <button class="icon-btn" onclick="deleteTodo('${todo.id}')" title="删除">✕</button>
-        </div>
-      </div>
+      <label class="habit-row" style="cursor:pointer;">
+        <span style="${isDone ? 'text-decoration:line-through; color:var(--text-muted);' : ''}">${h.label}</span>
+        <input type="checkbox" ${isDone ? 'checked' : ''} onchange="toggleHabit('${h.id}')">
+      </label>
     `;
   }).join('');
+
+  const h = dayData.health;
+  document.getElementById('splitTagsContainer').innerHTML = SPLIT_OPTIONS.map(opt => {
+    const active = (h.splits || []).includes(opt.id) ? 'active' : '';
+    return `<button class="split-tag ${active}" onclick="toggleSplit('${opt.id}')">${opt.label}</button>`;
+  }).join('');
+
+  document.getElementById('dayWeight').value = h.weight || '';
+  document.getElementById('dayBodyFat').value = h.bodyFat || '';
+  document.getElementById('daySteps').value = h.steps || '';
+}
+
+function toggleHabit(habitId) {
+  ensureDayRecord(state.selectedDate);
+  const arr = state.days[state.selectedDate].habits;
+  const idx = arr.indexOf(habitId);
+  if (idx > -1) arr.splice(idx, 1);
+  else {
+    arr.push(habitId);
+    triggerToast('🔥 习惯打卡 +1！');
+  }
+  saveState();
+  renderLeftHabits();
+}
+
+function toggleSplit(splitId) {
+  ensureDayRecord(state.selectedDate);
+  const splits = state.days[state.selectedDate].health.splits;
+  const idx = splits.indexOf(splitId);
+  if (idx > -1) splits.splice(idx, 1);
+  else {
+    splits.push(splitId);
+    triggerToast('💪 力量训练部位已点亮！');
+  }
+  saveState();
+  renderLeftHabits();
+  renderCalendar();
+}
+
+function saveDayHealth() {
+  ensureDayRecord(state.selectedDate);
+  const h = state.days[state.selectedDate].health;
+  h.weight = document.getElementById('dayWeight').value;
+  h.bodyFat = document.getElementById('dayBodyFat').value;
+  h.steps = document.getElementById('daySteps').value;
+  h.workoutNote = document.getElementById('workoutNote').value;
+  saveState();
+  renderLeftHabits();
+  renderCenterBattlefield();
+}
+
+/* ==========================================================================
+   CENTER COLUMN: GROUPED TASKS (BY PERIOD + LINKED OKR) & INBOX
+   ========================================================================== */
+function renderCenterBattlefield() {
+  const [y, m, d] = state.selectedDate.split('-').map(Number);
+  document.getElementById('centerPanelTitle').textContent = `⚔️ 今日执行主战场 · ${y}年${m}月${d}日`;
+
+  document.getElementById('schedCat').innerHTML = state.categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+
+  ensureDayRecord(state.selectedDate);
+  const dayData = state.days[state.selectedDate];
+  const scheds = dayData.schedules || [];
+
+  document.getElementById('navTaskCount').textContent = `${scheds.length}项`;
+  const doneCount = scheds.filter(s => s.done).length;
+  const rate = scheds.length ? Math.round((doneCount / scheds.length) * 100) : 0;
+  document.getElementById('todayCompletionRate').textContent = `完成度 ${rate}% (${doneCount}/${scheds.length})`;
+
+  const periods = [
+    { key: '上午', icon: '🌅' },
+    { key: '下午', icon: '☀️' },
+    { key: '晚上', icon: '🌙' },
+    { key: '全天', icon: '📌' }
+  ];
+
+  const allOkrs = [...(state.okrs['2026'] || []), ...(state.okrs['2027'] || [])];
+  const container = document.getElementById('groupedScheduleList');
+
+  if (scheds.length === 0) {
+    container.innerHTML = `<div style="color:var(--text-muted); font-size:12.5px; text-align:center; padding:14px;">今日暂无行动项，在上方添加或从下方收件箱排入</div>`;
+  } else {
+    container.innerHTML = periods.map(p => {
+      const items = scheds.filter(s => s.period === p.key);
+      if (items.length === 0) return '';
+      return `
+        <div class="task-group">
+          <div class="task-group-title">${p.icon} ${p.key} (${items.length})</div>
+          ${items.map(s => {
+            const st = getCatStyle(s.catId);
+            const linkedOkr = s.okrId ? allOkrs.find(o => o.id === s.okrId) : null;
+            return `
+              <div class="task-item ${s.done ? 'done' : ''}">
+                <input type="checkbox" ${s.done ? 'checked' : ''} onchange="toggleSchedule('${s.id}')">
+                <div class="task-body">
+                  <div class="task-text">${escapeHtml(s.text)}</div>
+                  <div class="task-tags">
+                    <span class="pill-tag" style="background:${st.bg}; color:${st.fg};">${st.name}</span>
+                    ${linkedOkr ? `<span class="okr-link-tag">🎯 ${escapeHtml(linkedOkr.title)}</span>` : ''}
+                  </div>
+                </div>
+                <button onclick="deleteSchedule('${s.id}')" style="color:var(--text-muted); padding:2px 5px;">✕</button>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Render Inbox
+  const inboxContainer = document.getElementById('todoList');
+  if (state.todos.length === 0) {
+    inboxContainer.innerHTML = `<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:10px;">灵感收件箱已清空 ✨</div>`;
+  } else {
+    inboxContainer.innerHTML = state.todos.map(t => `
+      <div class="inbox-item ${t.done ? 'done' : ''}" draggable="true" ondragstart="onTodoDragStart(event, '${t.id}')">
+        <input type="checkbox" ${t.done ? 'checked' : ''} onchange="toggleTodo('${t.id}')">
+        <span class="prio-dot prio-${t.prio}"></span>
+        <div class="task-body"><div class="task-text">${escapeHtml(t.text)}</div></div>
+        <button class="btn" style="padding:3px 7px; font-size:11px;" onclick="quickAssignToSelected('${t.id}')" title="一键排入当前日期">⚡排入今日</button>
+        <button class="icon-btn" onclick="openAssignModal('${t.id}')" title="选择日期">📅</button>
+        <button onclick="deleteTodo('${t.id}')" style="color:var(--text-muted); padding:2px 4px;">✕</button>
+      </div>
+    `).join('');
+  }
+
+  const w = Number(dayData.health.weight) || state.profile.initialWeight || 50.0;
+  const bmr = Math.round(10 * w + 6.25 * state.profile.height - 5 * state.profile.age - 161);
+  document.getElementById('bmrInlineText').textContent = `BMR: ${bmr} kcal`;
+  document.getElementById('workoutNote').value = dayData.health.workoutNote || '';
+  document.getElementById('dayReviewText').value = dayData.review || '';
+}
+
+function addSchedule() {
+  const input = document.getElementById('schedInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const period = document.getElementById('schedPeriod').value;
+  const catId = document.getElementById('schedCat').value;
+  const okrId = document.getElementById('schedOkrSelect').value;
+
+  ensureDayRecord(state.selectedDate);
+  state.days[state.selectedDate].schedules.push({ id: 'sch_' + Date.now(), period, catId, okrId, text, done: false });
+  input.value = '';
+  saveState();
+  renderCenterBattlefield();
+  renderRightColumn();
+}
+
+function toggleSchedule(id) {
+  const item = state.days[state.selectedDate].schedules.find(s => s.id === id);
+  if (item) {
+    item.done = !item.done;
+    saveState();
+    renderCenterBattlefield();
+    renderRightColumn();
+    if (item.done) triggerToast('🌟 任务达成！继续冲刺~');
+  }
+}
+
+function deleteSchedule(id) {
+  state.days[state.selectedDate].schedules = state.days[state.selectedDate].schedules.filter(s => s.id !== id);
+  saveState();
+  renderCenterBattlefield();
+  renderRightColumn();
 }
 
 function addTodo() {
   const input = document.getElementById('todoInput');
   const text = input.value.trim();
   if (!text) return;
-  const catId = document.getElementById('todoCatSelect').value;
   const prio = document.getElementById('todoPrioSelect').value;
-
-  state.todos.unshift({ id: 'td_' + Date.now(), text, catId, prio, done: false });
+  state.todos.unshift({ id: 'td_' + Date.now(), text, prio, done: false });
   input.value = '';
   saveState();
-  renderTodos();
-  triggerCozyToast('📥 已加入待办收集箱');
+  renderCenterBattlefield();
+  triggerToast('💡 灵感已捕获至收件箱');
 }
 
 function toggleTodo(id) {
   const t = state.todos.find(item => item.id === id);
-  if (t) {
-    t.done = !t.done;
-    saveState();
-    renderTodos();
-    if (t.done) triggerCozyToast('⭐ 完成一项待办啦！');
-  }
+  if (t) { t.done = !t.done; saveState(); renderCenterBattlefield(); }
 }
 
 function deleteTodo(id) {
   state.todos = state.todos.filter(t => t.id !== id);
   saveState();
-  renderTodos();
+  renderCenterBattlefield();
 }
 
-function onTodoDragStart(e, todoId) {
-  e.dataTransfer.setData('text/plain', todoId);
-  e.dataTransfer.effectAllowed = 'move';
+function quickAssignToSelected(todoId) {
+  assignTodoToDate(todoId, state.selectedDate, '全天');
 }
+
+function onTodoDragStart(e, todoId) { e.dataTransfer.setData('text/plain', todoId); }
 function onCellDragOver(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
 function onCellDragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
 function onCellDrop(e, dateStr) {
@@ -1976,23 +1736,16 @@ function openAssignModal(todoId) {
   const todo = state.todos.find(t => t.id === todoId);
   if (!todo) return;
   pendingAssignTodoId = todoId;
-  document.getElementById('assignTodoPreview').textContent = `任务：${todo.text}`;
+  document.getElementById('assignTodoPreview').textContent = `内容：${todo.text}`;
   document.getElementById('assignDateInput').value = state.selectedDate;
   document.getElementById('assignModal').classList.add('open');
-}
-
-function quickAssignToday() {
-  if (!pendingAssignTodoId) return;
-  assignTodoToDate(pendingAssignTodoId, BASELINE_TODAY, '全天');
-  closeModal('assignModal');
 }
 
 function confirmAssignTodo() {
   if (!pendingAssignTodoId) return;
   const dateStr = document.getElementById('assignDateInput').value;
   const period = document.getElementById('assignPeriodInput').value;
-  if (!dateStr) return;
-  assignTodoToDate(pendingAssignTodoId, dateStr, period);
+  if (dateStr) assignTodoToDate(pendingAssignTodoId, dateStr, period);
   closeModal('assignModal');
 }
 
@@ -2000,28 +1753,32 @@ function assignTodoToDate(todoId, dateStr, period) {
   const idx = state.todos.findIndex(t => t.id === todoId);
   if (idx === -1) return;
   const todo = state.todos[idx];
-
   ensureDayRecord(dateStr);
-  state.days[dateStr].schedules.push({
-    id: 'sch_' + Date.now(),
-    period,
-    catId: todo.catId,
-    text: todo.text,
-    done: todo.done
-  });
-
+  state.days[dateStr].schedules.push({ id: 'sch_' + Date.now(), period, catId: 'work', okrId: '', text: todo.text, done: todo.done });
   state.todos.splice(idx, 1);
   state.selectedDate = dateStr;
   saveState();
-  renderTodos();
-  renderCalendar();
-  renderRightPanel();
-  triggerCozyToast(`📅 已排入 ${dateStr.slice(5)} 日程！`);
+  renderAll();
+  triggerToast(`📅 已排入 ${dateStr.slice(5)} 日程`);
+}
+
+function saveDayReview() {
+  ensureDayRecord(state.selectedDate);
+  state.days[state.selectedDate].review = document.getElementById('dayReviewText').value;
+  saveState();
 }
 
 /* ==========================================================================
-   MONTHLY MILESTONES & CALENDAR (WITH TOUCH SWIPE)
+   RIGHT COLUMN: CALENDAR (MONTH / WEEK) & TIMEBOX
    ========================================================================== */
+function setCalMode(mode) {
+  state.calMode = mode;
+  document.getElementById('btnMonthView').classList.toggle('active', mode === 'month');
+  document.getElementById('btnWeekView').classList.toggle('active', mode === 'week');
+  saveState();
+  renderCalendar();
+}
+
 function getMonthKey() {
   return `${state.viewYear}-${String(state.viewMonth + 1).padStart(2, '0')}`;
 }
@@ -2030,17 +1787,15 @@ function renderMilestones() {
   const key = getMonthKey();
   const list = state.milestones[key] || [];
   const container = document.getElementById('milestoneList');
-
   if (list.length === 0) {
-    container.innerHTML = `<span style="font-size:11.5px; color:var(--text-muted);">本月暂未设置里程碑</span>`;
+    container.innerHTML = `<span style="font-size:11px; color:var(--text-muted);">本月暂无关键节点提醒</span>`;
     return;
   }
-
   container.innerHTML = list.map(ms => `
     <div class="ms-chip ${ms.done ? 'done' : ''}">
-      <input type="checkbox" ${ms.done ? 'checked' : ''} onchange="toggleMilestone('${ms.id}')">
-      <span>${escapeHtml(ms.text)}</span>
-      <button onclick="deleteMilestone('${ms.id}')" style="color:var(--text-muted); padding-left:4px;">✕</button>
+      <input type="checkbox" style="width:14px; height:14px;" ${ms.done ? 'checked' : ''} onchange="toggleMilestone('${ms.id}')">
+      <span>🚩 ${escapeHtml(ms.text)}</span>
+      <button onclick="deleteMilestone('${ms.id}')" style="color:var(--text-muted);">✕</button>
     </div>
   `).join('');
 }
@@ -2055,18 +1810,11 @@ function addMilestone() {
   input.value = '';
   saveState();
   renderMilestones();
-  triggerCozyToast('🚩 月度里程碑已添加！');
 }
 
 function toggleMilestone(id) {
-  const key = getMonthKey();
-  const item = (state.milestones[key] || []).find(m => m.id === id);
-  if (item) {
-    item.done = !item.done;
-    saveState();
-    renderMilestones();
-    if (item.done) triggerCozyToast('🏆 月度里程碑达成！');
-  }
+  const item = (state.milestones[getMonthKey()] || []).find(m => m.id === id);
+  if (item) { item.done = !item.done; saveState(); renderMilestones(); }
 }
 
 function deleteMilestone(id) {
@@ -2079,32 +1827,152 @@ function deleteMilestone(id) {
 }
 
 function changeMonth(delta) {
-  let y = state.viewYear;
-  let m = state.viewMonth + delta;
+  let y = state.viewYear, m = state.viewMonth + delta;
   if (m < 0) { m = 11; y--; }
   if (m > 11) { m = 0; y++; }
-
   if (y < 2026 || (y === 2026 && m < 10)) { y = 2026; m = 10; }
   if (y > 2027) { y = 2027; m = 11; }
-
   state.viewYear = y;
   state.viewMonth = m;
-
-  if (y === 2026 && state.phase !== '2026') {
-    state.phase = '2026';
-    document.querySelectorAll('.phase-btn').forEach(b => b.classList.toggle('active', b.dataset.phase === '2026'));
-    updateGlobalProgress();
-    renderOkrs();
-  } else if (y === 2027 && state.phase !== '2027') {
-    state.phase = '2027';
-    document.querySelectorAll('.phase-btn').forEach(b => b.classList.toggle('active', b.dataset.phase === '2027'));
-    updateGlobalProgress();
-    renderOkrs();
-  }
-
   saveState();
   renderMilestones();
   renderCalendar();
+}
+
+function renderCalendar() {
+  const y = state.viewYear, m = state.viewMonth;
+  document.getElementById('currentMonthLabel').textContent = `${y}年 ${m + 1}月`;
+  const grid = document.getElementById('calGrid');
+  let datesToRender = [];
+
+  if (state.calMode === 'week') {
+    const [sy, sm, sd] = state.selectedDate.split('-').map(Number);
+    const selObj = new Date(sy, sm - 1, sd);
+    let dow = selObj.getDay() - 1;
+    if (dow < 0) dow = 6;
+    const monday = new Date(sy, sm - 1, sd - dow);
+    for (let i = 0; i < 7; i++) {
+      const cur = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + i);
+      datesToRender.push({ dateStr: formatLocalDate(cur), dayNum: cur.getDate(), inMonth: true });
+    }
+  } else {
+    const firstDay = new Date(y, m, 1);
+    let startWd = firstDay.getDay() - 1;
+    if (startWd < 0) startWd = 6;
+    const daysInMonth = new Date(y, m + 1, 0).getDate();
+    const prevDays = new Date(y, m, 0).getDate();
+
+    for (let i = startWd - 1; i >= 0; i--) {
+      datesToRender.push({ dateStr: null, dayNum: prevDays - i, inMonth: false });
+    }
+    for (let d = 1; d <= daysInMonth; d++) {
+      const ds = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+      datesToRender.push({ dateStr: ds, dayNum: d, inMonth: true });
+    }
+    const rem = datesToRender.length % 7 === 0 ? 0 : 7 - (datesToRender.length % 7);
+    for (let i = 1; i <= rem; i++) {
+      datesToRender.push({ dateStr: null, dayNum: i, inMonth: false });
+    }
+  }
+
+  grid.innerHTML = datesToRender.map(cell => {
+    if (!cell.inMonth || !cell.dateStr) {
+      return `<div class="cal-cell out-range"><span class="day-num">${cell.dayNum}</span></div>`;
+    }
+    const isToday = cell.dateStr === BASELINE_TODAY;
+    const isSelected = cell.dateStr === state.selectedDate;
+    const dayData = state.days[cell.dateStr];
+    let dotsHtml = '';
+    let weekPreview = '';
+
+    if (dayData) {
+      const scheds = dayData.schedules || [];
+      dotsHtml = scheds.slice(0, 5).map(s => {
+        const st = getCatStyle(s.catId);
+        return `<span class="c-dot" style="background:${st.dot};"></span>`;
+      }).join('');
+      if (dayData.health?.splits?.length) {
+        dotsHtml += `<span class="c-dot" style="background:var(--accent-secondary);"></span>`;
+      }
+      if (state.calMode === 'week' && scheds.length > 0) {
+        weekPreview = `<div style="font-size:10px; color:var(--text-secondary); margin-top:3px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(scheds[0].text)}</div>`;
+      }
+    }
+
+    return `
+      <div class="cal-cell ${state.calMode === 'week' ? 'week-mode' : ''} ${isToday ? 'is-today' : ''} ${isSelected ? 'is-selected' : ''}"
+           onclick="selectDate('${cell.dateStr}')"
+           ondragover="onCellDragOver(event)"
+           ondragleave="onCellDragLeave(event)"
+           ondrop="onCellDrop(event, '${cell.dateStr}')">
+        <span class="day-num">${cell.dayNum}</span>
+        ${weekPreview}
+        <div class="cell-dots">${dotsHtml}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderTimebox() {
+  ensureDayRecord(state.selectedDate);
+  const scheds = state.days[state.selectedDate].schedules || [];
+  const slots = [
+    { period: '上午', range: '09:00 - 12:00', desc: '黄金深度专注块' },
+    { period: '下午', range: '14:00 - 18:00', desc: '推进与协作块' },
+    { period: '晚上', range: '19:30 - 22:00', desc: '运动 / 自我充电' },
+    { period: '全天', range: '弹性时间块', desc: '灵活穿插处理' }
+  ];
+
+  document.getElementById('timeboxContainer').innerHTML = slots.map(slot => {
+    const items = scheds.filter(s => s.period === slot.period);
+    return `
+      <div class="timebox-slot">
+        <div class="tb-time">
+          <span>${slot.period}</span>
+          <span style="font-size:9.5px; font-weight:400; color:var(--text-muted);">${slot.range}</span>
+        </div>
+        <div class="tb-content">
+          ${items.length === 0
+            ? `<span style="font-size:11.5px; color:var(--text-muted);">${slot.desc}（空闲）</span>`
+            : items.map(it => {
+                const st = getCatStyle(it.catId);
+                return `
+                  <div class="tb-block ${it.done ? 'done' : ''}" style="border-left-color:${st.dot};">
+                    <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(it.text)}</span>
+                    <input type="checkbox" style="width:14px; height:14px;" ${it.done ? 'checked' : ''} onchange="toggleSchedule('${it.id}')">
+                  </div>
+                `;
+              }).join('')
+          }
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderRightColumn() {
+  renderMilestones();
+  renderCalendar();
+  renderTimebox();
+}
+
+function selectDate(dateStr) {
+  state.selectedDate = dateStr;
+  saveState();
+  renderAll();
+  if (window.innerWidth <= 880) setMobileCol('center');
+}
+
+function shiftSelectedDay(delta) {
+  const [y, m, d] = state.selectedDate.split('-').map(Number);
+  const cur = new Date(y, m - 1, d + delta);
+  const nextStr = formatLocalDate(cur);
+  if (nextStr < '2026-11-01' || nextStr > '2027-12-31') return;
+  state.selectedDate = nextStr;
+  state.viewYear = cur.getFullYear();
+  state.viewMonth = cur.getMonth();
+  saveState();
+  renderAll();
 }
 
 function jumpToToday() {
@@ -2114,547 +1982,68 @@ function jumpToToday() {
   switchPhase('2026');
 }
 
-function renderCalendar() {
-  const y = state.viewYear;
-  const m = state.viewMonth;
-  document.getElementById('currentMonthLabel').textContent = `${y}年 ${m + 1}月`;
-
-  const grid = document.getElementById('calGrid');
-  const firstDay = new Date(y, m, 1);
-  let startWeekday = firstDay.getDay() - 1;
-  if (startWeekday < 0) startWeekday = 6;
-
-  const daysInMonth = new Date(y, m + 1, 0).getDate();
-  const prevMonthDays = new Date(y, m, 0).getDate();
-
-  let cellsHtml = '';
-
-  for (let i = startWeekday - 1; i >= 0; i--) {
-    cellsHtml += `<div class="cal-cell out-range"><div class="cell-top"><span class="day-num">${prevMonthDays - i}</span></div></div>`;
-  }
-
-  for (let d = 1; d <= daysInMonth; d++) {
-    const dateStr = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-    const outOfPlanRange = dateStr < '2026-11-19' || dateStr > '2027-12-31';
-    const isToday = dateStr === BASELINE_TODAY;
-    const isSelected = dateStr === state.selectedDate;
-
-    const dayData = state.days[dateStr];
-    let workoutBadge = '';
-    let eventsHtml = '';
-    let dotsHtml = '';
-
-    if (dayData) {
-      if (dayData.health && dayData.health.splits && dayData.health.splits.length > 0) {
-        const firstSplit = SPLIT_OPTIONS.find(s => s.id === dayData.health.splits[0]);
-        if (firstSplit) {
-          workoutBadge = `<span class="workout-badge">💪${firstSplit.short}</span>`;
-        }
-      }
-
-      let scheds = dayData.schedules || [];
-      if (state.activeCatFilter !== 'all') {
-        scheds = scheds.filter(s => s.catId === state.activeCatFilter);
-      }
-
-      eventsHtml = scheds.slice(0, 3).map(s => {
-        const st = getCatStyle(s.catId);
-        return `<div class="event-pill ${s.done ? 'done' : ''}" style="background:${st.bg}; color:${st.fg};">${escapeHtml(s.text)}</div>`;
-      }).join('');
-
-      if (scheds.length > 3) {
-        eventsHtml += `<div style="font-size:9.5px; color:var(--text-muted); padding-left:3px;">+${scheds.length - 3}</div>`;
-      }
-
-      dotsHtml = scheds.slice(0, 5).map(s => {
-        const st = getCatStyle(s.catId);
-        return `<span class="m-dot" style="background:${st.dot}; opacity:${s.done ? 0.4 : 1};"></span>`;
-      }).join('');
-    }
-
-    cellsHtml += `
-      <div class="cal-cell ${outOfPlanRange ? 'out-range' : ''} ${isToday ? 'is-today' : ''} ${isSelected ? 'is-selected' : ''}"
-           onclick="selectDate('${dateStr}')"
-           ondragover="onCellDragOver(event)"
-           ondragleave="onCellDragLeave(event)"
-           ondrop="onCellDrop(event, '${dateStr}')">
-        <div class="cell-top">
-          <span class="day-num">${d}</span>
-          ${workoutBadge}
-        </div>
-        <div class="cell-events">${eventsHtml}</div>
-        <div class="mobile-dots">${dotsHtml}</div>
-      </div>
-    `;
-  }
-
-  const totalCells = startWeekday + daysInMonth;
-  const remainder = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
-  for (let i = 1; i <= remainder; i++) {
-    cellsHtml += `<div class="cal-cell out-range"><div class="cell-top"><span class="day-num">${i}</span></div></div>`;
-  }
-
-  grid.innerHTML = cellsHtml;
-}
-
-function selectDate(dateStr) {
-  state.selectedDate = dateStr;
-  saveState();
-  renderCalendar();
-  renderRightPanel();
-  if (window.innerWidth <= 900) {
-    setMobileCol('right');
-  }
-}
-
-// Fixed: Local-timezone-safe date shifting (prevents UTC+8 backward clamp bug)
-function shiftSelectedDay(delta) {
-  const [y, m, d] = state.selectedDate.split('-').map(Number);
-  const cur = new Date(y, m - 1, d + delta);
-  const nextStr = formatLocalDate(cur);
-
-  if (nextStr < '2026-11-01' || nextStr > '2027-12-31') return;
-
-  state.selectedDate = nextStr;
-  state.viewYear = cur.getFullYear();
-  state.viewMonth = cur.getMonth();
-
-  const targetPhase = cur.getFullYear() === 2026 ? '2026' : '2027';
-  if (state.phase !== targetPhase) {
-    state.phase = targetPhase;
-    document.querySelectorAll('.phase-btn').forEach(b => b.classList.toggle('active', b.dataset.phase === targetPhase));
-    updateGlobalProgress();
-    renderOkrs();
-  }
-
-  saveState();
-  renderMilestones();
-  renderCalendar();
-  renderRightPanel();
-}
-
 /* ==========================================================================
-   RIGHT PANEL: DAILY SCHEDULE, WOMEN'S HEALTH & REVIEW
+   CHARTS, SETTINGS & UTILS
    ========================================================================== */
-function ensureDayRecord(dateStr) {
-  if (!state.days[dateStr]) {
-    state.days[dateStr] = {
-      schedules: [],
-      health: {
-        weight: '', bodyFat: '', steps: '',
-        splits: [],
-        workoutNote: '',
-        meals: { b: { name: '', kcal: '' }, l: { name: '', kcal: '' }, d: { name: '', kcal: '' }, s: { name: '', kcal: '' } }
-      },
-      mood: '✨',
-      review: ''
-    };
-  }
-}
-
-function calculateBMRAndBMI(currentWeight) {
-  const p = state.profile;
-  const w = Number(currentWeight) || Number(p.initialWeight) || 58.0;
-  const h = Number(p.height) || 157;
-  const age = Number(p.age) || 30;
-  const bmi = (w / ((h / 100) ** 2)).toFixed(1);
-  const bmr = Math.round(10 * w + 6.25 * h - 5 * age - 161);
-  return { bmi, bmr, weight: w };
-}
-
-function renderRightPanel() {
-  const dateStr = state.selectedDate;
-  ensureDayRecord(dateStr);
-  const dayData = state.days[dateStr];
-
-  const [y, m, d] = dateStr.split('-').map(Number);
-  const dObj = new Date(y, m - 1, d);
-  const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-  document.getElementById('selectedDateTitle').textContent = `${y}年${m}月${d}日`;
-  document.getElementById('selectedDateSub').textContent = `${weekdays[dObj.getDay()]} · ${dateStr === BASELINE_TODAY ? '基准日 (Today)' : dateStr}`;
-  document.getElementById('dayMoodDisplay').textContent = dayData.mood || '✨';
-
-  // 1. Schedules
-  const schedContainer = document.getElementById('scheduleList');
-  if (dayData.schedules.length === 0) {
-    schedContainer.innerHTML = `<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:8px;">暂无日程，在上方输入添加</div>`;
-  } else {
-    schedContainer.innerHTML = dayData.schedules.map(s => {
-      const st = getCatStyle(s.catId);
-      return `
-        <div class="sched-item ${s.done ? 'done' : ''}">
-          <input type="checkbox" ${s.done ? 'checked' : ''} onchange="toggleSchedule('${s.id}')">
-          <span class="sched-time">${escapeHtml(s.period)}</span>
-          <span class="cat-dot" style="background:${st.dot}"></span>
-          <span class="sched-text">${escapeHtml(s.text)}</span>
-          <button onclick="deleteSchedule('${s.id}')" style="color:var(--text-muted); padding:2px 6px;">✕</button>
-        </div>
-      `;
-    }).join('');
-  }
-
-  // 2. Health & Fitness
-  const h = dayData.health;
-  document.getElementById('dayWeight').value = h.weight || '';
-  document.getElementById('dayBodyFat').value = h.bodyFat || '';
-  document.getElementById('daySteps').value = h.steps || '';
-  document.getElementById('workoutNote').value = h.workoutNote || '';
-
-  const { bmi, bmr } = calculateBMRAndBMI(h.weight);
-  document.getElementById('bmrBanner').innerHTML = `
-    <span>👩 ${state.profile.age}岁/${state.profile.height}cm</span>
-    <span>BMI <strong>${bmi}</strong></span>
-    <span>BMR <strong style="color:var(--accent-primary);">${bmr} kcal</strong></span>
-  `;
-
-  const steps = Number(h.steps) || 0;
-  const stepGoal = Number(state.profile.stepGoal) || 8000;
-  const stepPct = Math.min(100, Math.round((steps / stepGoal) * 100));
-  document.getElementById('stepProgressText').textContent = `${steps.toLocaleString()} / ${stepGoal.toLocaleString()} 步 (${stepPct}%)`;
-  document.getElementById('stepProgressBar').style.width = `${stepPct}%`;
-
-  const splitContainer = document.getElementById('splitTagsContainer');
-  splitContainer.innerHTML = SPLIT_OPTIONS.map(opt => {
-    const active = (h.splits || []).includes(opt.id) ? 'active' : '';
-    return `<button class="split-tag ${active}" onclick="toggleSplit('${opt.id}')">${opt.label}</button>`;
-  }).join('');
-
-  const meals = h.meals || { b: {}, l: {}, d: {}, s: {} };
-  document.getElementById('mealBName').value = meals.b?.name || '';
-  document.getElementById('mealBKcal').value = meals.b?.kcal || '';
-  document.getElementById('mealLName').value = meals.l?.name || '';
-  document.getElementById('mealLKcal').value = meals.l?.kcal || '';
-  document.getElementById('mealDName').value = meals.d?.name || '';
-  document.getElementById('mealDKcal').value = meals.d?.kcal || '';
-  document.getElementById('mealSName').value = meals.s?.name || '';
-  document.getElementById('mealSKcal').value = meals.s?.kcal || '';
-
-  updateKcalSummary(bmr);
-
-  // 3. Review & Mood
-  document.getElementById('dayReviewText').value = dayData.review || '';
-  document.querySelectorAll('.mood-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.mood === (dayData.mood || '✨'));
-  });
-}
-
-function addSchedule() {
-  const input = document.getElementById('schedInput');
-  const text = input.value.trim();
-  if (!text) return;
-  const period = document.getElementById('schedPeriod').value;
-  const catId = document.getElementById('schedCat').value;
-
-  ensureDayRecord(state.selectedDate);
-  state.days[state.selectedDate].schedules.push({ id: 'sch_' + Date.now(), period, catId, text, done: false });
-  input.value = '';
-  saveState();
-  renderRightPanel();
-  renderCalendar();
-}
-
-function toggleSchedule(id) {
-  const item = state.days[state.selectedDate].schedules.find(s => s.id === id);
-  if (item) {
-    item.done = !item.done;
-    saveState();
-    renderRightPanel();
-    renderCalendar();
-    if (item.done) triggerCozyToast('🌟 日程已完成！真棒~');
-  }
-}
-
-function deleteSchedule(id) {
-  state.days[state.selectedDate].schedules = state.days[state.selectedDate].schedules.filter(s => s.id !== id);
-  saveState();
-  renderRightPanel();
-  renderCalendar();
-}
-
-function toggleSplit(splitId) {
-  ensureDayRecord(state.selectedDate);
-  const splits = state.days[state.selectedDate].health.splits;
-  const idx = splits.indexOf(splitId);
-  if (idx > -1) {
-    splits.splice(idx, 1);
-  } else {
-    splits.push(splitId);
-    triggerCozyToast('💪 力量训练打卡成功！');
-  }
-  saveState();
-  renderRightPanel();
-  renderCalendar();
-}
-
-function saveDayHealth() {
-  ensureDayRecord(state.selectedDate);
-  const h = state.days[state.selectedDate].health;
-  h.weight = document.getElementById('dayWeight').value;
-  h.bodyFat = document.getElementById('dayBodyFat').value;
-  h.steps = document.getElementById('daySteps').value;
-  h.workoutNote = document.getElementById('workoutNote').value;
-
-  h.meals = {
-    b: { name: document.getElementById('mealBName').value, kcal: document.getElementById('mealBKcal').value },
-    l: { name: document.getElementById('mealLName').value, kcal: document.getElementById('mealLKcal').value },
-    d: { name: document.getElementById('mealDName').value, kcal: document.getElementById('mealDKcal').value },
-    s: { name: document.getElementById('mealSName').value, kcal: document.getElementById('mealSKcal').value }
-  };
-
-  saveState();
-  renderRightPanel();
-}
-
-function updateKcalSummary(bmr) {
-  const m = state.days[state.selectedDate].health.meals || {};
-  const total = (Number(m.b?.kcal) || 0) + (Number(m.l?.kcal) || 0) + (Number(m.d?.kcal) || 0) + (Number(m.s?.kcal) || 0);
-  const diff = total - bmr;
-  const statusText = diff <= 0
-    ? `较BMR缺口 ${Math.abs(diff)} kcal (利于减脂)`
-    : `较BMR盈余 +${diff} kcal`;
-  const statusColor = diff <= 150 ? 'var(--accent-secondary)' : 'var(--accent-warn)';
-
-  document.getElementById('kcalSummaryBox').innerHTML = `
-    <span>今日总摄入：<strong>${total}</strong> kcal</span>
-    <span style="color:${statusColor};">${statusText}</span>
-  `;
-}
-
-function setDayMood(mood) {
-  ensureDayRecord(state.selectedDate);
-  state.days[state.selectedDate].mood = mood;
-  saveState();
-  renderRightPanel();
-  triggerCozyToast(`心情贴纸已更换为 ${mood}`);
-}
-
-function saveDayReview() {
-  ensureDayRecord(state.selectedDate);
-  state.days[state.selectedDate].review = document.getElementById('dayReviewText').value;
-  saveState();
-}
-
-/* ==========================================================================
-   HEALTH ANALYTICS & NATIVE CANVAS CHARTS
-   ========================================================================== */
-function switchCenterTab(tab) {
-  const isCal = tab === 'calendar';
-  document.getElementById('tabCalendar').classList.toggle('active', isCal);
-  document.getElementById('tabHealth').classList.toggle('active', !isCal);
-
-  document.getElementById('calendarView').style.display = isCal ? 'flex' : 'none';
-  document.getElementById('milestoneSection').style.display = isCal ? 'flex' : 'none';
-  document.getElementById('healthView').classList.toggle('active', !isCal);
-
-  if (!isCal) renderHealthCharts();
-}
-
 function renderHealthCharts() {
-  const sortedDates = Object.keys(state.days).sort();
-  const weightRecords = [];
-  const stepRecords = [];
-  const muscleCounts = { chest: 0, back: 0, legs: 0, shoulders: 0, arms: 0, core: 0, cardio: 0 };
-  let totalWorkouts = 0;
-
-  sortedDates.forEach(d => {
+  const sorted = Object.keys(state.days).sort();
+  const wData = [], sData = [];
+  sorted.forEach(d => {
     const h = state.days[d]?.health;
     if (!h) return;
-    if (h.weight || h.bodyFat) {
-      weightRecords.push({ date: d.slice(5), weight: Number(h.weight) || null, bodyFat: Number(h.bodyFat) || null });
-    }
-    if (h.steps) stepRecords.push({ date: d.slice(5), steps: Number(h.steps) });
-    if (h.splits && h.splits.length > 0) {
-      totalWorkouts++;
-      h.splits.forEach(sp => { if (muscleCounts[sp] !== undefined) muscleCounts[sp]++; });
-    }
+    if (h.weight) wData.push({ date: d.slice(5), weight: Number(h.weight) });
+    if (h.steps) sData.push({ date: d.slice(5), steps: Number(h.steps) });
   });
 
-  const latestWeight = weightRecords.length ? weightRecords[weightRecords.length - 1].weight : state.profile.initialWeight;
-  const latestFat = weightRecords.length ? (weightRecords[weightRecords.length - 1].bodyFat || '--') : '--';
-  const weightDelta = (latestWeight - state.profile.initialWeight).toFixed(1);
-  const { bmr } = calculateBMRAndBMI(latestWeight);
-
-  document.getElementById('stepGoalTag').textContent = `目标: ${Number(state.profile.stepGoal).toLocaleString()}步`;
+  const latestW = wData.length ? wData[wData.length - 1].weight : (state.profile.initialWeight || 50.0);
+  const bmr = Math.round(10 * latestW + 6.25 * state.profile.height - 5 * state.profile.age - 161);
   document.getElementById('healthStatCards').innerHTML = `
-    <div class="stat-card">
-      <div class="stat-label">最新体重 (目标 ${state.profile.targetWeight}kg)</div>
-      <div class="stat-val">${latestWeight} kg</div>
-      <div class="stat-sub">较初始 ${weightDelta > 0 ? '+' + weightDelta : weightDelta} kg</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">最新体脂率</div>
-      <div class="stat-val">${latestFat}%</div>
-      <div class="stat-sub">理想塑形区间 20-24%</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">累计力量/运动天数</div>
-      <div class="stat-val">${totalWorkouts} 天</div>
-      <div class="stat-sub">六分化肌群循环中</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">基础代谢 (BMR)</div>
-      <div class="stat-val">${bmr} kcal</div>
-      <div class="stat-sub">Mifflin-St Jeor</div>
-    </div>
+    <div class="stat-card"><div class="stat-label">最新体重 (目标 ${state.profile.targetWeight}kg)</div><div class="stat-val">${latestW} kg</div></div>
+    <div class="stat-card"><div class="stat-label">基础代谢 (BMR)</div><div class="stat-val">${bmr} kcal</div></div>
   `;
 
   const styles = getComputedStyle(document.documentElement);
-  const primaryColor = styles.getPropertyValue('--accent-primary').trim();
-  const secondaryColor = styles.getPropertyValue('--accent-secondary').trim();
-  const textColor = styles.getPropertyValue('--text-secondary').trim();
-  const gridColor = styles.getPropertyValue('--border-color').trim();
+  const c1 = styles.getPropertyValue('--accent-primary').trim();
+  const c2 = styles.getPropertyValue('--accent-secondary').trim();
+  const textC = styles.getPropertyValue('--text-secondary').trim();
 
-  drawWeightLineChart(weightRecords.slice(-10), primaryColor, secondaryColor, textColor, gridColor);
-  drawStepsBarChart(stepRecords.slice(-7), primaryColor, secondaryColor, textColor);
-  drawMuscleBarChart(muscleCounts, primaryColor, secondaryColor, textColor);
-}
-
-function drawWeightLineChart(data, c1, c2, textC, gridC) {
-  const canvas = document.getElementById('weightChart');
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width = Math.max(300, canvas.offsetWidth * 2);
-  const H = canvas.height = 340;
-  ctx.clearRect(0, 0, W, H);
-
-  if (data.length === 0) {
-    ctx.fillStyle = textC;
-    ctx.font = '24px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('暂无体重/体脂记录，请在今日打卡录入数据', W / 2, H / 2);
-    return;
+  const wCanvas = document.getElementById('weightChart');
+  const wCtx = wCanvas.getContext('2d');
+  wCtx.clearRect(0, 0, 500, 150);
+  if (wData.length) {
+    const minW = Math.min(...wData.map(x => x.weight)) - 1;
+    const maxW = Math.max(...wData.map(x => x.weight)) + 1;
+    wCtx.strokeStyle = c1; wCtx.lineWidth = 3; wCtx.beginPath();
+    wData.forEach((pt, i) => {
+      const x = 40 + (wData.length === 1 ? 210 : (420 / (wData.length - 1)) * i);
+      const y = 120 - ((pt.weight - minW) / (maxW - minW || 1)) * 90;
+      if (i === 0) wCtx.moveTo(x, y); else wCtx.lineTo(x, y);
+      wCtx.fillStyle = textC; wCtx.font = '11px sans-serif'; wCtx.textAlign = 'center';
+      wCtx.fillText(pt.date, x, 140);
+      wCtx.fillText(pt.weight + 'kg', x, y - 8);
+    });
+    wCtx.stroke();
   }
 
-  const padL = 65, padR = 65, padT = 40, padB = 50;
-  const chartW = W - padL - padR;
-  const chartH = H - padT - padB;
-
-  ctx.strokeStyle = gridC;
-  ctx.lineWidth = 1;
-  for (let i = 0; i <= 4; i++) {
-    const y = padT + (chartH / 4) * i;
-    ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+  const sCanvas = document.getElementById('stepsChart');
+  const sCtx = sCanvas.getContext('2d');
+  sCtx.clearRect(0, 0, 500, 150);
+  if (sData.length) {
+    const maxS = Math.max(state.profile.stepGoal, ...sData.map(x => x.steps));
+    sData.forEach((pt, i) => {
+      const slot = 440 / sData.length;
+      const x = 30 + slot * i + slot * 0.25;
+      const w = slot * 0.5;
+      const h = (pt.steps / maxS) * 95;
+      sCtx.fillStyle = pt.steps >= state.profile.stepGoal ? c2 : c1;
+      sCtx.fillRect(x, 120 - h, w, h);
+      sCtx.fillStyle = textC; sCtx.font = '11px sans-serif'; sCtx.textAlign = 'center';
+      sCtx.fillText(pt.date, x + w / 2, 140);
+      sCtx.fillText(pt.steps, x + w / 2, 114 - h);
+    });
   }
-
-  const weights = data.map(d => d.weight).filter(Boolean);
-  const minW = Math.floor(Math.min(...weights) - 1);
-  const maxW = Math.ceil(Math.max(...weights) + 1);
-
-  const fats = data.map(d => d.bodyFat).filter(Boolean);
-  const minF = fats.length ? Math.floor(Math.min(...fats) - 1) : 15;
-  const maxF = fats.length ? Math.ceil(Math.max(...fats) + 1) : 35;
-
-  ctx.strokeStyle = c1;
-  ctx.lineWidth = 4;
-  ctx.beginPath();
-  data.forEach((d, i) => {
-    if (!d.weight) return;
-    const x = padL + (data.length === 1 ? chartW / 2 : (chartW / (data.length - 1)) * i);
-    const y = padT + chartH - ((d.weight - minW) / (maxW - minW || 1)) * chartH;
-    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-  });
-  ctx.stroke();
-
-  ctx.font = 'bold 20px sans-serif';
-  ctx.textAlign = 'center';
-  data.forEach((d, i) => {
-    const x = padL + (data.length === 1 ? chartW / 2 : (chartW / (data.length - 1)) * i);
-    ctx.fillStyle = textC;
-    ctx.fillText(d.date, x, H - 15);
-
-    if (d.weight) {
-      const y = padT + chartH - ((d.weight - minW) / (maxW - minW || 1)) * chartH;
-      ctx.fillStyle = c1;
-      ctx.beginPath(); ctx.arc(x, y, 7, 0, Math.PI * 2); ctx.fill();
-      ctx.fillText(`${d.weight}kg`, x, y - 14);
-    }
-
-    if (d.bodyFat) {
-      const yF = padT + chartH - ((d.bodyFat - minF) / (maxF - minF || 1)) * chartH;
-      ctx.fillStyle = c2;
-      ctx.beginPath(); ctx.arc(x, yF, 6, 0, Math.PI * 2); ctx.fill();
-      ctx.fillText(`${d.bodyFat}%`, x, yF + 26);
-    }
-  });
 }
 
-function drawStepsBarChart(data, c1, c2, textC) {
-  const canvas = document.getElementById('stepsChart');
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width = Math.max(300, canvas.offsetWidth * 2);
-  const H = canvas.height = 340;
-  ctx.clearRect(0, 0, W, H);
-
-  if (data.length === 0) {
-    ctx.fillStyle = textC; ctx.font = '22px sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText('暂无步数记录', W / 2, H / 2);
-    return;
-  }
-
-  const goal = Number(state.profile.stepGoal) || 8000;
-  const maxVal = Math.max(goal * 1.2, ...data.map(d => d.steps));
-  const padL = 35, padR = 25, padT = 35, padB = 45;
-  const chartW = W - padL - padR;
-  const chartH = H - padT - padB;
-
-  const goalY = padT + chartH - (goal / maxVal) * chartH;
-  ctx.strokeStyle = c1; ctx.setLineDash([8, 6]); ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.moveTo(padL, goalY); ctx.lineTo(W - padR, goalY); ctx.stroke();
-  ctx.setLineDash([]);
-
-  const barW = Math.min(48, (chartW / data.length) * 0.55);
-  data.forEach((d, i) => {
-    const slotW = chartW / data.length;
-    const x = padL + slotW * i + (slotW - barW) / 2;
-    const barH = (d.steps / maxVal) * chartH;
-    const y = padT + chartH - barH;
-
-    ctx.fillStyle = d.steps >= goal ? c2 : c1;
-    ctx.beginPath();
-    if (ctx.roundRect) ctx.roundRect(x, y, barW, barH, [8, 8, 0, 0]);
-    else ctx.rect(x, y, barW, barH);
-    ctx.fill();
-
-    ctx.fillStyle = textC; ctx.font = '18px sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText(d.date, x + barW / 2, H - 14);
-    ctx.fillText(d.steps, x + barW / 2, y - 8);
-  });
-}
-
-function drawMuscleBarChart(counts, c1, c2, textC) {
-  const canvas = document.getElementById('muscleChart');
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width = Math.max(300, canvas.offsetWidth * 2);
-  const H = canvas.height = 340;
-  ctx.clearRect(0, 0, W, H);
-
-  const items = SPLIT_OPTIONS.map(opt => ({ label: opt.short, val: counts[opt.id] || 0 }));
-  const maxVal = Math.max(4, ...items.map(i => i.val));
-  const padL = 25, padR = 25, padT = 35, padB = 45;
-  const chartW = W - padL - padR;
-  const chartH = H - padT - padB;
-  const barW = Math.min(44, (chartW / items.length) * 0.55);
-
-  items.forEach((item, i) => {
-    const slotW = chartW / items.length;
-    const x = padL + slotW * i + (slotW - barW) / 2;
-    const barH = Math.max(6, (item.val / maxVal) * chartH);
-    const y = padT + chartH - barH;
-
-    ctx.fillStyle = i % 2 === 0 ? c1 : c2;
-    ctx.beginPath();
-    if (ctx.roundRect) ctx.roundRect(x, y, barW, barH, [8, 8, 0, 0]);
-    else ctx.rect(x, y, barW, barH);
-    ctx.fill();
-
-    ctx.fillStyle = textC; ctx.font = '18px sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText(item.label, x + barW / 2, H - 14);
-    ctx.fillText(`${item.val}次`, x + barW / 2, y - 8);
-  });
-}
-
-/* ==========================================================================
-   PROFILE SETTINGS, JSON BACKUP & TOUCH GESTURES
-   ========================================================================== */
 function openProfileModal() {
   const p = state.profile;
   document.getElementById('profAge').value = p.age;
@@ -2668,120 +2057,79 @@ function openProfileModal() {
 function saveProfileSettings() {
   state.profile.age = Number(document.getElementById('profAge').value) || 30;
   state.profile.height = Number(document.getElementById('profHeight').value) || 157;
-  state.profile.initialWeight = Number(document.getElementById('profWeight').value) || 58;
-  state.profile.targetWeight = Number(document.getElementById('profTargetWeight').value) || 52;
+  state.profile.initialWeight = Number(document.getElementById('profWeight').value) || 50.0;
+  state.profile.targetWeight = Number(document.getElementById('profTargetWeight').value) || 48.0;
   state.profile.stepGoal = Number(document.getElementById('profStepGoal').value) || 8000;
   saveState();
   closeModal('profileModal');
-  renderRightPanel();
-  triggerCozyToast('⚙️ 身体基础档案已更新！');
+  renderAll();
+  triggerToast('⚙️ 身体档案已更新');
 }
 
 function exportJSON() {
-  const dataStr = JSON.stringify(state, null, 2);
-  const blob = new Blob([dataStr], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
-  a.href = url;
+  a.href = URL.createObjectURL(blob);
   a.download = `LifeOS_Backup_${formatLocalDate(new Date())}.json`;
   a.click();
-  URL.revokeObjectURL(url);
-  triggerCozyToast('📤 JSON 备份已下载！');
 }
 
-function importJSON(event) {
-  const file = event.target.files[0];
+function importJSON(e) {
+  const file = e.target.files[0];
   if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function(e) {
+  const r = new FileReader();
+  r.onload = ev => {
     try {
-      const parsed = JSON.parse(e.target.result);
-      if (parsed && parsed.profile && parsed.days) {
-        state = parsed;
-        saveState();
-        renderAll();
-        triggerCozyToast('📥 数据已成功恢复！');
-      } else {
-        alert('JSON 文件格式不匹配，请选择正确的 LifeOS 备份文件。');
-      }
-    } catch (err) {
-      alert('文件解析失败：' + err.message);
-    }
+      const parsed = JSON.parse(ev.target.result);
+      if (parsed && parsed.days) { state = parsed; saveState(); renderAll(); triggerToast('📥 数据已恢复'); }
+    } catch (err) { alert('格式错误'); }
   };
-  reader.readAsText(file);
-  event.target.value = '';
+  r.readAsText(file);
 }
 
 function clearDemoData() {
-  if (!confirm('确定要清空所有示例日程与打卡记录吗？（将保留您的30岁/157cm/58kg基础档案与默认分类）')) return;
+  if (!confirm('确定清空示例数据并重置默认体重为 50kg 吗？')) return;
+  state.profile.initialWeight = 50.0;
+  state.profile.targetWeight = 48.0;
   state.okrs = { '2026': [], '2027': [] };
   state.milestones = {};
   state.todos = [];
   state.days = {};
   saveState();
+  closeModal('profileModal');
   renderAll();
-  triggerCozyToast('🧹 已清空示例数据！');
+  triggerToast('🧹 已清空数据，默认体重已设为 50kg');
 }
 
-function closeModal(id) {
-  document.getElementById(id).classList.remove('open');
+function setMobileCol(col) {
+  ['left', 'center', 'right'].forEach(c => document.getElementById('col-' + c).classList.toggle('mobile-active', c === col));
+  document.querySelectorAll('.bottom-tab').forEach(b => b.classList.toggle('active', b.dataset.col === col));
 }
 
-function triggerCozyToast(msg) {
-  const toast = document.getElementById('stickerToast');
-  toast.textContent = state.theme === 'cozy' ? `🌸 ${msg}` : msg;
-  toast.classList.add('show');
-  clearTimeout(window._toastTimer);
-  window._toastTimer = setTimeout(() => toast.classList.remove('show'), 2300);
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+function triggerToast(msg) {
+  const el = document.getElementById('stickerToast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(window._t);
+  window._t = setTimeout(() => el.classList.remove('show'), 2000);
 }
 
 function escapeHtml(str) {
-  if (!str) return '';
-  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
-
-function initTouchGestures() {
-  const calEl = document.getElementById('calendarView');
-  let startX = 0, startY = 0;
-
-  calEl.addEventListener('touchstart', (e) => {
-    startX = e.changedTouches[0].screenX;
-    startY = e.changedTouches[0].screenY;
-  }, { passive: true });
-
-  calEl.addEventListener('touchend', (e) => {
-    const dx = e.changedTouches[0].screenX - startX;
-    const dy = e.changedTouches[0].screenY - startY;
-    if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-      changeMonth(dx < 0 ? 1 : -1);
-    }
-  }, { passive: true });
+  return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 function renderAll() {
   applyTheme();
-  updateGlobalProgress();
-  renderCategories();
+  updateTopStatus();
   renderOkrs();
-  renderTodos();
-  renderMilestones();
-  renderCalendar();
-  renderRightPanel();
+  renderLeftHabits();
+  renderCenterBattlefield();
+  renderRightColumn();
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.phase-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.phase === state.phase);
-  });
-  renderAll();
-  initTouchGestures();
-});
-
-window.addEventListener('resize', () => {
-  if (document.getElementById('healthView').classList.contains('active')) {
-    renderHealthCharts();
-  }
-});
+window.addEventListener('DOMContentLoaded', renderAll);
 </script>
 </body>
 </html>
