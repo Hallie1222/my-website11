@@ -1,0 +1,2773 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="minimal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>LifeOS 2026-2027 移动与桌面全能规划助手</title>
+<style>
+  /* =========================================================
+     1. CSS VARIABLES & DUAL-THEME SYSTEM
+     ========================================================= */
+  :root, [data-theme="minimal"] {
+    /* Minimal & Clean (Notion / TickTick Style) */
+    --bg-app: #F8FAFC;
+    --bg-panel: #FFFFFF;
+    --bg-subtle: #F1F5F9;
+    --bg-hover: #E2E8F0;
+    --bg-today: #EFF6FF;
+    --bg-selected: #F0F9FF;
+
+    --text-primary: #1E293B;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
+    --text-inverse: #FFFFFF;
+
+    --border-color: #E2E8F0;
+    --border-strong: #CBD5E1;
+    --border-style: solid;
+
+    --accent-primary: #2563EB;
+    --accent-primary-soft: #DBEAFE;
+    --accent-secondary: #10B981;
+    --accent-secondary-soft: #D1FAE5;
+    --accent-warn: #F59E0B;
+    --accent-danger: #EF4444;
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 14px;
+    --radius-pill: 8px;
+
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.06);
+    --shadow-lg: 0 10px 25px rgba(15, 23, 42, 0.12);
+
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+
+    /* Category Colors - Minimal */
+    --cat-work-bg: #EFF6FF; --cat-work-fg: #1D4ED8; --cat-work-dot: #3B82F6;
+    --cat-finance-bg: #FEF3C7; --cat-finance-fg: #B45309; --cat-finance-dot: #F59E0B;
+    --cat-health-bg: #ECFDF5; --cat-health-fg: #047857; --cat-health-dot: #10B981;
+    --cat-family-bg: #FCE7F3; --cat-family-fg: #BE185D; --cat-family-dot: #EC4899;
+    --cat-growth-bg: #F3E8FF; --cat-growth-fg: #6D28D9; --cat-growth-dot: #8B5CF6;
+
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-top: env(safe-area-inset-top, 0px);
+  }
+
+  [data-theme="cozy"] {
+    /* Cozy & Cute (Japanese Techo / Cream Style) */
+    --bg-app: #FDF6EC;
+    --bg-panel: #FFFDF9;
+    --bg-subtle: #FAF0E4;
+    --bg-hover: #F5E6D3;
+    --bg-today: #FFF0F3;
+    --bg-selected: #FFF5E4;
+
+    --text-primary: #4A3B32;
+    --text-secondary: #7C6558;
+    --text-muted: #B0988A;
+    --text-inverse: #FFFFFF;
+
+    --border-color: #F3D5C0;
+    --border-strong: #E6BEA3;
+    --border-style: solid;
+
+    --accent-primary: #FF8FA3;
+    --accent-primary-soft: #FFE5EC;
+    --accent-secondary: #6BCB77;
+    --accent-secondary-soft: #E3F9E5;
+    --accent-warn: #FFD166;
+    --accent-danger: #FF6B6B;
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --radius-pill: 999px;
+
+    --shadow-sm: 0 3px 10px rgba(212, 163, 133, 0.12);
+    --shadow-md: 0 8px 20px rgba(212, 163, 133, 0.18);
+    --shadow-lg: 0 14px 32px rgba(180, 130, 100, 0.22);
+
+    --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Rounded Mplus 1c", sans-serif;
+
+    /* Category Colors - Cozy Macaron */
+    --cat-work-bg: #E0F2FE; --cat-work-fg: #0369A1; --cat-work-dot: #38BDF8;
+    --cat-finance-bg: #FEF08A; --cat-finance-fg: #854D0E; --cat-finance-dot: #EAB308;
+    --cat-health-bg: #DCFCE7; --cat-health-fg: #15803D; --cat-health-dot: #4ADE80;
+    --cat-family-bg: #FFE4E6; --cat-family-fg: #BE123C; --cat-family-dot: #FB7185;
+    --cat-growth-bg: #F3E8FF; --cat-growth-fg: #7E22CE; --cat-growth-dot: #C084FC;
+  }
+
+  /* =========================================================
+     2. GLOBAL RESET & TOUCH OPTIMIZATION
+     ========================================================= */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease, border-radius 0.22s ease, box-shadow 0.22s ease;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-app);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.5;
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  [data-theme="cozy"] body {
+    background-image: radial-gradient(#F3D5C0 0.75px, transparent 0.75px);
+    background-size: 20px 20px;
+  }
+
+  button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    touch-action: manipulation;
+  }
+
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 99px; }
+
+  /* =========================================================
+     3. TOP NAVIGATION BAR (COMPACT MOBILE + DESKTOP)
+     ========================================================= */
+  .topbar {
+    background: var(--bg-panel);
+    border-bottom: 1px var(--border-style) var(--border-color);
+    padding: calc(8px + var(--safe-top)) 14px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    box-shadow: var(--shadow-sm);
+    z-index: 30;
+    flex-shrink: 0;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 800;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+
+  .brand-badge {
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+    padding: 2px 7px;
+    border-radius: var(--radius-pill);
+    font-size: 10.5px;
+    font-weight: 600;
+  }
+
+  /* Phase Switcher */
+  .phase-switcher {
+    display: flex;
+    background: var(--bg-subtle);
+    padding: 3px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-color);
+  }
+
+  .phase-btn {
+    padding: 5px 10px;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .phase-btn.active {
+    background: var(--bg-panel);
+    color: var(--accent-primary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Global Progress Bar */
+  .global-progress {
+    flex: 1;
+    max-width: 360px;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .progress-meta strong { color: var(--accent-primary); }
+
+  .progress-track {
+    height: 6px;
+    background: var(--border-color);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 99px;
+    transition: width 0.4s ease;
+  }
+
+  .top-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 7px 11px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 12.5px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-panel);
+    color: var(--text-primary);
+    white-space: nowrap;
+    min-height: 34px;
+  }
+
+  .btn:active { transform: scale(0.97); }
+  .btn:hover { background: var(--bg-subtle); border-color: var(--border-strong); }
+
+  .btn-primary {
+    background: var(--accent-primary);
+    color: var(--text-inverse);
+    border-color: var(--accent-primary);
+  }
+  .btn-primary:hover { opacity: 0.92; background: var(--accent-primary); }
+
+  .theme-toggle {
+    background: var(--accent-primary-soft);
+    color: var(--accent-primary);
+    border-color: transparent;
+  }
+
+  /* =========================================================
+     4. WORKSPACE LAYOUT (DESKTOP 3-COL / MOBILE TABBED)
+     ========================================================= */
+  .workspace {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 300px 1fr 380px;
+    gap: 14px;
+    padding: 14px;
+    overflow: hidden;
+  }
+
+  .column {
+    background: var(--bg-panel);
+    border: 1px var(--border-style) var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  [data-theme="cozy"] .column { border-width: 1.5px; }
+
+  .col-scroll {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-primary);
+  }
+
+  .icon-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    background: var(--bg-subtle);
+    font-size: 14px;
+  }
+  .icon-btn:active { transform: scale(0.94); }
+  .icon-btn:hover { background: var(--accent-primary-soft); color: var(--accent-primary); }
+
+  /* =========================================================
+     5. LEFT COLUMN: OKRs, CATEGORIES & TODO INBOX
+     ========================================================= */
+  .okr-card {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 11px;
+    margin-bottom: 8px;
+  }
+  [data-theme="cozy"] .okr-card { border-style: dashed; }
+
+  .okr-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .okr-title { font-weight: 600; font-size: 13px; flex: 1; }
+
+  .okr-slider-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .okr-slider {
+    flex: 1;
+    accent-color: var(--accent-primary);
+    height: 6px;
+    cursor: pointer;
+  }
+
+  .okr-pct {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-primary);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  .cat-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .cat-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 11px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    opacity: 0.85;
+  }
+  .cat-chip.active {
+    opacity: 1;
+    border-color: currentColor;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .cat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .todo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--bg-subtle);
+    padding: 10px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+  }
+
+  .todo-input-row, .todo-meta-row {
+    display: flex;
+    gap: 6px;
+  }
+
+  .input-ctrl {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: var(--bg-panel);
+    font-size: 13.5px;
+    outline: none;
+    min-height: 36px;
+  }
+  .input-ctrl:focus { border-color: var(--accent-primary); }
+
+  .todo-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    margin-bottom: 8px;
+    cursor: grab;
+  }
+  .todo-item.done .todo-text { text-decoration: line-through; color: var(--text-muted); }
+
+  .prio-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+  .prio-high { background: #EF4444; }
+  .prio-med { background: #F59E0B; }
+  .prio-low { background: #10B981; }
+
+  .todo-body { flex: 1; min-width: 0; }
+  .todo-text { font-size: 13px; font-weight: 500; word-break: break-word; }
+  .todo-actions { display: flex; align-items: center; gap: 6px; }
+
+  /* =========================================================
+     6. CENTER COLUMN: MILESTONES, CALENDAR & CHARTS
+     ========================================================= */
+  .center-header {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .month-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .month-title {
+    font-size: 16px;
+    font-weight: 800;
+    min-width: 105px;
+    text-align: center;
+  }
+
+  .view-tabs {
+    display: flex;
+    background: var(--bg-subtle);
+    padding: 3px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-color);
+  }
+
+  .view-tab {
+    padding: 5px 11px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .view-tab.active {
+    background: var(--bg-panel);
+    color: var(--accent-primary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .milestone-bar {
+    background: var(--bg-subtle);
+    border-bottom: 1px solid var(--border-color);
+    padding: 8px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .milestone-chips {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 6px;
+    align-items: center;
+    padding-bottom: 2px;
+  }
+
+  .ms-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    padding: 5px 10px;
+    border-radius: var(--radius-pill);
+    font-size: 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .ms-chip.done { opacity: 0.65; text-decoration: line-through; }
+
+  .calendar-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 8px 10px 10px;
+  }
+
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-weight: 700;
+    font-size: 11.5px;
+    color: var(--text-secondary);
+    padding-bottom: 6px;
+  }
+
+  .cal-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: minmax(76px, 1fr);
+    gap: 5px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .cal-cell {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 4px 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+  }
+  .cal-cell:active { transform: scale(0.97); }
+  .cal-cell.out-range { opacity: 0.4; background: var(--bg-subtle); }
+  .cal-cell.is-today { background: var(--bg-today); border-color: var(--accent-primary); }
+  .cal-cell.is-selected { background: var(--bg-selected); box-shadow: inset 0 0 0 1.5px var(--accent-primary); }
+  .cal-cell.drag-over { background: var(--accent-primary-soft); border: 2px dashed var(--accent-primary); }
+
+  .cell-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .day-num {
+    font-weight: 700;
+    font-size: 12px;
+    width: 21px;
+    height: 21px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  .is-today .day-num { background: var(--accent-primary); color: var(--text-inverse); }
+
+  .workout-badge {
+    font-size: 9.5px;
+    padding: 1px 4px;
+    border-radius: var(--radius-pill);
+    background: var(--accent-secondary-soft);
+    color: var(--accent-secondary);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .cell-events {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    overflow: hidden;
+  }
+
+  .event-pill {
+    font-size: 10px;
+    padding: 1px 4px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+  }
+  .event-pill.done { text-decoration: line-through; opacity: 0.6; }
+
+  .mobile-dots {
+    display: none;
+    flex-wrap: wrap;
+    gap: 3px;
+    margin-top: 2px;
+  }
+  .m-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  /* Analytics View */
+  .analytics-view {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 14px;
+    display: none;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .analytics-view.active { display: flex; }
+
+  .stat-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .stat-card {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 10px;
+  }
+  .stat-label { font-size: 11px; color: var(--text-secondary); }
+  .stat-val { font-size: 17px; font-weight: 800; color: var(--text-primary); margin-top: 2px; }
+  .stat-sub { font-size: 10.5px; color: var(--accent-primary); margin-top: 2px; }
+
+  .charts-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .chart-box {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 12px;
+  }
+  .chart-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+  }
+  canvas { width: 100%; height: 170px; display: block; }
+
+  /* =========================================================
+     7. RIGHT COLUMN: DAY WORKSPACE & HEALTH TRACKER
+     ========================================================= */
+  .day-header {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-subtle);
+  }
+  .day-title { font-size: 15px; font-weight: 800; }
+  .day-sub { font-size: 11.5px; color: var(--text-secondary); }
+
+  .sub-card {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 12px;
+  }
+
+  .sched-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    padding: 9px 10px;
+    border-radius: var(--radius-md);
+    margin-bottom: 7px;
+  }
+  .sched-time {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-subtle);
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+  .sched-text { flex: 1; font-size: 13px; font-weight: 500; }
+  .sched-item.done .sched-text { text-decoration: line-through; color: var(--text-muted); }
+
+  .profile-banner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .metric-box {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 7px 8px;
+  }
+  .metric-box label { display: block; font-size: 11px; color: var(--text-secondary); margin-bottom: 3px; }
+  .metric-box input { width: 100%; border: none; background: transparent; font-weight: 700; font-size: 15px; outline: none; }
+
+  .split-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 8px 0 10px;
+  }
+
+  .split-tag {
+    padding: 7px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 12.5px;
+    font-weight: 600;
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+  }
+  .split-tag.active {
+    background: var(--accent-secondary);
+    color: #FFFFFF;
+    border-color: var(--accent-secondary);
+  }
+
+  .meal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .meal-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 8px;
+  }
+  .meal-head { font-size: 12px; font-weight: 700; margin-bottom: 5px; }
+  .meal-inputs { display: flex; gap: 5px; }
+  .meal-inputs input[type="text"] {
+    flex: 1; min-width: 0; border: 1px solid var(--border-color); border-radius: 5px; padding: 5px 6px; font-size: 12.5px;
+  }
+  .meal-inputs input[type="number"] {
+    width: 60px; border: 1px solid var(--border-color); border-radius: 5px; padding: 5px 5px; font-size: 12.5px; text-align: right;
+  }
+
+  .kcal-summary {
+    margin-top: 10px;
+    padding: 8px 10px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .mood-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .mood-btn {
+    flex: 1;
+    font-size: 19px;
+    padding: 6px 0;
+    border-radius: var(--radius-pill);
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    opacity: 0.65;
+  }
+  .mood-btn.active {
+    opacity: 1;
+    border-color: var(--accent-primary);
+    background: var(--accent-primary-soft);
+    transform: scale(1.06);
+  }
+
+  /* =========================================================
+     8. MOBILE BOTTOM TAB BAR & ACTION SHEET MODAL
+     ========================================================= */
+  .mobile-bottom-bar {
+    display: none;
+    background: var(--bg-panel);
+    border-top: 1px solid var(--border-color);
+    padding: 6px 8px calc(6px + var(--safe-bottom));
+    justify-content: space-around;
+    align-items: center;
+    z-index: 40;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.04);
+    flex-shrink: 0;
+  }
+
+  .bottom-tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px 0;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+  }
+
+  .bottom-tab .tab-icon {
+    font-size: 19px;
+    line-height: 1.1;
+  }
+
+  .bottom-tab.active {
+    color: var(--accent-primary);
+  }
+
+  /* Modals */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.48);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 16px;
+  }
+  .modal-backdrop.open { display: flex; }
+
+  .modal-box {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 18px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .modal-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+  .form-group { margin-bottom: 12px; }
+  .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 5px; color: var(--text-secondary); }
+  .modal-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+
+  .sticker-toast {
+    position: fixed;
+    top: calc(58px + var(--safe-top));
+    left: 50%;
+    transform: translateX(-50%) translateY(-12px) scale(0.92);
+    background: var(--bg-panel);
+    border: 2px solid var(--accent-primary);
+    color: var(--text-primary);
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-md);
+    font-weight: 700;
+    font-size: 13px;
+    z-index: 200;
+    pointer-events: none;
+    opacity: 0;
+    white-space: nowrap;
+    transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .sticker-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+
+  /* =========================================================
+     9. MOBILE RESPONSIVE BREAKPOINTS (<= 900px)
+     ========================================================= */
+  .desktop-only { display: inline-flex; }
+  .mobile-only { display: none; }
+
+  @media (max-width: 1180px) {
+    .workspace {
+      grid-template-columns: 265px 1fr 340px;
+      gap: 10px;
+      padding: 10px;
+    }
+    .global-progress { max-width: 240px; }
+  }
+
+  @media (max-width: 900px) {
+    .desktop-only { display: none !important; }
+    .mobile-only { display: inline-flex !important; }
+
+    /* Prevent iOS Safari input auto-zoom */
+    input, select, textarea { font-size: 16px !important; }
+
+    .topbar {
+      padding: calc(8px + var(--safe-top)) 12px 8px;
+      gap: 6px;
+    }
+
+    .brand-badge { display: none; }
+    .global-progress { display: none; }
+
+    .mobile-progress-strip {
+      display: flex !important;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      background: var(--bg-subtle);
+      padding: 6px 12px;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .workspace {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      gap: 0;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .column {
+      display: none;
+      flex: 1;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      overflow: hidden;
+    }
+
+    .column.mobile-active {
+      display: flex;
+    }
+
+    .col-scroll {
+      padding: 12px 12px 24px;
+    }
+
+    .calendar-wrapper {
+      padding: 6px 6px 8px;
+    }
+    .cal-grid {
+      gap: 3px;
+      grid-auto-rows: minmax(58px, 1fr);
+    }
+    .cal-cell {
+      padding: 3px 3px;
+      border-radius: var(--radius-sm);
+    }
+    .day-num {
+      font-size: 11.5px;
+      width: 20px;
+      height: 20px;
+    }
+    .workout-badge {
+      font-size: 9px;
+      padding: 0 3px;
+    }
+
+    @media (max-width: 480px) {
+      .cell-events { display: none; }
+      .mobile-dots { display: flex; }
+      .workout-badge { font-size: 8.5px; }
+      .stat-cards { grid-template-columns: 1fr 1fr; }
+      .charts-grid-2 { grid-template-columns: 1fr; }
+      .meal-grid { grid-template-columns: 1fr; }
+    }
+
+    .modal-backdrop {
+      align-items: flex-end;
+      padding: 0;
+    }
+    .modal-box {
+      max-width: 100%;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      padding: 20px 18px calc(20px + var(--safe-bottom));
+      animation: slideUp 0.22s ease-out;
+    }
+
+    .mobile-bottom-bar {
+      display: flex;
+    }
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ==================== TOP TOOLBAR ==================== -->
+  <header class="topbar">
+    <div class="brand">
+      <span id="brandIcon">🧭</span>
+      <span>LifeOS</span>
+      <span class="brand-badge" id="themeBadge">简洁清晰</span>
+    </div>
+
+    <!-- Phase Switcher -->
+    <div class="phase-switcher">
+      <button class="phase-btn active" data-phase="2026" onclick="switchPhase('2026')">🔥 2026冲刺</button>
+      <button class="phase-btn" data-phase="2027" onclick="switchPhase('2027')">🌱 2027全年</button>
+    </div>
+
+    <!-- Desktop Global Time Progress -->
+    <div class="global-progress">
+      <div class="progress-meta">
+        <span id="progressLabel">2026年底冲刺 (11.19 - 12.31)</span>
+        <span id="progressStats">剩余 <strong>42</strong> 天 · 已过 <strong>0%</strong></span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width: 5%;"></div>
+      </div>
+    </div>
+
+    <!-- Right Controls -->
+    <div class="top-actions">
+      <button class="btn theme-toggle" onclick="toggleTheme()" id="themeToggleBtn">✨ 温馨风</button>
+      <button class="btn desktop-only" onclick="exportJSON()">📤 导出</button>
+      <button class="btn desktop-only" onclick="document.getElementById('importFile').click()">📥 导入</button>
+      <button class="btn desktop-only" onclick="clearDemoData()">🧹 清空示例</button>
+      <button class="btn mobile-only" onclick="openModal('mobileMenuModal')" aria-label="更多设置">⚙️</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)">
+    </div>
+  </header>
+
+  <!-- Mobile Compact Progress Strip -->
+  <div class="mobile-progress-strip" style="display:none;">
+    <span id="mobileProgressText">2026冲刺 · 剩余 42 天</span>
+    <div class="progress-track" style="flex:1; max-width:140px;">
+      <div class="progress-fill" id="mobileProgressFill" style="width: 5%;"></div>
+    </div>
+  </div>
+
+  <!-- ==================== 3-COLUMN / MOBILE TABBED WORKSPACE ==================== -->
+  <main class="workspace">
+
+    <!-- VIEW 1 (LEFT): OKRs, Categories, Todo Inbox -->
+    <aside class="column" id="col-left">
+      <div class="col-scroll">
+        <!-- Annual OKR Section -->
+        <div>
+          <div class="section-header">
+            <div class="section-title">🎯 <span id="okrPhaseTitle">2026 冲刺核心目标</span></div>
+            <button class="icon-btn" onclick="openOkrModal()" title="新增目标">+</button>
+          </div>
+          <div id="okrList"></div>
+        </div>
+
+        <!-- Color-Coded Categories -->
+        <div>
+          <div class="section-header">
+            <div class="section-title">🏷️ 计划分类筛选</div>
+            <button class="icon-btn" onclick="openCatModal()" title="新增自定义分类">+</button>
+          </div>
+          <div class="cat-list" id="categoryFilterList"></div>
+        </div>
+
+        <!-- Todo Inbox -->
+        <div style="flex:1; display:flex; flex-direction:column;">
+          <div class="section-header">
+            <div class="section-title">📥 待办收集箱 <span class="desktop-only" style="font-weight:400; color:var(--text-muted); font-size:11px;">(可拖拽至日历)</span></div>
+          </div>
+          <div class="todo-form">
+            <div class="todo-input-row">
+              <input type="text" id="todoInput" class="input-ctrl" placeholder="输入零碎待办，点击添加..." onkeydown="if(event.key==='Enter') addTodo()">
+              <button class="btn btn-primary" onclick="addTodo()">添加</button>
+            </div>
+            <div class="todo-meta-row">
+              <select id="todoCatSelect" class="input-ctrl"></select>
+              <select id="todoPrioSelect" class="input-ctrl" style="width:105px;">
+                <option value="high">🔴 高优</option>
+                <option value="med" selected>🟡 中优</option>
+                <option value="low">🟢 低优</option>
+              </select>
+            </div>
+          </div>
+          <div id="todoList" style="margin-top:10px; flex:1;"></div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- VIEW 2 (CENTER): Milestones + Calendar / Health Analytics -->
+    <section class="column mobile-active" id="col-center">
+      <div class="center-header">
+        <div class="month-nav">
+          <button class="icon-btn" onclick="changeMonth(-1)">◀</button>
+          <div class="month-title" id="currentMonthLabel">2026年 11月</div>
+          <button class="icon-btn" onclick="changeMonth(1)">▶</button>
+          <button class="btn" onclick="jumpToToday()" style="padding:4px 9px; font-size:12px;">今天</button>
+        </div>
+
+        <div class="view-tabs">
+          <button class="view-tab active" id="tabCalendar" onclick="switchCenterTab('calendar')">📅 月历</button>
+          <button class="view-tab" id="tabHealth" onclick="switchCenterTab('health')">📊 健康趋势</button>
+        </div>
+      </div>
+
+      <!-- Monthly Milestones Bar -->
+      <div class="milestone-bar" id="milestoneSection">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+          <span style="font-size:12px; font-weight:700; color:var(--text-secondary); white-space:nowrap;">🚩 本月里程碑</span>
+          <div style="display:flex; gap:4px; flex:1; max-width:240px;">
+            <input type="text" id="msInput" class="input-ctrl" style="padding:4px 8px; min-height:30px; font-size:12px;" placeholder="新增本月重点..." onkeydown="if(event.key==='Enter') addMilestone()">
+            <button class="btn btn-primary" style="padding:4px 10px; min-height:30px;" onclick="addMilestone()">+</button>
+          </div>
+        </div>
+        <div class="milestone-chips" id="milestoneList"></div>
+      </div>
+
+      <!-- Calendar Main Grid -->
+      <div class="calendar-wrapper" id="calendarView">
+        <div class="weekdays">
+          <div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div>六</div><div>日</div>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+
+      <!-- Health Data Visualization Panel -->
+      <div class="analytics-view" id="healthView">
+        <div class="stat-cards" id="healthStatCards"></div>
+
+        <div class="chart-box">
+          <div class="chart-title">
+            <span>📉 体重 (kg) 与体脂率 (%) 趋势</span>
+            <span style="font-size:11px; color:var(--text-secondary); font-weight:400;">近期动态</span>
+          </div>
+          <canvas id="weightChart" width="600" height="170"></canvas>
+        </div>
+
+        <div class="charts-grid-2">
+          <div class="chart-box">
+            <div class="chart-title">
+              <span>👟 近7日步数达标</span>
+              <span style="font-size:11px; color:var(--accent-primary);" id="stepGoalTag">目标: 8,000步</span>
+            </div>
+            <canvas id="stepsChart" width="300" height="170"></canvas>
+          </div>
+          <div class="chart-box">
+            <div class="chart-title">
+              <span>🏋️‍♀️ 六大肌群训练分布</span>
+              <span style="font-size:11px; color:var(--text-secondary);">累计频次</span>
+            </div>
+            <canvas id="muscleChart" width="300" height="170"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3 (RIGHT): Selected Day Workspace & Health Tracker -->
+    <aside class="column" id="col-right">
+      <div class="day-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="icon-btn mobile-only" onclick="setMobileCol('center')" title="返回日历">←</button>
+          <div>
+            <div class="day-title" id="selectedDateTitle">2026年11月19日</div>
+            <div class="day-sub" id="selectedDateSub">星期四 · 基准日</div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:6px;">
+          <button class="icon-btn" onclick="shiftSelectedDay(-1)" title="前一天">‹</button>
+          <span style="font-size:20px;" id="dayMoodDisplay">✨</span>
+          <button class="icon-btn" onclick="shiftSelectedDay(1)" title="后一天">›</button>
+        </div>
+      </div>
+
+      <div class="col-scroll">
+        <!-- 1. Daily Schedule Timeline -->
+        <div class="sub-card">
+          <div class="section-header">
+            <div class="section-title">⏰ 当日日程时间轴</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:10px;">
+            <div style="display:flex; gap:6px;">
+              <select id="schedPeriod" class="input-ctrl" style="width:88px;">
+                <option value="上午">上午</option>
+                <option value="下午">下午</option>
+                <option value="晚上">晚上</option>
+                <option value="全天">全天</option>
+              </select>
+              <select id="schedCat" class="input-ctrl" style="flex:1;"></select>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <input type="text" id="schedInput" class="input-ctrl" placeholder="输入具体日程安排..." onkeydown="if(event.key==='Enter') addSchedule()">
+              <button class="btn btn-primary" onclick="addSchedule()">添加</button>
+            </div>
+          </div>
+          <div id="scheduleList"></div>
+        </div>
+
+        <!-- 2. Women's Fitness, Posture & Strength Management -->
+        <div class="sub-card">
+          <div class="section-header">
+            <div class="section-title">💪 健康体态与力量训练</div>
+            <button class="btn" style="padding:4px 9px; font-size:12px;" onclick="openProfileModal()">⚙️ 身体档案</button>
+          </div>
+
+          <!-- BMR & BMI Reference Banner -->
+          <div class="profile-banner" id="bmrBanner"></div>
+
+          <!-- Weight, Body Fat, Steps -->
+          <div class="metrics-grid">
+            <div class="metric-box">
+              <label>体重 (kg)</label>
+              <input type="number" step="0.1" inputmode="decimal" id="dayWeight" placeholder="58.0" onchange="saveDayHealth()">
+            </div>
+            <div class="metric-box">
+              <label>体脂率 (%)</label>
+              <input type="number" step="0.1" inputmode="decimal" id="dayBodyFat" placeholder="26.5" onchange="saveDayHealth()">
+            </div>
+            <div class="metric-box">
+              <label>今日步数</label>
+              <input type="number" step="100" inputmode="numeric" id="daySteps" placeholder="8000" onchange="saveDayHealth()">
+            </div>
+          </div>
+
+          <!-- Step Progress Bar -->
+          <div style="margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; font-size:11.5px; color:var(--text-secondary); margin-bottom:4px;">
+              <span>🚶‍♀️ 步数目标达成度</span>
+              <span id="stepProgressText">0 / 8,000 步 (0%)</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="stepProgressBar" style="width:0%;"></div>
+            </div>
+          </div>
+
+          <!-- 6-Split Routine Check-in -->
+          <div style="font-size:12px; font-weight:700; color:var(--text-secondary);">🏋️‍♀️ 六分化力量训练打卡 (点击点亮)：</div>
+          <div class="split-tags" id="splitTagsContainer"></div>
+          <input type="text" id="workoutNote" class="input-ctrl" placeholder="训练备注：如 高位下拉 25kg 4x12..." onchange="saveDayHealth()">
+
+          <!-- 4-Meal Diet Log -->
+          <div style="font-size:12px; font-weight:700; color:var(--text-secondary); margin-top:12px;">🥗 每日饮食与热量记录 (kcal)：</div>
+          <div class="meal-grid">
+            <div class="meal-card">
+              <div class="meal-head">🌅 早餐</div>
+              <div class="meal-inputs">
+                <input type="text" id="mealBName" placeholder="燕麦牛奶鸡蛋" onchange="saveDayHealth()">
+                <input type="number" inputmode="numeric" id="mealBKcal" placeholder="kcal" onchange="saveDayHealth()">
+              </div>
+            </div>
+            <div class="meal-card">
+              <div class="meal-head">☀️ 午餐</div>
+              <div class="meal-inputs">
+                <input type="text" id="mealLName" placeholder="鸡胸糙米西兰花" onchange="saveDayHealth()">
+                <input type="number" inputmode="numeric" id="mealLKcal" placeholder="kcal" onchange="saveDayHealth()">
+              </div>
+            </div>
+            <div class="meal-card">
+              <div class="meal-head">🌙 晚餐</div>
+              <div class="meal-inputs">
+                <input type="text" id="mealDName" placeholder="清蒸鱼豆腐青菜" onchange="saveDayHealth()">
+                <input type="number" inputmode="numeric" id="mealDKcal" placeholder="kcal" onchange="saveDayHealth()">
+              </div>
+            </div>
+            <div class="meal-card">
+              <div class="meal-head">🍎 加餐</div>
+              <div class="meal-inputs">
+                <input type="text" id="mealSName" placeholder="黑咖啡/蛋白棒" onchange="saveDayHealth()">
+                <input type="number" inputmode="numeric" id="mealSKcal" placeholder="kcal" onchange="saveDayHealth()">
+              </div>
+            </div>
+          </div>
+
+          <div class="kcal-summary" id="kcalSummaryBox">
+            <span>今日总摄入：0 kcal</span>
+            <span style="color:var(--accent-secondary);">对比BMR: -1265 kcal</span>
+          </div>
+        </div>
+
+        <!-- 3. Daily Review & Mood -->
+        <div class="sub-card">
+          <div class="section-header">
+            <div class="section-title">📝 每日复盘与心情贴纸</div>
+          </div>
+          <div class="mood-row" id="moodSelector">
+            <button class="mood-btn" data-mood="✨" onclick="setDayMood('✨')">✨</button>
+            <button class="mood-btn" data-mood="🔥" onclick="setDayMood('🔥')">🔥</button>
+            <button class="mood-btn" data-mood="🥰" onclick="setDayMood('🥰')">🥰</button>
+            <button class="mood-btn" data-mood="😌" onclick="setDayMood('😌')">😌</button>
+            <button class="mood-btn" data-mood="🥱" onclick="setDayMood('🥱')">🥱</button>
+            <button class="mood-btn" data-mood="💪" onclick="setDayMood('💪')">💪</button>
+          </div>
+          <textarea id="dayReviewText" class="input-ctrl" rows="3" placeholder="记录今日闪光点、复盘总结或明日改进..." onchange="saveDayReview()"></textarea>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ==================== MOBILE BOTTOM NAVIGATION BAR ==================== -->
+  <nav class="mobile-bottom-bar" id="mobileBottomBar">
+    <button class="bottom-tab" data-col="left" onclick="setMobileCol('left')">
+      <span class="tab-icon">🎯</span>
+      <span>目标与待办</span>
+    </button>
+    <button class="bottom-tab active" data-col="center" onclick="setMobileCol('center')">
+      <span class="tab-icon">📅</span>
+      <span>日历与趋势</span>
+    </button>
+    <button class="bottom-tab" data-col="right" onclick="setMobileCol('right')">
+      <span class="tab-icon">💪</span>
+      <span>今日打卡</span>
+    </button>
+  </nav>
+
+  <!-- ==================== MODALS & BOTTOM SHEETS ==================== -->
+  <!-- Mobile Data & Settings Menu Sheet -->
+  <div class="modal-backdrop" id="mobileMenuModal" onclick="if(event.target===this) closeModal('mobileMenuModal')">
+    <div class="modal-box">
+      <div class="modal-title">⚙️ 数据备份与系统设置</div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn" style="width:100%; justify-content:flex-start;" onclick="closeModal('mobileMenuModal'); openProfileModal();">👩 编辑身体基础档案 (30岁/157cm/58kg)</button>
+        <button class="btn" style="width:100%; justify-content:flex-start;" onclick="closeModal('mobileMenuModal'); exportJSON();">📤 导出 JSON 数据备份</button>
+        <button class="btn" style="width:100%; justify-content:flex-start;" onclick="closeModal('mobileMenuModal'); document.getElementById('importFile').click();">📥 从 JSON 文件恢复数据</button>
+        <button class="btn" style="width:100%; justify-content:flex-start; color:var(--accent-danger);" onclick="closeModal('mobileMenuModal'); clearDemoData();">🧹 清空示例数据</button>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" style="width:100%;" onclick="closeModal('mobileMenuModal')">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add OKR Modal -->
+  <div class="modal-backdrop" id="okrModal" onclick="if(event.target===this) closeModal('okrModal')">
+    <div class="modal-box">
+      <div class="modal-title">🎯 新增阶段核心目标 (OKR)</div>
+      <div class="form-group">
+        <label>目标描述</label>
+        <input type="text" id="newOkrTitle" class="input-ctrl" placeholder="例如：体脂率降至23%，养成规律力量训练习惯">
+      </div>
+      <div class="form-group">
+        <label>关联分类</label>
+        <select id="newOkrCat" class="input-ctrl"></select>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="closeModal('okrModal')">取消</button>
+        <button class="btn btn-primary" onclick="confirmAddOkr()">保存目标</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Category Modal -->
+  <div class="modal-backdrop" id="catModal" onclick="if(event.target===this) closeModal('catModal')">
+    <div class="modal-box">
+      <div class="modal-title">🏷️ 新增自定义分类</div>
+      <div class="form-group">
+        <label>分类名称</label>
+        <input type="text" id="newCatName" class="input-ctrl" placeholder="例如：副业探索 / 阅读影音">
+      </div>
+      <div class="form-group">
+        <label>选择专属色标</label>
+        <input type="color" id="newCatColor" value="#06B6D4" style="width:100%; height:40px; border:none; cursor:pointer;">
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="closeModal('catModal')">取消</button>
+        <button class="btn btn-primary" onclick="confirmAddCategory()">创建分类</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Assign Date Modal for Todo -->
+  <div class="modal-backdrop" id="assignModal" onclick="if(event.target===this) closeModal('assignModal')">
+    <div class="modal-box">
+      <div class="modal-title">📅 分配待办至具体日期</div>
+      <p id="assignTodoPreview" style="font-size:13px; color:var(--text-secondary); margin-bottom:10px;"></p>
+      <div class="form-group">
+        <label>选择日程日期</label>
+        <input type="date" id="assignDateInput" class="input-ctrl" min="2026-11-19" max="2027-12-31">
+      </div>
+      <div class="form-group">
+        <label>时间段</label>
+        <select id="assignPeriodInput" class="input-ctrl">
+          <option value="上午">上午</option>
+          <option value="下午">下午</option>
+          <option value="晚上">晚上</option>
+          <option value="全天">全天</option>
+        </select>
+      </div>
+      <div class="modal-footer" style="flex-wrap:wrap;">
+        <button class="btn" onclick="closeModal('assignModal')">取消</button>
+        <button class="btn" onclick="quickAssignToday()">⚡ 安排到今天</button>
+        <button class="btn btn-primary" onclick="confirmAssignTodo()">确认安排</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Body Profile Settings Modal -->
+  <div class="modal-backdrop" id="profileModal" onclick="if(event.target===this) closeModal('profileModal')">
+    <div class="modal-box">
+      <div class="modal-title">⚙️ 个人健康档案与目标设置</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <div class="form-group">
+          <label>年龄 (岁)</label>
+          <input type="number" inputmode="numeric" id="profAge" class="input-ctrl">
+        </div>
+        <div class="form-group">
+          <label>身高 (cm)</label>
+          <input type="number" inputmode="numeric" id="profHeight" class="input-ctrl">
+        </div>
+        <div class="form-group">
+          <label>初始体重 (kg)</label>
+          <input type="number" step="0.1" inputmode="decimal" id="profWeight" class="input-ctrl">
+        </div>
+        <div class="form-group">
+          <label>目标体重 (kg)</label>
+          <input type="number" step="0.1" inputmode="decimal" id="profTargetWeight" class="input-ctrl">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>每日步数目标 (步)</label>
+        <input type="number" step="500" inputmode="numeric" id="profStepGoal" class="input-ctrl">
+      </div>
+      <div class="modal-footer">
+        <button class="btn" onclick="closeModal('profileModal')">取消</button>
+        <button class="btn btn-primary" onclick="saveProfileSettings()">保存更新</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Feedback -->
+  <div class="sticker-toast" id="stickerToast">🌟 太棒啦！打卡完成 +1 ✨</div>
+
+<script>
+/* ==========================================================================
+   LifeOS 2026-2027 - Mobile-First & Desktop Responsive Core (Timezone-Safe)
+   ========================================================================== */
+
+const STORAGE_KEY = 'lifeos_2026_2027_v1';
+const BASELINE_TODAY = '2026-11-19';
+
+const SPLIT_OPTIONS = [
+  { id: 'chest', label: '胸部', short: '练胸' },
+  { id: 'back', label: '背部', short: '练背' },
+  { id: 'legs', label: '腿部', short: '练腿' },
+  { id: 'shoulders', label: '肩部', short: '练肩' },
+  { id: 'arms', label: '手臂', short: '手臂' },
+  { id: 'core', label: '核心', short: '核心' },
+  { id: 'cardio', label: '有氧/休息日', short: '有氧/休' }
+];
+
+const DEFAULT_CATEGORIES = [
+  { id: 'work', name: '事业/学业', cssVar: 'work', customColor: null },
+  { id: 'finance', name: '财务/理财', cssVar: 'finance', customColor: null },
+  { id: 'health', name: '健康/运动', cssVar: 'health', customColor: null },
+  { id: 'family', name: '家庭/社交', cssVar: 'family', customColor: null },
+  { id: 'growth', name: '个人成长', cssVar: 'growth', customColor: null }
+];
+
+// Local-timezone-safe date formatter (YYYY-MM-DD)
+function formatLocalDate(dateObj) {
+  const y = dateObj.getFullYear();
+  const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+  const d = String(dateObj.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function getDefaultState() {
+  return {
+    theme: 'minimal',
+    phase: '2026',
+    viewYear: 2026,
+    viewMonth: 10,
+    selectedDate: '2026-11-19',
+    activeCatFilter: 'all',
+    profile: {
+      gender: 'female',
+      age: 30,
+      height: 157,
+      initialWeight: 58.0,
+      targetWeight: 52.0,
+      stepGoal: 8000
+    },
+    categories: JSON.parse(JSON.stringify(DEFAULT_CATEGORIES)),
+    okrs: {
+      '2026': [
+        { id: 'okr1', title: '完成年底项目复盘与2027路线图汇报', catId: 'work', progress: 45 },
+        { id: 'okr2', title: '建立六分化力量训练循环，体重降至56kg', catId: 'health', progress: 30 },
+        { id: 'okr3', title: '年底储蓄盘点与年度基金定投优化', catId: 'finance', progress: 60 }
+      ],
+      '2027': [
+        { id: 'okr4', title: '体脂率稳定在22%-23%，解锁标准引体向上', catId: 'health', progress: 10 },
+        { id: 'okr5', title: '考取核心专业资质认证，实现薪资跃迁', catId: 'work', progress: 5 },
+        { id: 'okr6', title: '深度阅读24本非虚构书籍并输出笔记', catId: 'growth', progress: 8 }
+      ]
+    },
+    milestones: {
+      '2026-11': [
+        { id: 'ms1', text: '确定2026冲刺42天行动清单', done: true },
+        { id: 'ms2', text: '完成两轮完整六分化力量训练', done: false }
+      ],
+      '2026-12': [
+        { id: 'ms3', text: '年度财务资产负债表盘点', done: false },
+        { id: 'ms4', text: '圣诞家庭聚会筹备', done: false }
+      ],
+      '2027-01': [
+        { id: 'ms5', text: '启动2027 Q1体态重塑计划', done: false }
+      ]
+    },
+    todos: [
+      { id: 'td1', text: '预约下周体态评估与体成分测试', catId: 'health', prio: 'high', done: false },
+      { id: 'td2', text: '整理2026年度报销发票', catId: 'finance', prio: 'med', done: false },
+      { id: 'td3', text: '购买新的护腕与弹力带', catId: 'health', prio: 'low', done: false },
+      { id: 'td4', text: '周末陪爸妈吃顿晚饭', catId: 'family', prio: 'med', done: false }
+    ],
+    days: {
+      '2026-11-17': {
+        schedules: [{ id: 's1', period: '晚上', catId: 'health', text: '力量训练：背部肌群塑形', done: true }],
+        health: {
+          weight: 58.2, bodyFat: 26.8, steps: 8650,
+          splits: ['back', 'core'],
+          workoutNote: '高位下拉 25kg 4x12，坐姿划船 20kg 4x12，平板支撑 3组',
+          meals: {
+            b: { name: '全麦吐司+水煮蛋+美式', kcal: 340 },
+            l: { name: '香煎鸡胸肉+杂粮饭+西兰花', kcal: 480 },
+            d: { name: '虾仁豆腐汤+清炒油麦菜', kcal: 320 },
+            s: { name: '无糖酸奶', kcal: 110 }
+          }
+        },
+        mood: '💪',
+        review: '背部发力感越来越清晰，控制住了晚上的零食欲望！'
+      },
+      '2026-11-18': {
+        schedules: [{ id: 's2', period: '下午', catId: 'work', text: '对齐Q4冲刺关键节点', done: true }],
+        health: {
+          weight: 58.1, bodyFat: 26.7, steps: 7420,
+          splits: ['shoulders', 'arms'],
+          workoutNote: '哑铃推举 6kg 4x12，侧平举 3kg 4x15，绳索下压 15kg 3x15',
+          meals: {
+            b: { name: '燕麦牛奶+蓝莓', kcal: 310 },
+            l: { name: '牛肉荞麦面', kcal: 510 },
+            d: { name: '清蒸鲈鱼+炒时蔬', kcal: 360 },
+            s: { name: '苹果半个', kcal: 55 }
+          }
+        },
+        mood: '😌',
+        review: '肩部泵感很好，注意睡眠时间尽量在23:30前入睡。'
+      },
+      '2026-11-19': {
+        schedules: [
+          { id: 's3', period: '上午', catId: 'work', text: '启动2026年底42天冲刺规划', done: true },
+          { id: 's4', period: '晚上', catId: 'health', text: '下肢臀腿力量训练日', done: false }
+        ],
+        health: {
+          weight: 58.0, bodyFat: 26.5, steps: 6200,
+          splits: ['legs'],
+          workoutNote: '史密斯深蹲 30kg 4x10，罗马尼亚硬拉 25kg 4x12',
+          meals: {
+            b: { name: '豆浆+全麦三明治', kcal: 360 },
+            l: { name: '三文鱼波奇饭', kcal: 520 },
+            d: { name: '', kcal: '' },
+            s: { name: '黑咖啡', kcal: 10 }
+          }
+        },
+        mood: '🔥',
+        review: '新系统上线第一天！冲刺2026最后42天，稳扎稳打。'
+      }
+    }
+  };
+}
+
+let state = loadState();
+let pendingAssignTodoId = null;
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) { console.error(e); }
+  const init = getDefaultState();
+  saveState(init);
+  return init;
+}
+
+function saveState(targetState = state) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(targetState)); } catch (e) { console.error(e); }
+}
+
+/* ==========================================================================
+   THEME, PHASE & MOBILE NAVIGATION
+   ========================================================================== */
+function applyTheme() {
+  document.documentElement.setAttribute('data-theme', state.theme);
+  const badge = document.getElementById('themeBadge');
+  const toggleBtn = document.getElementById('themeToggleBtn');
+  const brandIcon = document.getElementById('brandIcon');
+
+  if (state.theme === 'cozy') {
+    badge.textContent = '温馨可爱风';
+    toggleBtn.textContent = '🧊 简洁风';
+    brandIcon.textContent = '🧸';
+  } else {
+    badge.textContent = '简洁清晰风';
+    toggleBtn.textContent = '✨ 温馨风';
+    brandIcon.textContent = '🧭';
+  }
+  if (document.getElementById('healthView').classList.contains('active')) {
+    renderHealthCharts();
+  }
+}
+
+function toggleTheme() {
+  state.theme = state.theme === 'minimal' ? 'cozy' : 'minimal';
+  saveState();
+  applyTheme();
+  triggerCozyToast(state.theme === 'cozy' ? '🌸 已切换到温馨手账风~' : '✨ 已切换回简洁清晰模式');
+}
+
+function switchPhase(phase) {
+  state.phase = phase;
+  document.querySelectorAll('.phase-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.phase === phase);
+  });
+
+  if (phase === '2026') {
+    state.viewYear = 2026;
+    if (state.viewMonth < 10) state.viewMonth = 10;
+  } else {
+    state.viewYear = 2027;
+    state.viewMonth = 0;
+  }
+  saveState();
+  renderAll();
+}
+
+function setMobileCol(colName) {
+  ['left', 'center', 'right'].forEach(c => {
+    document.getElementById('col-' + c).classList.toggle('mobile-active', c === colName);
+  });
+  document.querySelectorAll('.bottom-tab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.col === colName);
+  });
+  if (colName === 'center' && document.getElementById('healthView').classList.contains('active')) {
+    renderHealthCharts();
+  }
+}
+
+function updateGlobalProgress() {
+  const now = new Date();
+  const realStr = formatLocalDate(now);
+  const refDateStr = realStr >= '2026-11-19' && realStr <= '2027-12-31' ? realStr : BASELINE_TODAY;
+  const [ry, rm, rd] = refDateStr.split('-').map(Number);
+  const refDate = new Date(ry, rm - 1, rd);
+
+  let start, end, label, shortLabel;
+  if (state.phase === '2026') {
+    start = new Date(2026, 10, 19);
+    end = new Date(2026, 11, 31, 23, 59, 59);
+    label = '2026年底冲刺 (11.19 - 12.31)';
+    shortLabel = '2026冲刺';
+  } else {
+    start = new Date(2027, 0, 1);
+    end = new Date(2027, 11, 31, 23, 59, 59);
+    label = '2027全年规划 (01.01 - 12.31)';
+    shortLabel = '2027全年';
+  }
+
+  const totalDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+  let elapsed = Math.floor((refDate - start) / (1000 * 60 * 60 * 24));
+  if (elapsed < 0) elapsed = 0;
+  if (elapsed > totalDays) elapsed = totalDays;
+
+  const remaining = Math.max(0, totalDays - elapsed);
+  const pct = Math.min(100, Math.max(0, Math.round((elapsed / totalDays) * 100)));
+
+  document.getElementById('progressLabel').textContent = label;
+  document.getElementById('progressStats').innerHTML = `剩余 <strong>${remaining}</strong> 天 · 已过 <strong>${pct}%</strong>`;
+  document.getElementById('progressFill').style.width = `${Math.max(4, pct)}%`;
+
+  document.getElementById('mobileProgressText').textContent = `${shortLabel} · 剩 ${remaining} 天 (${pct}%)`;
+  document.getElementById('mobileProgressFill').style.width = `${Math.max(4, pct)}%`;
+}
+
+/* ==========================================================================
+   CATEGORIES
+   ========================================================================== */
+function getCatStyle(catId) {
+  const cat = state.categories.find(c => c.id === catId) || state.categories[0];
+  if (cat.customColor) {
+    return { bg: cat.customColor + '22', fg: cat.customColor, dot: cat.customColor, name: cat.name };
+  }
+  return {
+    bg: `var(--cat-${cat.cssVar}-bg)`,
+    fg: `var(--cat-${cat.cssVar}-fg)`,
+    dot: `var(--cat-${cat.cssVar}-dot)`,
+    name: cat.name
+  };
+}
+
+function renderCategories() {
+  const filterContainer = document.getElementById('categoryFilterList');
+  const selects = ['todoCatSelect', 'schedCat', 'newOkrCat'];
+
+  let html = `<button class="cat-chip ${state.activeCatFilter === 'all' ? 'active' : ''}" 
+    style="background:var(--bg-subtle); color:var(--text-primary);" 
+    onclick="setCatFilter('all')">全部</button>`;
+
+  state.categories.forEach(cat => {
+    const st = getCatStyle(cat.id);
+    const active = state.activeCatFilter === cat.id ? 'active' : '';
+    html += `<button class="cat-chip ${active}" 
+      style="background:${st.bg}; color:${st.fg};" 
+      onclick="setCatFilter('${cat.id}')">
+      <span class="cat-dot" style="background:${st.dot}"></span>${escapeHtml(cat.name)}
+    </button>`;
+  });
+  filterContainer.innerHTML = html;
+
+  const optionsHtml = state.categories.map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join('');
+  selects.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = optionsHtml;
+  });
+}
+
+function setCatFilter(catId) {
+  state.activeCatFilter = catId;
+  saveState();
+  renderCategories();
+  renderTodos();
+  renderCalendar();
+}
+
+function openCatModal() {
+  document.getElementById('newCatName').value = '';
+  document.getElementById('catModal').classList.add('open');
+}
+
+function confirmAddCategory() {
+  const name = document.getElementById('newCatName').value.trim();
+  const color = document.getElementById('newCatColor').value;
+  if (!name) return;
+  state.categories.push({ id: 'cat_' + Date.now(), name, cssVar: null, customColor: color });
+  saveState();
+  closeModal('catModal');
+  renderCategories();
+  triggerCozyToast('🎨 新增分类成功！');
+}
+
+/* ==========================================================================
+   ANNUAL OKRs
+   ========================================================================== */
+function renderOkrs() {
+  document.getElementById('okrPhaseTitle').textContent = state.phase === '2026' ? '2026 冲刺核心目标' : '2027 全年核心愿景';
+  const list = state.okrs[state.phase] || [];
+  const container = document.getElementById('okrList');
+
+  if (list.length === 0) {
+    container.innerHTML = `<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:10px;">暂无目标，点击右上角 + 设定</div>`;
+    return;
+  }
+
+  container.innerHTML = list.map(okr => {
+    const st = getCatStyle(okr.catId);
+    return `
+      <div class="okr-card">
+        <div class="okr-top">
+          <span class="event-pill" style="background:${st.bg}; color:${st.fg}; flex-shrink:0; font-size:11px; padding:2px 6px;">${escapeHtml(st.name)}</span>
+          <span class="okr-title">${escapeHtml(okr.title)}</span>
+          <button onclick="deleteOkr('${okr.id}')" style="color:var(--text-muted); padding:2px 4px;">✕</button>
+        </div>
+        <div class="okr-slider-row">
+          <input type="range" class="okr-slider" min="0" max="100" value="${okr.progress}" oninput="updateOkrProgress('${okr.id}', this.value)">
+          <span class="okr-pct">${okr.progress}%</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function openOkrModal() {
+  document.getElementById('newOkrTitle').value = '';
+  document.getElementById('okrModal').classList.add('open');
+}
+
+function confirmAddOkr() {
+  const title = document.getElementById('newOkrTitle').value.trim();
+  const catId = document.getElementById('newOkrCat').value;
+  if (!title) return;
+  state.okrs[state.phase].push({ id: 'okr_' + Date.now(), title, catId, progress: 0 });
+  saveState();
+  closeModal('okrModal');
+  renderOkrs();
+  triggerCozyToast('🎯 新目标已立下！');
+}
+
+function updateOkrProgress(id, val) {
+  const item = state.okrs[state.phase].find(o => o.id === id);
+  if (item) {
+    item.progress = Number(val);
+    saveState();
+    renderOkrs();
+    if (Number(val) === 100) triggerCozyToast('🎉 恭喜达成年度核心目标！');
+  }
+}
+
+function deleteOkr(id) {
+  state.okrs[state.phase] = state.okrs[state.phase].filter(o => o.id !== id);
+  saveState();
+  renderOkrs();
+}
+
+/* ==========================================================================
+   TODO INBOX & ASSIGN TO CALENDAR
+   ========================================================================== */
+function renderTodos() {
+  const container = document.getElementById('todoList');
+  let list = state.todos;
+  if (state.activeCatFilter !== 'all') {
+    list = list.filter(t => t.catId === state.activeCatFilter);
+  }
+
+  if (list.length === 0) {
+    container.innerHTML = `<div style="color:var(--text-muted); font-size:12.5px; text-align:center; padding:18px;">收集箱空空如也 ~</div>`;
+    return;
+  }
+
+  container.innerHTML = list.map(todo => {
+    const st = getCatStyle(todo.catId);
+    return `
+      <div class="todo-item ${todo.done ? 'done' : ''}" draggable="true" ondragstart="onTodoDragStart(event, '${todo.id}')">
+        <input type="checkbox" ${todo.done ? 'checked' : ''} onchange="toggleTodo('${todo.id}')">
+        <span class="prio-dot prio-${todo.prio}"></span>
+        <div class="todo-body">
+          <div class="todo-text">${escapeHtml(todo.text)}</div>
+          <span class="event-pill" style="background:${st.bg}; color:${st.fg}; display:inline-block; margin-top:4px; font-size:11px; padding:1px 6px;">${escapeHtml(st.name)}</span>
+        </div>
+        <div class="todo-actions">
+          <button class="icon-btn" onclick="openAssignModal('${todo.id}')" title="排入日历">📅</button>
+          <button class="icon-btn" onclick="deleteTodo('${todo.id}')" title="删除">✕</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function addTodo() {
+  const input = document.getElementById('todoInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const catId = document.getElementById('todoCatSelect').value;
+  const prio = document.getElementById('todoPrioSelect').value;
+
+  state.todos.unshift({ id: 'td_' + Date.now(), text, catId, prio, done: false });
+  input.value = '';
+  saveState();
+  renderTodos();
+  triggerCozyToast('📥 已加入待办收集箱');
+}
+
+function toggleTodo(id) {
+  const t = state.todos.find(item => item.id === id);
+  if (t) {
+    t.done = !t.done;
+    saveState();
+    renderTodos();
+    if (t.done) triggerCozyToast('⭐ 完成一项待办啦！');
+  }
+}
+
+function deleteTodo(id) {
+  state.todos = state.todos.filter(t => t.id !== id);
+  saveState();
+  renderTodos();
+}
+
+function onTodoDragStart(e, todoId) {
+  e.dataTransfer.setData('text/plain', todoId);
+  e.dataTransfer.effectAllowed = 'move';
+}
+function onCellDragOver(e) { e.preventDefault(); e.currentTarget.classList.add('drag-over'); }
+function onCellDragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
+function onCellDrop(e, dateStr) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  const todoId = e.dataTransfer.getData('text/plain');
+  if (todoId) assignTodoToDate(todoId, dateStr, '全天');
+}
+
+function openAssignModal(todoId) {
+  const todo = state.todos.find(t => t.id === todoId);
+  if (!todo) return;
+  pendingAssignTodoId = todoId;
+  document.getElementById('assignTodoPreview').textContent = `任务：${todo.text}`;
+  document.getElementById('assignDateInput').value = state.selectedDate;
+  document.getElementById('assignModal').classList.add('open');
+}
+
+function quickAssignToday() {
+  if (!pendingAssignTodoId) return;
+  assignTodoToDate(pendingAssignTodoId, BASELINE_TODAY, '全天');
+  closeModal('assignModal');
+}
+
+function confirmAssignTodo() {
+  if (!pendingAssignTodoId) return;
+  const dateStr = document.getElementById('assignDateInput').value;
+  const period = document.getElementById('assignPeriodInput').value;
+  if (!dateStr) return;
+  assignTodoToDate(pendingAssignTodoId, dateStr, period);
+  closeModal('assignModal');
+}
+
+function assignTodoToDate(todoId, dateStr, period) {
+  const idx = state.todos.findIndex(t => t.id === todoId);
+  if (idx === -1) return;
+  const todo = state.todos[idx];
+
+  ensureDayRecord(dateStr);
+  state.days[dateStr].schedules.push({
+    id: 'sch_' + Date.now(),
+    period,
+    catId: todo.catId,
+    text: todo.text,
+    done: todo.done
+  });
+
+  state.todos.splice(idx, 1);
+  state.selectedDate = dateStr;
+  saveState();
+  renderTodos();
+  renderCalendar();
+  renderRightPanel();
+  triggerCozyToast(`📅 已排入 ${dateStr.slice(5)} 日程！`);
+}
+
+/* ==========================================================================
+   MONTHLY MILESTONES & CALENDAR (WITH TOUCH SWIPE)
+   ========================================================================== */
+function getMonthKey() {
+  return `${state.viewYear}-${String(state.viewMonth + 1).padStart(2, '0')}`;
+}
+
+function renderMilestones() {
+  const key = getMonthKey();
+  const list = state.milestones[key] || [];
+  const container = document.getElementById('milestoneList');
+
+  if (list.length === 0) {
+    container.innerHTML = `<span style="font-size:11.5px; color:var(--text-muted);">本月暂未设置里程碑</span>`;
+    return;
+  }
+
+  container.innerHTML = list.map(ms => `
+    <div class="ms-chip ${ms.done ? 'done' : ''}">
+      <input type="checkbox" ${ms.done ? 'checked' : ''} onchange="toggleMilestone('${ms.id}')">
+      <span>${escapeHtml(ms.text)}</span>
+      <button onclick="deleteMilestone('${ms.id}')" style="color:var(--text-muted); padding-left:4px;">✕</button>
+    </div>
+  `).join('');
+}
+
+function addMilestone() {
+  const input = document.getElementById('msInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const key = getMonthKey();
+  if (!state.milestones[key]) state.milestones[key] = [];
+  state.milestones[key].push({ id: 'ms_' + Date.now(), text, done: false });
+  input.value = '';
+  saveState();
+  renderMilestones();
+  triggerCozyToast('🚩 月度里程碑已添加！');
+}
+
+function toggleMilestone(id) {
+  const key = getMonthKey();
+  const item = (state.milestones[key] || []).find(m => m.id === id);
+  if (item) {
+    item.done = !item.done;
+    saveState();
+    renderMilestones();
+    if (item.done) triggerCozyToast('🏆 月度里程碑达成！');
+  }
+}
+
+function deleteMilestone(id) {
+  const key = getMonthKey();
+  if (state.milestones[key]) {
+    state.milestones[key] = state.milestones[key].filter(m => m.id !== id);
+    saveState();
+    renderMilestones();
+  }
+}
+
+function changeMonth(delta) {
+  let y = state.viewYear;
+  let m = state.viewMonth + delta;
+  if (m < 0) { m = 11; y--; }
+  if (m > 11) { m = 0; y++; }
+
+  if (y < 2026 || (y === 2026 && m < 10)) { y = 2026; m = 10; }
+  if (y > 2027) { y = 2027; m = 11; }
+
+  state.viewYear = y;
+  state.viewMonth = m;
+
+  if (y === 2026 && state.phase !== '2026') {
+    state.phase = '2026';
+    document.querySelectorAll('.phase-btn').forEach(b => b.classList.toggle('active', b.dataset.phase === '2026'));
+    updateGlobalProgress();
+    renderOkrs();
+  } else if (y === 2027 && state.phase !== '2027') {
+    state.phase = '2027';
+    document.querySelectorAll('.phase-btn').forEach(b => b.classList.toggle('active', b.dataset.phase === '2027'));
+    updateGlobalProgress();
+    renderOkrs();
+  }
+
+  saveState();
+  renderMilestones();
+  renderCalendar();
+}
+
+function jumpToToday() {
+  state.viewYear = 2026;
+  state.viewMonth = 10;
+  state.selectedDate = BASELINE_TODAY;
+  switchPhase('2026');
+}
+
+function renderCalendar() {
+  const y = state.viewYear;
+  const m = state.viewMonth;
+  document.getElementById('currentMonthLabel').textContent = `${y}年 ${m + 1}月`;
+
+  const grid = document.getElementById('calGrid');
+  const firstDay = new Date(y, m, 1);
+  let startWeekday = firstDay.getDay() - 1;
+  if (startWeekday < 0) startWeekday = 6;
+
+  const daysInMonth = new Date(y, m + 1, 0).getDate();
+  const prevMonthDays = new Date(y, m, 0).getDate();
+
+  let cellsHtml = '';
+
+  for (let i = startWeekday - 1; i >= 0; i--) {
+    cellsHtml += `<div class="cal-cell out-range"><div class="cell-top"><span class="day-num">${prevMonthDays - i}</span></div></div>`;
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+    const outOfPlanRange = dateStr < '2026-11-19' || dateStr > '2027-12-31';
+    const isToday = dateStr === BASELINE_TODAY;
+    const isSelected = dateStr === state.selectedDate;
+
+    const dayData = state.days[dateStr];
+    let workoutBadge = '';
+    let eventsHtml = '';
+    let dotsHtml = '';
+
+    if (dayData) {
+      if (dayData.health && dayData.health.splits && dayData.health.splits.length > 0) {
+        const firstSplit = SPLIT_OPTIONS.find(s => s.id === dayData.health.splits[0]);
+        if (firstSplit) {
+          workoutBadge = `<span class="workout-badge">💪${firstSplit.short}</span>`;
+        }
+      }
+
+      let scheds = dayData.schedules || [];
+      if (state.activeCatFilter !== 'all') {
+        scheds = scheds.filter(s => s.catId === state.activeCatFilter);
+      }
+
+      eventsHtml = scheds.slice(0, 3).map(s => {
+        const st = getCatStyle(s.catId);
+        return `<div class="event-pill ${s.done ? 'done' : ''}" style="background:${st.bg}; color:${st.fg};">${escapeHtml(s.text)}</div>`;
+      }).join('');
+
+      if (scheds.length > 3) {
+        eventsHtml += `<div style="font-size:9.5px; color:var(--text-muted); padding-left:3px;">+${scheds.length - 3}</div>`;
+      }
+
+      dotsHtml = scheds.slice(0, 5).map(s => {
+        const st = getCatStyle(s.catId);
+        return `<span class="m-dot" style="background:${st.dot}; opacity:${s.done ? 0.4 : 1};"></span>`;
+      }).join('');
+    }
+
+    cellsHtml += `
+      <div class="cal-cell ${outOfPlanRange ? 'out-range' : ''} ${isToday ? 'is-today' : ''} ${isSelected ? 'is-selected' : ''}"
+           onclick="selectDate('${dateStr}')"
+           ondragover="onCellDragOver(event)"
+           ondragleave="onCellDragLeave(event)"
+           ondrop="onCellDrop(event, '${dateStr}')">
+        <div class="cell-top">
+          <span class="day-num">${d}</span>
+          ${workoutBadge}
+        </div>
+        <div class="cell-events">${eventsHtml}</div>
+        <div class="mobile-dots">${dotsHtml}</div>
+      </div>
+    `;
+  }
+
+  const totalCells = startWeekday + daysInMonth;
+  const remainder = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+  for (let i = 1; i <= remainder; i++) {
+    cellsHtml += `<div class="cal-cell out-range"><div class="cell-top"><span class="day-num">${i}</span></div></div>`;
+  }
+
+  grid.innerHTML = cellsHtml;
+}
+
+function selectDate(dateStr) {
+  state.selectedDate = dateStr;
+  saveState();
+  renderCalendar();
+  renderRightPanel();
+  if (window.innerWidth <= 900) {
+    setMobileCol('right');
+  }
+}
+
+// Fixed: Local-timezone-safe date shifting (prevents UTC+8 backward clamp bug)
+function shiftSelectedDay(delta) {
+  const [y, m, d] = state.selectedDate.split('-').map(Number);
+  const cur = new Date(y, m - 1, d + delta);
+  const nextStr = formatLocalDate(cur);
+
+  if (nextStr < '2026-11-01' || nextStr > '2027-12-31') return;
+
+  state.selectedDate = nextStr;
+  state.viewYear = cur.getFullYear();
+  state.viewMonth = cur.getMonth();
+
+  const targetPhase = cur.getFullYear() === 2026 ? '2026' : '2027';
+  if (state.phase !== targetPhase) {
+    state.phase = targetPhase;
+    document.querySelectorAll('.phase-btn').forEach(b => b.classList.toggle('active', b.dataset.phase === targetPhase));
+    updateGlobalProgress();
+    renderOkrs();
+  }
+
+  saveState();
+  renderMilestones();
+  renderCalendar();
+  renderRightPanel();
+}
+
+/* ==========================================================================
+   RIGHT PANEL: DAILY SCHEDULE, WOMEN'S HEALTH & REVIEW
+   ========================================================================== */
+function ensureDayRecord(dateStr) {
+  if (!state.days[dateStr]) {
+    state.days[dateStr] = {
+      schedules: [],
+      health: {
+        weight: '', bodyFat: '', steps: '',
+        splits: [],
+        workoutNote: '',
+        meals: { b: { name: '', kcal: '' }, l: { name: '', kcal: '' }, d: { name: '', kcal: '' }, s: { name: '', kcal: '' } }
+      },
+      mood: '✨',
+      review: ''
+    };
+  }
+}
+
+function calculateBMRAndBMI(currentWeight) {
+  const p = state.profile;
+  const w = Number(currentWeight) || Number(p.initialWeight) || 58.0;
+  const h = Number(p.height) || 157;
+  const age = Number(p.age) || 30;
+  const bmi = (w / ((h / 100) ** 2)).toFixed(1);
+  const bmr = Math.round(10 * w + 6.25 * h - 5 * age - 161);
+  return { bmi, bmr, weight: w };
+}
+
+function renderRightPanel() {
+  const dateStr = state.selectedDate;
+  ensureDayRecord(dateStr);
+  const dayData = state.days[dateStr];
+
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dObj = new Date(y, m - 1, d);
+  const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+  document.getElementById('selectedDateTitle').textContent = `${y}年${m}月${d}日`;
+  document.getElementById('selectedDateSub').textContent = `${weekdays[dObj.getDay()]} · ${dateStr === BASELINE_TODAY ? '基准日 (Today)' : dateStr}`;
+  document.getElementById('dayMoodDisplay').textContent = dayData.mood || '✨';
+
+  // 1. Schedules
+  const schedContainer = document.getElementById('scheduleList');
+  if (dayData.schedules.length === 0) {
+    schedContainer.innerHTML = `<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:8px;">暂无日程，在上方输入添加</div>`;
+  } else {
+    schedContainer.innerHTML = dayData.schedules.map(s => {
+      const st = getCatStyle(s.catId);
+      return `
+        <div class="sched-item ${s.done ? 'done' : ''}">
+          <input type="checkbox" ${s.done ? 'checked' : ''} onchange="toggleSchedule('${s.id}')">
+          <span class="sched-time">${escapeHtml(s.period)}</span>
+          <span class="cat-dot" style="background:${st.dot}"></span>
+          <span class="sched-text">${escapeHtml(s.text)}</span>
+          <button onclick="deleteSchedule('${s.id}')" style="color:var(--text-muted); padding:2px 6px;">✕</button>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // 2. Health & Fitness
+  const h = dayData.health;
+  document.getElementById('dayWeight').value = h.weight || '';
+  document.getElementById('dayBodyFat').value = h.bodyFat || '';
+  document.getElementById('daySteps').value = h.steps || '';
+  document.getElementById('workoutNote').value = h.workoutNote || '';
+
+  const { bmi, bmr } = calculateBMRAndBMI(h.weight);
+  document.getElementById('bmrBanner').innerHTML = `
+    <span>👩 ${state.profile.age}岁/${state.profile.height}cm</span>
+    <span>BMI <strong>${bmi}</strong></span>
+    <span>BMR <strong style="color:var(--accent-primary);">${bmr} kcal</strong></span>
+  `;
+
+  const steps = Number(h.steps) || 0;
+  const stepGoal = Number(state.profile.stepGoal) || 8000;
+  const stepPct = Math.min(100, Math.round((steps / stepGoal) * 100));
+  document.getElementById('stepProgressText').textContent = `${steps.toLocaleString()} / ${stepGoal.toLocaleString()} 步 (${stepPct}%)`;
+  document.getElementById('stepProgressBar').style.width = `${stepPct}%`;
+
+  const splitContainer = document.getElementById('splitTagsContainer');
+  splitContainer.innerHTML = SPLIT_OPTIONS.map(opt => {
+    const active = (h.splits || []).includes(opt.id) ? 'active' : '';
+    return `<button class="split-tag ${active}" onclick="toggleSplit('${opt.id}')">${opt.label}</button>`;
+  }).join('');
+
+  const meals = h.meals || { b: {}, l: {}, d: {}, s: {} };
+  document.getElementById('mealBName').value = meals.b?.name || '';
+  document.getElementById('mealBKcal').value = meals.b?.kcal || '';
+  document.getElementById('mealLName').value = meals.l?.name || '';
+  document.getElementById('mealLKcal').value = meals.l?.kcal || '';
+  document.getElementById('mealDName').value = meals.d?.name || '';
+  document.getElementById('mealDKcal').value = meals.d?.kcal || '';
+  document.getElementById('mealSName').value = meals.s?.name || '';
+  document.getElementById('mealSKcal').value = meals.s?.kcal || '';
+
+  updateKcalSummary(bmr);
+
+  // 3. Review & Mood
+  document.getElementById('dayReviewText').value = dayData.review || '';
+  document.querySelectorAll('.mood-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mood === (dayData.mood || '✨'));
+  });
+}
+
+function addSchedule() {
+  const input = document.getElementById('schedInput');
+  const text = input.value.trim();
+  if (!text) return;
+  const period = document.getElementById('schedPeriod').value;
+  const catId = document.getElementById('schedCat').value;
+
+  ensureDayRecord(state.selectedDate);
+  state.days[state.selectedDate].schedules.push({ id: 'sch_' + Date.now(), period, catId, text, done: false });
+  input.value = '';
+  saveState();
+  renderRightPanel();
+  renderCalendar();
+}
+
+function toggleSchedule(id) {
+  const item = state.days[state.selectedDate].schedules.find(s => s.id === id);
+  if (item) {
+    item.done = !item.done;
+    saveState();
+    renderRightPanel();
+    renderCalendar();
+    if (item.done) triggerCozyToast('🌟 日程已完成！真棒~');
+  }
+}
+
+function deleteSchedule(id) {
+  state.days[state.selectedDate].schedules = state.days[state.selectedDate].schedules.filter(s => s.id !== id);
+  saveState();
+  renderRightPanel();
+  renderCalendar();
+}
+
+function toggleSplit(splitId) {
+  ensureDayRecord(state.selectedDate);
+  const splits = state.days[state.selectedDate].health.splits;
+  const idx = splits.indexOf(splitId);
+  if (idx > -1) {
+    splits.splice(idx, 1);
+  } else {
+    splits.push(splitId);
+    triggerCozyToast('💪 力量训练打卡成功！');
+  }
+  saveState();
+  renderRightPanel();
+  renderCalendar();
+}
+
+function saveDayHealth() {
+  ensureDayRecord(state.selectedDate);
+  const h = state.days[state.selectedDate].health;
+  h.weight = document.getElementById('dayWeight').value;
+  h.bodyFat = document.getElementById('dayBodyFat').value;
+  h.steps = document.getElementById('daySteps').value;
+  h.workoutNote = document.getElementById('workoutNote').value;
+
+  h.meals = {
+    b: { name: document.getElementById('mealBName').value, kcal: document.getElementById('mealBKcal').value },
+    l: { name: document.getElementById('mealLName').value, kcal: document.getElementById('mealLKcal').value },
+    d: { name: document.getElementById('mealDName').value, kcal: document.getElementById('mealDKcal').value },
+    s: { name: document.getElementById('mealSName').value, kcal: document.getElementById('mealSKcal').value }
+  };
+
+  saveState();
+  renderRightPanel();
+}
+
+function updateKcalSummary(bmr) {
+  const m = state.days[state.selectedDate].health.meals || {};
+  const total = (Number(m.b?.kcal) || 0) + (Number(m.l?.kcal) || 0) + (Number(m.d?.kcal) || 0) + (Number(m.s?.kcal) || 0);
+  const diff = total - bmr;
+  const statusText = diff <= 0
+    ? `较BMR缺口 ${Math.abs(diff)} kcal (利于减脂)`
+    : `较BMR盈余 +${diff} kcal`;
+  const statusColor = diff <= 150 ? 'var(--accent-secondary)' : 'var(--accent-warn)';
+
+  document.getElementById('kcalSummaryBox').innerHTML = `
+    <span>今日总摄入：<strong>${total}</strong> kcal</span>
+    <span style="color:${statusColor};">${statusText}</span>
+  `;
+}
+
+function setDayMood(mood) {
+  ensureDayRecord(state.selectedDate);
+  state.days[state.selectedDate].mood = mood;
+  saveState();
+  renderRightPanel();
+  triggerCozyToast(`心情贴纸已更换为 ${mood}`);
+}
+
+function saveDayReview() {
+  ensureDayRecord(state.selectedDate);
+  state.days[state.selectedDate].review = document.getElementById('dayReviewText').value;
+  saveState();
+}
+
+/* ==========================================================================
+   HEALTH ANALYTICS & NATIVE CANVAS CHARTS
+   ========================================================================== */
+function switchCenterTab(tab) {
+  const isCal = tab === 'calendar';
+  document.getElementById('tabCalendar').classList.toggle('active', isCal);
+  document.getElementById('tabHealth').classList.toggle('active', !isCal);
+
+  document.getElementById('calendarView').style.display = isCal ? 'flex' : 'none';
+  document.getElementById('milestoneSection').style.display = isCal ? 'flex' : 'none';
+  document.getElementById('healthView').classList.toggle('active', !isCal);
+
+  if (!isCal) renderHealthCharts();
+}
+
+function renderHealthCharts() {
+  const sortedDates = Object.keys(state.days).sort();
+  const weightRecords = [];
+  const stepRecords = [];
+  const muscleCounts = { chest: 0, back: 0, legs: 0, shoulders: 0, arms: 0, core: 0, cardio: 0 };
+  let totalWorkouts = 0;
+
+  sortedDates.forEach(d => {
+    const h = state.days[d]?.health;
+    if (!h) return;
+    if (h.weight || h.bodyFat) {
+      weightRecords.push({ date: d.slice(5), weight: Number(h.weight) || null, bodyFat: Number(h.bodyFat) || null });
+    }
+    if (h.steps) stepRecords.push({ date: d.slice(5), steps: Number(h.steps) });
+    if (h.splits && h.splits.length > 0) {
+      totalWorkouts++;
+      h.splits.forEach(sp => { if (muscleCounts[sp] !== undefined) muscleCounts[sp]++; });
+    }
+  });
+
+  const latestWeight = weightRecords.length ? weightRecords[weightRecords.length - 1].weight : state.profile.initialWeight;
+  const latestFat = weightRecords.length ? (weightRecords[weightRecords.length - 1].bodyFat || '--') : '--';
+  const weightDelta = (latestWeight - state.profile.initialWeight).toFixed(1);
+  const { bmr } = calculateBMRAndBMI(latestWeight);
+
+  document.getElementById('stepGoalTag').textContent = `目标: ${Number(state.profile.stepGoal).toLocaleString()}步`;
+  document.getElementById('healthStatCards').innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">最新体重 (目标 ${state.profile.targetWeight}kg)</div>
+      <div class="stat-val">${latestWeight} kg</div>
+      <div class="stat-sub">较初始 ${weightDelta > 0 ? '+' + weightDelta : weightDelta} kg</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">最新体脂率</div>
+      <div class="stat-val">${latestFat}%</div>
+      <div class="stat-sub">理想塑形区间 20-24%</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">累计力量/运动天数</div>
+      <div class="stat-val">${totalWorkouts} 天</div>
+      <div class="stat-sub">六分化肌群循环中</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">基础代谢 (BMR)</div>
+      <div class="stat-val">${bmr} kcal</div>
+      <div class="stat-sub">Mifflin-St Jeor</div>
+    </div>
+  `;
+
+  const styles = getComputedStyle(document.documentElement);
+  const primaryColor = styles.getPropertyValue('--accent-primary').trim();
+  const secondaryColor = styles.getPropertyValue('--accent-secondary').trim();
+  const textColor = styles.getPropertyValue('--text-secondary').trim();
+  const gridColor = styles.getPropertyValue('--border-color').trim();
+
+  drawWeightLineChart(weightRecords.slice(-10), primaryColor, secondaryColor, textColor, gridColor);
+  drawStepsBarChart(stepRecords.slice(-7), primaryColor, secondaryColor, textColor);
+  drawMuscleBarChart(muscleCounts, primaryColor, secondaryColor, textColor);
+}
+
+function drawWeightLineChart(data, c1, c2, textC, gridC) {
+  const canvas = document.getElementById('weightChart');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width = Math.max(300, canvas.offsetWidth * 2);
+  const H = canvas.height = 340;
+  ctx.clearRect(0, 0, W, H);
+
+  if (data.length === 0) {
+    ctx.fillStyle = textC;
+    ctx.font = '24px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('暂无体重/体脂记录，请在今日打卡录入数据', W / 2, H / 2);
+    return;
+  }
+
+  const padL = 65, padR = 65, padT = 40, padB = 50;
+  const chartW = W - padL - padR;
+  const chartH = H - padT - padB;
+
+  ctx.strokeStyle = gridC;
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = padT + (chartH / 4) * i;
+    ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(W - padR, y); ctx.stroke();
+  }
+
+  const weights = data.map(d => d.weight).filter(Boolean);
+  const minW = Math.floor(Math.min(...weights) - 1);
+  const maxW = Math.ceil(Math.max(...weights) + 1);
+
+  const fats = data.map(d => d.bodyFat).filter(Boolean);
+  const minF = fats.length ? Math.floor(Math.min(...fats) - 1) : 15;
+  const maxF = fats.length ? Math.ceil(Math.max(...fats) + 1) : 35;
+
+  ctx.strokeStyle = c1;
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  data.forEach((d, i) => {
+    if (!d.weight) return;
+    const x = padL + (data.length === 1 ? chartW / 2 : (chartW / (data.length - 1)) * i);
+    const y = padT + chartH - ((d.weight - minW) / (maxW - minW || 1)) * chartH;
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  });
+  ctx.stroke();
+
+  ctx.font = 'bold 20px sans-serif';
+  ctx.textAlign = 'center';
+  data.forEach((d, i) => {
+    const x = padL + (data.length === 1 ? chartW / 2 : (chartW / (data.length - 1)) * i);
+    ctx.fillStyle = textC;
+    ctx.fillText(d.date, x, H - 15);
+
+    if (d.weight) {
+      const y = padT + chartH - ((d.weight - minW) / (maxW - minW || 1)) * chartH;
+      ctx.fillStyle = c1;
+      ctx.beginPath(); ctx.arc(x, y, 7, 0, Math.PI * 2); ctx.fill();
+      ctx.fillText(`${d.weight}kg`, x, y - 14);
+    }
+
+    if (d.bodyFat) {
+      const yF = padT + chartH - ((d.bodyFat - minF) / (maxF - minF || 1)) * chartH;
+      ctx.fillStyle = c2;
+      ctx.beginPath(); ctx.arc(x, yF, 6, 0, Math.PI * 2); ctx.fill();
+      ctx.fillText(`${d.bodyFat}%`, x, yF + 26);
+    }
+  });
+}
+
+function drawStepsBarChart(data, c1, c2, textC) {
+  const canvas = document.getElementById('stepsChart');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width = Math.max(300, canvas.offsetWidth * 2);
+  const H = canvas.height = 340;
+  ctx.clearRect(0, 0, W, H);
+
+  if (data.length === 0) {
+    ctx.fillStyle = textC; ctx.font = '22px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText('暂无步数记录', W / 2, H / 2);
+    return;
+  }
+
+  const goal = Number(state.profile.stepGoal) || 8000;
+  const maxVal = Math.max(goal * 1.2, ...data.map(d => d.steps));
+  const padL = 35, padR = 25, padT = 35, padB = 45;
+  const chartW = W - padL - padR;
+  const chartH = H - padT - padB;
+
+  const goalY = padT + chartH - (goal / maxVal) * chartH;
+  ctx.strokeStyle = c1; ctx.setLineDash([8, 6]); ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(padL, goalY); ctx.lineTo(W - padR, goalY); ctx.stroke();
+  ctx.setLineDash([]);
+
+  const barW = Math.min(48, (chartW / data.length) * 0.55);
+  data.forEach((d, i) => {
+    const slotW = chartW / data.length;
+    const x = padL + slotW * i + (slotW - barW) / 2;
+    const barH = (d.steps / maxVal) * chartH;
+    const y = padT + chartH - barH;
+
+    ctx.fillStyle = d.steps >= goal ? c2 : c1;
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(x, y, barW, barH, [8, 8, 0, 0]);
+    else ctx.rect(x, y, barW, barH);
+    ctx.fill();
+
+    ctx.fillStyle = textC; ctx.font = '18px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText(d.date, x + barW / 2, H - 14);
+    ctx.fillText(d.steps, x + barW / 2, y - 8);
+  });
+}
+
+function drawMuscleBarChart(counts, c1, c2, textC) {
+  const canvas = document.getElementById('muscleChart');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width = Math.max(300, canvas.offsetWidth * 2);
+  const H = canvas.height = 340;
+  ctx.clearRect(0, 0, W, H);
+
+  const items = SPLIT_OPTIONS.map(opt => ({ label: opt.short, val: counts[opt.id] || 0 }));
+  const maxVal = Math.max(4, ...items.map(i => i.val));
+  const padL = 25, padR = 25, padT = 35, padB = 45;
+  const chartW = W - padL - padR;
+  const chartH = H - padT - padB;
+  const barW = Math.min(44, (chartW / items.length) * 0.55);
+
+  items.forEach((item, i) => {
+    const slotW = chartW / items.length;
+    const x = padL + slotW * i + (slotW - barW) / 2;
+    const barH = Math.max(6, (item.val / maxVal) * chartH);
+    const y = padT + chartH - barH;
+
+    ctx.fillStyle = i % 2 === 0 ? c1 : c2;
+    ctx.beginPath();
+    if (ctx.roundRect) ctx.roundRect(x, y, barW, barH, [8, 8, 0, 0]);
+    else ctx.rect(x, y, barW, barH);
+    ctx.fill();
+
+    ctx.fillStyle = textC; ctx.font = '18px sans-serif'; ctx.textAlign = 'center';
+    ctx.fillText(item.label, x + barW / 2, H - 14);
+    ctx.fillText(`${item.val}次`, x + barW / 2, y - 8);
+  });
+}
+
+/* ==========================================================================
+   PROFILE SETTINGS, JSON BACKUP & TOUCH GESTURES
+   ========================================================================== */
+function openProfileModal() {
+  const p = state.profile;
+  document.getElementById('profAge').value = p.age;
+  document.getElementById('profHeight').value = p.height;
+  document.getElementById('profWeight').value = p.initialWeight;
+  document.getElementById('profTargetWeight').value = p.targetWeight;
+  document.getElementById('profStepGoal').value = p.stepGoal;
+  document.getElementById('profileModal').classList.add('open');
+}
+
+function saveProfileSettings() {
+  state.profile.age = Number(document.getElementById('profAge').value) || 30;
+  state.profile.height = Number(document.getElementById('profHeight').value) || 157;
+  state.profile.initialWeight = Number(document.getElementById('profWeight').value) || 58;
+  state.profile.targetWeight = Number(document.getElementById('profTargetWeight').value) || 52;
+  state.profile.stepGoal = Number(document.getElementById('profStepGoal').value) || 8000;
+  saveState();
+  closeModal('profileModal');
+  renderRightPanel();
+  triggerCozyToast('⚙️ 身体基础档案已更新！');
+}
+
+function exportJSON() {
+  const dataStr = JSON.stringify(state, null, 2);
+  const blob = new Blob([dataStr], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `LifeOS_Backup_${formatLocalDate(new Date())}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  triggerCozyToast('📤 JSON 备份已下载！');
+}
+
+function importJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const parsed = JSON.parse(e.target.result);
+      if (parsed && parsed.profile && parsed.days) {
+        state = parsed;
+        saveState();
+        renderAll();
+        triggerCozyToast('📥 数据已成功恢复！');
+      } else {
+        alert('JSON 文件格式不匹配，请选择正确的 LifeOS 备份文件。');
+      }
+    } catch (err) {
+      alert('文件解析失败：' + err.message);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function clearDemoData() {
+  if (!confirm('确定要清空所有示例日程与打卡记录吗？（将保留您的30岁/157cm/58kg基础档案与默认分类）')) return;
+  state.okrs = { '2026': [], '2027': [] };
+  state.milestones = {};
+  state.todos = [];
+  state.days = {};
+  saveState();
+  renderAll();
+  triggerCozyToast('🧹 已清空示例数据！');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function triggerCozyToast(msg) {
+  const toast = document.getElementById('stickerToast');
+  toast.textContent = state.theme === 'cozy' ? `🌸 ${msg}` : msg;
+  toast.classList.add('show');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(() => toast.classList.remove('show'), 2300);
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function initTouchGestures() {
+  const calEl = document.getElementById('calendarView');
+  let startX = 0, startY = 0;
+
+  calEl.addEventListener('touchstart', (e) => {
+    startX = e.changedTouches[0].screenX;
+    startY = e.changedTouches[0].screenY;
+  }, { passive: true });
+
+  calEl.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].screenX - startX;
+    const dy = e.changedTouches[0].screenY - startY;
+    if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+      changeMonth(dx < 0 ? 1 : -1);
+    }
+  }, { passive: true });
+}
+
+function renderAll() {
+  applyTheme();
+  updateGlobalProgress();
+  renderCategories();
+  renderOkrs();
+  renderTodos();
+  renderMilestones();
+  renderCalendar();
+  renderRightPanel();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.phase-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.phase === state.phase);
+  });
+  renderAll();
+  initTouchGestures();
+});
+
+window.addEventListener('resize', () => {
+  if (document.getElementById('healthView').classList.contains('active')) {
+    renderHealthCharts();
+  }
+});
+</script>
+</body>
+</html>
