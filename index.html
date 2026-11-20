@@ -8,7 +8,7 @@
 <title>LifeOS 2026-2027 理想三栏执行工作台</title>
 <style>
   /* =========================================================
-     1. CSS VARIABLES & TRI-THEME SYSTEM (简洁风 / 温馨风 / 清新风)
+1. CSS VARIABLES & TRI-THEME SYSTEM (简洁风 / 温馨风 / 清新风)
      ========================================================= */
   :root, [data-theme="minimal"] {
     /* 1. 简洁风 (Minimal & Clean) */
@@ -143,7 +143,7 @@
   }
 
   /* =========================================================
-     2. GLOBAL RESET & BASE
+2. GLOBAL RESET & BASE
      ========================================================= */
   * {
     box-sizing: border-box;
@@ -183,7 +183,7 @@
   ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 99px; }
 
   /* =========================================================
-     3. TOP STATUS BAR (TOP 1 PRIORITY + DATE/COUNTDOWN/MOOD)
+3. TOP STATUS BAR (TOP 1 PRIORITY + DATE/COUNTDOWN/MOOD)
      ========================================================= */
   .topbar {
     background: var(--bg-panel);
@@ -342,7 +342,7 @@
   .btn-primary:hover { opacity: 0.92; background: var(--accent-primary); }
 
   /* =========================================================
-     4. IDEAL 3-COLUMN WORKSPACE
+4. IDEAL 3-COLUMN WORKSPACE
      ========================================================= */
   .workspace {
     flex: 1;
@@ -427,7 +427,7 @@
   .input-ctrl:focus { border-color: var(--accent-primary); }
 
   /* =========================================================
-     5. LEFT COLUMN: NAVIGATION, GOALS & HABIT CHECK-IN
+5. LEFT COLUMN: NAVIGATION, GOALS & HABIT CHECK-IN
      ========================================================= */
   .nav-menu {
     display: flex;
@@ -546,7 +546,7 @@
   .mini-metric-box input { width: 100%; border: none; background: transparent; font-weight: 700; font-size: 13px; outline: none; }
 
   /* =========================================================
-     6. CENTER COLUMN: TODAY'S BATTLEFIELD (TASKS + INBOX)
+6. CENTER COLUMN: TODAY'S BATTLEFIELD (TASKS + INBOX)
      ========================================================= */
   .battlefield-tabs {
     display: flex;
@@ -632,7 +632,7 @@
   canvas { width: 100%; height: 150px; display: block; }
 
   /* =========================================================
-     7. RIGHT COLUMN: CALENDAR (MONTH/WEEK) & TIMEBOX
+7. RIGHT COLUMN: CALENDAR (MONTH/WEEK) & TIMEBOX
      ========================================================= */
   .view-switch {
     display: flex;
@@ -771,7 +771,7 @@
   .tb-block.done { opacity: 0.55; text-decoration: line-through; }
 
   /* =========================================================
-     8. MOBILE RESPONSIVE & MODALS
+8. MOBILE RESPONSIVE & MODALS
      ========================================================= */
   .mobile-bottom-bar {
     display: none;
@@ -924,7 +924,7 @@
               <span style="font-size:11px; color:var(--text-muted);">BMR/体重</span>
             </button>
             <button class="nav-item" onclick="jumpToToday()">
-              <span>📍 回到基准日 (11.19)</span>
+              <span id="navJumpTodayText">📍 回到今天</span>
               <span style="font-size:11px; color:var(--accent-primary);">Today</span>
             </button>
           </div>
@@ -1152,7 +1152,7 @@
       <p id="assignTodoPreview" style="font-size:12.5px; color:var(--text-secondary); margin-bottom:10px;"></p>
       <div class="form-group">
         <label>目标日期</label>
-        <input type="date" id="assignDateInput" class="input-ctrl" min="2026-11-19" max="2027-12-31">
+        <input type="date" id="assignDateInput" class="input-ctrl" min="2026-11-01" max="2027-12-31">
       </div>
       <div class="form-group">
         <label>时间段</label>
@@ -1192,7 +1192,19 @@
 
 <script>
 const STORAGE_KEY = 'lifeos_ideal_layout_v4';
-const BASELINE_TODAY = '2026-11-19';
+const FALLBACK_TODAY = '2026-11-19';
+
+function getRealTodayStr() {
+  return formatLocalDate(new Date());
+}
+
+function getEffectiveTodayStr() {
+  const realToday = getRealTodayStr();
+  if (realToday >= '2026-11-01' && realToday <= '2027-12-31') {
+    return realToday;
+  }
+  return FALLBACK_TODAY;
+}
 
 const SPLIT_OPTIONS = [
   { id: 'chest', label: '练胸', short: '胸' },
@@ -1375,10 +1387,34 @@ function updateTopStatus() {
   const wds = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
   document.getElementById('topDateDisplay').textContent = `${m}月${d}日 ${wds[dObj.getDay()]}`;
 
-  const end = state.phase === '2026' ? new Date(2026, 11, 31) : new Date(2027, 11, 31);
-  const ref = new Date(2026, 10, 19);
-  const rem = Math.max(0, Math.ceil((end - ref) / (1000 * 60 * 60 * 24)));
-  document.getElementById('topCountdownBadge').textContent = `剩${rem}天`;
+  // 更新左侧“回到今天”按钮日期显示
+  const realToday = new Date();
+  document.getElementById('navJumpTodayText').textContent = `📍 回到今天 (${realToday.getMonth() + 1}.${realToday.getDate()})`;
+
+  // 同步阶段按钮高亮状态
+  document.querySelectorAll('.phase-mini-btn').forEach(b => b.classList.toggle('active', b.dataset.phase === state.phase));
+
+  // 计算倒计时区间：
+  // 2026冲刺：当前基准日 -> 2026.12.31
+  // 2027全年：固定区间 2027.1.1 -> 2027.12.31 (365天；若当前已进入2027年则按当天至2027.12.31计算)
+  const todayMid = new Date(realToday.getFullYear(), realToday.getMonth(), realToday.getDate());
+  if (state.phase === '2026') {
+    const end2026 = new Date(2026, 11, 31);
+    const ref2026 = todayMid.getFullYear() === 2026 ? todayMid : new Date(2026, 10, 19);
+    const rem2026 = Math.max(0, Math.ceil((end2026 - ref2026) / (1000 * 60 * 60 * 24)));
+    document.getElementById('topCountdownBadge').textContent = `剩${rem2026}天`;
+  } else {
+    const start2027 = new Date(2027, 0, 1);
+    const end2027 = new Date(2027, 11, 31);
+    if (todayMid < start2027) {
+      // 2027.1.1 到 2027.12.31 完整区间共计 365 天
+      const total2027 = Math.round((end2027 - start2027) / (1000 * 60 * 60 * 24)) + 1;
+      document.getElementById('topCountdownBadge').textContent = `共${total2027}天`;
+    } else {
+      const rem2027 = Math.max(0, Math.ceil((end2027 - todayMid) / (1000 * 60 * 60 * 24)));
+      document.getElementById('topCountdownBadge').textContent = `剩${rem2027}天`;
+    }
+  }
 
   ensureDayRecord(state.selectedDate);
   const dayData = state.days[state.selectedDate];
@@ -1844,6 +1880,7 @@ function renderCalendar() {
   document.getElementById('currentMonthLabel').textContent = `${y}年 ${m + 1}月`;
   const grid = document.getElementById('calGrid');
   let datesToRender = [];
+  const todayStr = getEffectiveTodayStr();
 
   if (state.calMode === 'week') {
     const [sy, sm, sd] = state.selectedDate.split('-').map(Number);
@@ -1879,7 +1916,7 @@ function renderCalendar() {
     if (!cell.inMonth || !cell.dateStr) {
       return `<div class="cal-cell out-range"><span class="day-num">${cell.dayNum}</span></div>`;
     }
-    const isToday = cell.dateStr === BASELINE_TODAY;
+    const isToday = cell.dateStr === todayStr;
     const isSelected = cell.dateStr === state.selectedDate;
     const dayData = state.days[cell.dateStr];
     let dotsHtml = '';
@@ -1976,10 +2013,15 @@ function shiftSelectedDay(delta) {
 }
 
 function jumpToToday() {
-  state.viewYear = 2026;
-  state.viewMonth = 10;
-  state.selectedDate = BASELINE_TODAY;
-  switchPhase('2026');
+  const targetStr = getEffectiveTodayStr();
+  const [y, m] = targetStr.split('-').map(Number);
+  state.selectedDate = targetStr;
+  state.viewYear = y;
+  state.viewMonth = m - 1;
+  state.phase = String(y);
+  saveState();
+  renderAll();
+  triggerToast(`📍 已回到今天 (${m}月${Number(targetStr.split('-')[2])}日)`);
 }
 
 /* ==========================================================================
